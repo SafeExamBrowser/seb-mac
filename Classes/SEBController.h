@@ -67,12 +67,7 @@
 #import "ProcessListViewController.h"
 #import "AssessmentModeManager.h"
 #import "HUDController.h"
-
-#import "ServerController.h"
-#import "SEBServerOSXViewController.h"
-#import "ServerLogger.h"
-
-#import "SEBZoomController.h"
+#import "SafeExamBrowser-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -87,17 +82,12 @@ NS_ASSUME_NONNULL_BEGIN
 @class SEBOSXBrowserController;
 @class SEBOSXLockedViewController;
 @class HUDController;
-@class ServerController;
-@class SEBServerOSXViewController;
 @class SEBBatteryController;
 @class SEBWiFiController;
-@class SEBScreenProctoringController;
-@class TransmittingCachedScreenShotsViewController;
-@class SEBZoomController;
 
 static NSString __unused *accessibilityTitleString = @" and Accessibility";
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate, ScreenProctoringDelegate, SPSControllerUIDelegate, SEBDockItemWiFiDelegate>
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, SEBDockItemButtonDelegate, SEBDockItemWiFiDelegate>
 {
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
@@ -170,36 +160,6 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
     dispatch_block_t cancelableBlock;
     
     CGEventRef keyboardEventReturnKey;
-    
-    NSImage *ScreenProctoringIconInactiveState;
-    NSImage *ScreenProctoringIconActiveState;
-    NSImage *ScreenProctoringIconActiveWarningState;
-    NSImage *ScreenProctoringIconActiveErrorState;
-    NSImage *ScreenProctoringIconInactiveErrorState;
-    NSColor *ScreenProctoringIconColorActiveState;
-    NSColor *ScreenProctoringIconColorWarningState;
-    NSColor *ScreenProctoringIconColorErrorState;
-    
-    NSImage *ProctoringIconDefaultState;
-    NSImage *ProctoringIconAIInactiveState;
-    NSImage *ProctoringIconNormalState;
-    NSImage *ProctoringIconWarningState;
-    NSImage *ProctoringIconErrorState;
-    NSColor *ProctoringIconColorNormalState;
-    NSColor *ProctoringIconColorWarningState;
-    NSColor *ProctoringIconColorErrorState;
-    
-    CIImage *ProctoringBadgeNormalState;
-    CIImage *ProctoringBadgeWarningState;
-    CIImage *ProctoringBadgeErrorState;
-    
-    NSImage *RaisedHandIconDefaultState;
-    NSColor *RaisedHandIconColorDefaultState;
-    NSImage *RaisedHandIconRaisedState;
-    NSColor *RaisedHandIconColorRaisedState;
-    
-    NSInteger raiseHandUID;
-    NSString *raiseHandNotification;
 }
 
 - (void) firstDOMElementDeselected;
@@ -223,67 +183,15 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
 
 @property(readonly) BOOL settingsOpen;
 
-#pragma mark - Connecting to SEB Server
-// Waiting for user to select exam from SEB Server and to successfully log in
-@property(readwrite) BOOL establishingSEBServerConnection;
-// Exam URL is opened in a webview (tab), waiting for user to log in
-@property(readwrite) BOOL startingExamFromSEBServer;
-// User logged in to LMS, monitored client is fully identified now
-@property(readwrite) BOOL sebServerConnectionEstablished;
-// The SEB Server exam list view is displayed
-@property(readwrite) BOOL sebServerViewDisplayed;
 @property(readwrite) BOOL sessionRunning;
 
-@property (strong, nonatomic) ServerController *serverController;
-@property (strong, nonatomic) NSWindowController *sebServerViewWindowController;
-@property (strong, nonatomic) SEBServerOSXViewController *sebServerViewController;
-
-/// Remote Proctoring
-#define JitsiMeetProctoringSupported NO
-#define ZoomProctoringSupported NO
-@property (strong, nonatomic) SEBScreenProctoringController *_Nullable screenProctoringController;
-@property (strong, nonatomic) TransmittingCachedScreenShotsViewController *_Nullable transmittingCachedScreenShotsViewController;
-@property (strong, nonatomic) NSWindowController *transmittingCachedScreenShotsWindowController;
-@property (readwrite) NSUInteger latestNumberOfCachedScreenShotsWhileClosing;
-@property (strong, nonatomic) NSString *_Nullable operationsString;
 @property (strong, nonatomic) NSString *accessibilityMessageString;
 @property (strong, nonatomic) NSString *privacyFilesFoldersMessageString;
-
-@property (strong, nonatomic) SEBZoomController *zoomController;
-
-@property(readwrite) BOOL previousSessionScreenProctoringEnabled;
-@property(readwrite) BOOL previousSessionZoomEnabled;
-
-@property(readwrite) BOOL zoomReceiveAudio;
-@property(readwrite) BOOL zoomReceiveVideo;
-@property(readwrite) BOOL zoomSendAudio;
-@property(readwrite) BOOL zoomSendVideo;
-@property(readwrite) NSUInteger remoteProctoringViewShowPolicy;
-
-@property(readwrite) BOOL zoomUserRetryWasUsed;
-
-- (void) proctoringInstructionWithAttributes:(NSDictionary *)attributes;
-- (void) reconfigureWithAttributes:(NSDictionary *)attributes;
-- (void) lockSEBWithAttributes:(NSDictionary *)attributes;
-- (void) confirmNotificationWithAttributes:(NSDictionary *)attributes;
-- (void) toggleProctoringViewVisibility;
-//- (BOOL) rtcAudioInputEnabled;
-//- (BOOL) rtcAudioReceivingEnabled;
-//- (BOOL) rtcVideoSendingEnabled;
-//- (BOOL) rtcVideoReceivingEnabled;
-//- (BOOL) rtcVideoTrackIsLocal:(RTCVideoTrack *)videoTrack;
-//
-//- (void) detectFace:(CMSampleBufferRef)sampleBuffer;
-//- (RTCVideoFrame *) overlayFrame:(RTCVideoFrame *)frame;
-
-@property(readwrite) BOOL raiseHandRaised;
 
 @property(strong) NSDate *didLockSEBTime;
 @property(strong) NSDate *didResignActiveTime;
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;
-
-@property(nonatomic, strong) NSMutableArray <NSNumber *> *sebServerPendingLockscreenEvents;
 
 @property(readwrite) BOOL isAACEnabled;
 @property(readwrite) BOOL overrideAAC;
@@ -337,15 +245,23 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
 
 @property(strong, nonatomic) SEBDockItemButton *dockButtonReload;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonBattery;
-@property(strong, nonatomic) SEBDockItemButton *dockButtonScreenProctoring;
-@property(strong, nonatomic) NSString *dockButtonScreenProctoringStateString;
-@property(strong, nonatomic) SEBDockItemButton *dockButtonProctoringView;
-@property(strong, nonatomic) SEBDockItemButton *dockButtonRaiseHand;
-@property (weak) IBOutlet NSWindow *enterRaiseHandMessageWindow;
-@property (weak) IBOutlet NSTextField *raiseHandMessageTextField;
 @property (weak) IBOutlet NSView *savePanelAccessoryView;
 @property (weak) IBOutlet NSPopUpButton *shareConfigFormatPopUpButton;
 @property (weak) IBOutlet NSButton *shareConfigUncompressedButton;
+
+- (void) sessionQuitRestartClosingSettings:(BOOL)restart;
+// YES while SEB is a strict kiosk: the exam's settings don't allow other apps, or the Cmd+Shift+L lock is on.
+// Otherwise its windows are ordinary windows of their own Space, so Mission Control, swiping between desktops
+// and Show Desktop treat them like any other app's windows.
+- (BOOL) strictKioskActive;
+- (NSWindowCollectionBehavior) kioskWindowCollectionBehavior;
+- (void) applyWindowBehaviors;
+- (void) storeNewSEBSettingsFromData:(NSData *)configData;
+
+// Hooks called by the browser; this build has no SEB Server, so they do nothing
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url;
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url;
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 
 - (void)storeNewSEBSettings:(NSData *)sebData
             forEditing:(BOOL)forEditing

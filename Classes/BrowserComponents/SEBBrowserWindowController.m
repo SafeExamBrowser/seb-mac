@@ -135,6 +135,10 @@ static const CGFloat SEBResultsCountRightPadding = 4.0;
 {
     [super windowDidLoad];
     
+    // The browser window appears in its place at once, without the system's zoom-in (a series of intermediate window
+    // sizes would be visible in front of the other apps' windows while SEB starts)
+    self.window.animationBehavior = NSWindowAnimationBehaviorNone;
+    
     if (@available(macOS 11, *)) {
         self.window.toolbarStyle = NSWindowToolbarStyleExpanded;
     }
@@ -410,7 +414,7 @@ static const CGFloat SEBResultsCountRightPadding = 4.0;
                 newWindowFrame = NSMakeRect(newWindowFrame.origin.x, newFrame.origin.y, newWindowFrame.size.width, newWindowFrame.size.height);
             }
             
-            [self.window setFrame:newWindowFrame display:YES animate:YES];
+            [self.window setFrame:newWindowFrame display:YES animate:NO];
             DDLogDebug(@"Adjusted window frame for new screen to: %@",
                        (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(newWindowFrame)));
         }

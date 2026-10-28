@@ -90,6 +90,12 @@ import CocoaLumberjackSwift
         let jsApiUserScript = WKUserScript(source: jsApiCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
         userContentController.addUserScript(jsApiUserScript)
         
+        // Copy and paste always work, and no page can tell that the student switched windows or tabs
+        let examPageGuardCode = ExamPageGuard.scriptSource()
+        if !examPageGuardCode.isEmpty {
+            userContentController.addUserScript(WKUserScript(source: examPageGuardCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false))
+        }
+
         let jsDocumentEndCode = """
     var elements = document.body.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), details:not([disabled]), summary:not([disabled])');
     if (elements[0]) {
@@ -1187,11 +1193,11 @@ import CocoaLumberjackSwift
     public func permissionDecision(for type: WKMediaCaptureType) -> WKPermissionDecision {
         switch type {
         case .camera:
-            return browserMediaCaptureCamera ? .grant : .deny
+            return browserMediaCaptureCamera ? .grant : .prompt
         case .microphone:
-            return browserMediaCaptureMicrophone ? .grant : .deny
+            return browserMediaCaptureMicrophone ? .grant : .prompt
         case .cameraAndMicrophone:
-            return (browserMediaCaptureCamera && browserMediaCaptureMicrophone) ? .grant : .deny
+            return (browserMediaCaptureCamera && browserMediaCaptureMicrophone) ? .grant : .prompt
         @unknown default:
             return .deny
         }

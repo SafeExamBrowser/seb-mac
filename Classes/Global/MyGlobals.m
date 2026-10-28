@@ -31,6 +31,9 @@
 //  Contributor(s): ______________________________________.
 //
 
+#if !TARGET_OS_IPHONE
+#import "ExamLogFormatter.h"
+#endif
 #import "SynthesizeSingleton.h"
 #import "MyGlobals.h"
 #include <SystemConfiguration/SystemConfiguration.h>
@@ -200,6 +203,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 
 - (void)setDDLogLevel:(SEBLogLevel)sebLogLevel
 {
+#if !TARGET_OS_IPHONE
+    // The log always has the original's default detail (Debug level): what ends up in it is decided by the
+    // filter in front of the logger, not by a log level from the exam's settings
+    _logLevel = DDLogLevelDebug;
+    ddLogLevel = _logLevel;
+    return;
+#endif
     NSArray *ddLogLevels = @[[NSNumber numberWithInt:DDLogLevelError],
                              [NSNumber numberWithInt:DDLogLevelWarning],
                              [NSNumber numberWithInt:DDLogLevelInfo],
@@ -241,7 +251,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
     [dateFormatter setDateFormat:@"yyyy/MM/dd HH:mm:ss:SSS"];
+#if !TARGET_OS_IPHONE
+    // The original layout of every line, but only the lines the exam rules allow (see ExamLogFormatter)
+    myLogger.logFormatter = [[ExamLogFormatter alloc] initWithDateFormatter:dateFormatter];
+#else
     myLogger.logFormatter = [[DDLogFileFormatterDefault alloc] initWithDateFormatter:dateFormatter];
+#endif
     
     return myLogger;
 }

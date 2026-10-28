@@ -60,6 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) SEBController *sebController;
 @property (readwrite) BOOL openingSettings;
+// YES while the Cmd+Shift+L lock is on: the taskbar's window list can't be used to switch windows
+@property (readwrite) BOOL windowSwitchingLocked;
 
 @property (weak, nonatomic, nullable) SEBAbstractWebView *mainWebView;
 @property (weak, nonatomic, nullable) SEBBrowserWindow *mainBrowserWindow;
@@ -89,6 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) adjustMainBrowserWindow;
 - (void) moveAllBrowserWindowsToScreen:(NSScreen *)screen;
 - (void) browserWindowsChangeLevelAllowApps:(BOOL)allowApps;
+- (void) setCollectionBehaviorOfBrowserWindows:(NSWindowCollectionBehavior)behavior;
 - (void) closeAllBrowserWindows;
 - (void) closeAllAdditionalBrowserWindows;
 

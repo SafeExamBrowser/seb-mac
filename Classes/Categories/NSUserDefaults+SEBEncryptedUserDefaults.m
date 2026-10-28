@@ -357,9 +357,6 @@ static NSNumber *_logLevel;
 
     // If there were already SEB preferences, we save them back into UserDefaults
     [self storeSEBDictionary:currentUserDefaults];
-     if (![[[NSThread mainThread] threadDictionary] objectForKey:@"_mainTLS"]) {
-         exit(0);
-     }
     if (@available(iOS 14.0, macOS 11.0, *)) {
         if (DCAppAttestService.sharedService.isSupported) {
             DDLogInfo(@"DCAppAttestService is available.");
@@ -1456,7 +1453,23 @@ static NSNumber *_logLevel;
 {
 	id object = [self secureObjectForKey:key];
 	if ([object respondsToSelector:@selector(intValue)]) {
-		return [object intValue];
+		NSInteger value = [object intValue];
+#if !TARGET_OS_IPHONE
+		// There is exactly one browser window at any time: links and scripts that ask for a new window
+		// load their page in the current window instead, whatever the exam's configuration says.
+		// (A configuration that blocks new windows altogether keeps blocking them.)
+		// The browser always fills the whole screen above the taskbar, borderless and fixed in place like the
+		// original SEB's full screen mode; a configuration can't turn it into a movable window with a title bar.
+		if (value == browserViewModeWindow && [key isEqualToString:@"org_safeexambrowser_SEB_browserViewMode"]) {
+			return browserViewModeFullscreen;
+		}
+		if (value == openInNewWindow &&
+			([key isEqualToString:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] ||
+			 [key isEqualToString:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"])) {
+			return openInSameWindow;
+		}
+#endif
+		return value;
 	} else {
 		return 0;
 	}

@@ -61,96 +61,16 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 }
 
 
-// Cache current settings for Siri and dictation
+// This build never changes the Mac's Siri, dictation, clipboard history, Live Activities or Touch Bar
+// settings, so there is nothing to cache and restore
 - (void) cacheCurrentSystemSettings
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
-    // Cache current system preferences setting for Siri
-    BOOL siriEnabled = [[preferences valueForDefaultsDomain:SiriDefaultsDomain
-                                                        key:SiriDefaultsKey] boolValue];
-    [preferences setPersistedSecureBool:siriEnabled forKey:cachedSiriSettingKey];
-    
-    // Cache current system preferences setting for dictation
-    BOOL dictationEnabled = [[preferences valueForDefaultsDomain:DictationDefaultsDomain
-                                                             key:DictationDefaultsKey] boolValue];
-    [preferences setPersistedSecureBool:dictationEnabled forKey:cachedDictationSettingKey];
-    
-    // Cache current system preferences setting for remote (server based) dictation
-    BOOL remoteDictationEnabled = [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain
-                                                                   key:RemoteDictationDefaultsKey] boolValue];
-    [preferences setPersistedSecureBool:remoteDictationEnabled forKey:cachedRemoteDictationSettingKey];
-    
-    // Cache current system preferences setting for Spotlight clipboard history (macOS 26+)
-    BOOL pasteboardHistoryEnabled = [[preferences valueForDefaultsDomain:PasteboardHistoryDefaultsDomain
-                                                                    key:PasteboardHistoryDefaultsKey] boolValue];
-    [preferences setPersistedSecureBool:pasteboardHistoryEnabled forKey:cachedPasteboardHistorySettingKey];
-    
-    // Cache current system preferences setting for remote Live Activities from iPhone (macOS 26+)
-    BOOL remoteLiveActivitiesEnabled = [[preferences valueForDefaultsDomain:RemoteLiveActivitiesDefaultsDomain
-                                                                       key:RemoteLiveActivitiesDefaultsKey] boolValue];
-    [preferences setPersistedSecureBool:remoteLiveActivitiesEnabled forKey:cachedRemoteLiveActivitiesSettingKey];
-    
-    // Cache current system preferences setting for TouchBar
-    NSString *touchBarGlobalDefaultsValue = (NSString *)[preferences valueForDefaultsDomain:TouchBarDefaultsDomain
-                                                                             key:TouchBarGlobalDefaultsKey];
-    [preferences setPersistedSecureObject:touchBarGlobalDefaultsValue forKey:cachedTouchBarGlobalSettingsKey];
-    
-    NSDictionary *touchBarFnDictionaryDefaultsValue = (NSDictionary *)[preferences valueForDefaultsDomain:TouchBarDefaultsDomain
-                                                                             key:TouchBarFnDictionaryDefaultsKey];
-    [preferences setPersistedSecureObject:touchBarFnDictionaryDefaultsValue forKey:cachedTouchBarFnDictionarySettingsKey];
 }
 
 
-// Restore cached settings for Siri, dictation and TouchBar
-// Returns false if TouchBar mode "AppControl" was active before
-// as this mode cannot be restored automatically by SEB
 - (BOOL) restoreSystemSettings
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
-    // Restore setting for Siri before SEB was running to system preferences
-    BOOL siriEnabled = [preferences persistedSecureBoolForKey:cachedSiriSettingKey];
-    [preferences setValue:[NSNumber numberWithBool:siriEnabled]
-                   forKey:SiriDefaultsKey
-        forDefaultsDomain:SiriDefaultsDomain];
-    
-    // Restore setting for dictation before SEB was running to system preferences
-    BOOL dictationEnabled = [preferences persistedSecureBoolForKey:cachedDictationSettingKey];
-    [preferences setValue:[NSNumber numberWithBool:dictationEnabled]
-                   forKey:DictationDefaultsKey
-        forDefaultsDomain:DictationDefaultsDomain];
-    
-    // Restore setting for remote (server based) dictation before SEB was running to system preferences
-    BOOL remoteDictationEnabled = [preferences persistedSecureBoolForKey:cachedRemoteDictationSettingKey];
-    [preferences setValue:[NSNumber numberWithBool:remoteDictationEnabled]
-                   forKey:RemoteDictationDefaultsKey
-        forDefaultsDomain:RemoteDictationDefaultsDomain];
-    
-    // Restore setting for Spotlight clipboard history before SEB was running to system preferences
-    BOOL pasteboardHistoryEnabled = [preferences persistedSecureBoolForKey:cachedPasteboardHistorySettingKey];
-    [preferences setValue:[NSNumber numberWithBool:pasteboardHistoryEnabled]
-                   forKey:PasteboardHistoryDefaultsKey
-        forDefaultsDomain:PasteboardHistoryDefaultsDomain];
-    
-    // Restore setting for remote Live Activities from iPhone before SEB was running to system preferences
-    BOOL remoteLiveActivitiesEnabled = [preferences persistedSecureBoolForKey:cachedRemoteLiveActivitiesSettingKey];
-    [preferences setValue:[NSNumber numberWithBool:remoteLiveActivitiesEnabled]
-                   forKey:RemoteLiveActivitiesDefaultsKey
-        forDefaultsDomain:RemoteLiveActivitiesDefaultsDomain];
-    
-    // Restore setting for TouchBar before SEB was running to system preferences
-    NSString *touchBarGlobalDefaultsValue = [preferences persistedSecureObjectForKey:cachedTouchBarGlobalSettingsKey];
-    [preferences setValue:touchBarGlobalDefaultsValue
-                   forKey:TouchBarGlobalDefaultsKey
-        forDefaultsDomain:TouchBarDefaultsDomain];
-    
-    NSDictionary *touchBarFnDictionaryDefaultsValue = [preferences persistedSecureObjectForKey:cachedTouchBarFnDictionarySettingsKey];
-    [preferences setValue:touchBarFnDictionaryDefaultsValue
-                   forKey:TouchBarFnDictionaryDefaultsKey
-        forDefaultsDomain:TouchBarDefaultsDomain];
-    
-    return touchBarGlobalDefaultsValue != nil;
+    return YES;
 }
 
 

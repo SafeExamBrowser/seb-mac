@@ -48,14 +48,13 @@
 }
 
 
-// Exam URL is opened in a webview (tab), waiting for user to log in
+// This build has no SEB Server connection, so these are always NO
 - (BOOL) startingExamFromSEBServer {
-    return _sebController.startingExamFromSEBServer;
+    return NO;
 }
 
-// User logged in to LMS, monitoring the client started
 - (BOOL) sebServerConnectionEstablished {
-    return _sebController.sebServerConnectionEstablished;
+    return NO;
 }
 
 
@@ -110,7 +109,7 @@
     DDLogInfo(@"Reconfiguring with client settings was successful");
     _sebController.isReconfiguringToMDMConfig = YES;
     // Restart SEB with new settings
-    [_sebController serverSessionQuitRestart:YES];
+    [_sebController sessionQuitRestartClosingSettings:YES];
 }
 
 

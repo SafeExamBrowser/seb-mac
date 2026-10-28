@@ -48,9 +48,14 @@ import Foundation
         if let startURLString = UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_startURL"),
            !startURLString.isEmpty,
            let currentStartURL = URL(string: startURLString) {
+            // The official SEB start page is only the stock default: this build opens its own start
+            // page, with the field for an exam link, instead
+            if startURLString == SEBStartPage, let landingPageURL = ExamStartPage.landingPageURL() {
+                return landingPageURL
+            }
             return currentStartURL
         }
-        return URL(string: SEBStartPage)
+        return ExamStartPage.landingPageURL() ?? URL(string: SEBStartPage)
     }()
 }
 

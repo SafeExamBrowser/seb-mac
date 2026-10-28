@@ -40,6 +40,7 @@
 static SEBSettings *sharedSEBSettings = nil;
 
 
+
 + (SEBSettings *)sharedSEBSettings
 {
     @synchronized(self)
@@ -192,28 +193,28 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowDeveloperConsole",
                    
-                   @NO,
+                   @YES,
                    @"allowDictation",
                    
-                   @NO,
+                   @YES,
                    @"allowDictionaryLookup",
                    
-                   @NO,
+                   @YES,
                    @"allowDisplayMirroring",
                    
                    @YES,
                    @"allowedDisplayBuiltin",
                    
-                   @YES,
+                   @NO,
                    @"allowedDisplayBuiltinEnforce",
                    
                    @YES,
                    @"allowedDisplayBuiltinExceptDesktop",
                    
-                   @NO,
+                   @YES,
                    @"allowedDisplaysIgnoreFailure",
                    
-                   [NSNumber numberWithLong:1],
+                   [NSNumber numberWithLong:4],
                    @"allowedDisplaysMaxNumber",
                    
                    @YES,
@@ -277,22 +278,22 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowShareSheet",
                    
-                   @NO,
+                   @YES,
                    @"allowScreenCapture",
                    
                    @NO,
                    @"allowScreenCaptureiOS",
                    
-                   @NO,
+                   @YES,
                    @"allowScreenSharing",
                    
-                   @NO,
+                   @YES,
                    @"allowSiri",
                    
-                   @NO,
+                   @YES,
                    @"allowSpellCheck",
                    
-                   @NO,
+                   @YES,
                    @"allowSwitchToApplications",
                    
                    @NO,
@@ -304,10 +305,10 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowUserAppFolderInstall",
                    
-                   @NO,
+                   @YES,
                    @"allowVirtualMachine",
 
-                   @NO,
+                   @YES,
                    @"allowWindowCapture",
                    
                    @NO,
@@ -385,7 +386,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    SEBWinUserAgentTouchiPad,
                    @"browserUserAgentWinTouchModeIPad",
                    
-                   [NSNumber numberWithLong:browserViewModeWindow],
+                   [NSNumber numberWithLong:browserViewModeFullscreen],
                    @"browserViewMode",
                    
                    @NO,
@@ -431,10 +432,10 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithDouble:WebViewDefaultPageZoom],
                    @"defaultTextZoomLevel",
                    
-                   @YES,
+                   @NO,
                    @"detectAccessibilityApps",
                    
-                   @YES,
+                   @NO,
                    @"detectStoppedProcess",
                    
                    @YES,
@@ -458,7 +459,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSArray array],
                    @"embeddedCertificates",
                    
-                   @YES,
+                   @NO,
                    @"enableAppSwitcherCheck",
                    
                    @NO,
@@ -485,10 +486,10 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"enableMiddleMouse",
                    
-                   @YES,
+                   @NO,
                    @"enablePrivateClipboard",
                    
-                   @YES,
+                   @NO,
                    @"enablePrivateClipboardMacEnforce",
                    
                    @YES,
@@ -614,7 +615,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"hookKeys",
                    
-                   @YES,
+                   @NO,
                    @"forceAppFolderInstall",
                    
                    @NO,
@@ -722,7 +723,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:SEBLogLevelDebug],
                    @"logLevel",
                    
-                   [NSNumber numberWithLong:lockdownModePolicyAutomatic],
+                   [NSNumber numberWithLong:lockdownModePolicyEnforceClassic],
                    @"lockdownModePolicy",
 
                    @NO,
@@ -827,7 +828,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"100%",
                    @"newBrowserWindowByLinkHeight",
                    
-                   [NSNumber numberWithLong:openInNewWindow],
+                   [NSNumber numberWithLong:openInSameWindow],
                    @"newBrowserWindowByLinkPolicy",
                    
                    [NSNumber numberWithLong:browserWindowPositioningRight],

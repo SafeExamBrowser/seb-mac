@@ -31,6 +31,7 @@
 //  Contributor(s): ______________________________________.
 //
 
+#import "ExamStartPage.h"
 #import "SEBOSXBrowserController.h"
 #import "NSWindow+SEBWindow.h"
 #import "SEBWebViewController.h"
@@ -240,7 +241,7 @@
         
         // Prevent that the browser window displays the button to make it fullscreen in OS X 10.11
         // and that it would allow to be used in split screen mode
-        newWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
+        newWindow.collectionBehavior = [self.sebController kioskWindowCollectionBehavior];
         //    NSTextView *textView = (NSTextView *)[newWindow firstResponder];
         return newWindow;
     }
@@ -332,10 +333,13 @@
 
     // Prevent that the browser window displays the button to make it fullscreen in OS X 10.11
     // and that it would allow to be used in split screen mode
-    self.mainBrowserWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
+    self.mainBrowserWindow.collectionBehavior = [self.sebController kioskWindowCollectionBehavior];
 
     // Set the flag indicating if the main browser window should be displayed full screen
     self.mainBrowserWindow.isFullScreen = mainBrowserWindowShouldBeFullScreen;
+    // The main window never moves: it can't be dragged or pushed around by gestures
+    self.mainBrowserWindow.movable = NO;
+    self.mainBrowserWindow.movableByWindowBackground = NO;
     
     if (mainBrowserWindowShouldBeFullScreen) {
         [self.mainBrowserWindow setToolbar:nil];
@@ -419,6 +423,15 @@
     
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self.mainBrowserWindow makeKeyAndOrderFront:self];
+}
+
+
+- (void) setCollectionBehaviorOfBrowserWindows:(NSWindowCollectionBehavior)behavior
+{
+    for (SEBBrowserWindowDocument *openWindowDocument in [[NSDocumentController sharedDocumentController] documents]) {
+        openWindowDocument.mainWindowController.window.collectionBehavior = behavior;
+    }
+    self.mainBrowserWindow.collectionBehavior = behavior;
 }
 
 
@@ -586,7 +599,7 @@
               withWebView:(SEBAbstractWebView *)newWebView
                 withTitle:(NSString *)newTitle
 {
-    SEBBrowserOpenWindowWebView *newWindowWebView = [[SEBBrowserOpenWindowWebView alloc] initWithTitle:newTitle action:@selector(openWindowSelected:) keyEquivalent:@""];
+    SEBBrowserOpenWindowWebView *newWindowWebView = [[SEBBrowserOpenWindowWebView alloc] initWithTitle:newTitle action:@selector(openWindowMenuItemSelected:) keyEquivalent:@""];
     newWindowWebView.browserWindow = newBrowserWindow;
     newWindowWebView.webView = newWebView;
     newWindowWebView.title = newTitle;
@@ -642,6 +655,16 @@
     return commonHost;
 }
 
+
+
+// The taskbar's window list was used to pick a window
+- (void) openWindowMenuItemSelected:(SEBBrowserOpenWindowWebView *)sender
+{
+    if (self.windowSwitchingLocked) {
+        return;
+    }
+    [self openWindowSelected:sender];
+}
 
 
 - (void) openWindowSelected:(SEBBrowserOpenWindowWebView *)sender

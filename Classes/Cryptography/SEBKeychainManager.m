@@ -41,6 +41,62 @@
 #import "SEBOSXKeychainManager.h"
 #endif
 
+#if !TARGET_OS_IPHONE
+// On macOS the key that encrypts the local settings lives in a private file instead of the login
+// keychain. A keychain item can only be read back by the signature of the build that created it, so
+// with an ad-hoc signed app every rebuilt or updated copy stopped at a keychain prompt before its
+// first window, and the same happens when the login keychain is locked or missing.
+static NSURL *SEBDefaultsKeyFileURL(void)
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *supportURL = [fileManager URLForDirectory:NSApplicationSupportDirectory
+                                            inDomain:NSUserDomainMask
+                                   appropriateForURL:nil
+                                              create:YES
+                                               error:nil];
+    NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
+    if (!supportURL || !bundleID) {
+        return nil;
+    }
+    NSURL *directoryURL = [supportURL URLByAppendingPathComponent:bundleID isDirectory:YES];
+    NSError *error;
+    if (![fileManager createDirectoryAtURL:directoryURL
+               withIntermediateDirectories:YES
+                                attributes:@{NSFilePosixPermissions: @0700}
+                                     error:&error]) {
+        DDLogError(@"%s: Could not create %@: %@", __FUNCTION__, directoryURL.path, error);
+        return nil;
+    }
+    return [directoryURL URLByAppendingPathComponent:@"defaults.key"];
+}
+
+static NSData *SEBReadDefaultsKey(void)
+{
+    NSURL *keyFileURL = SEBDefaultsKeyFileURL();
+    NSData *keyData = keyFileURL ? [NSData dataWithContentsOfURL:keyFileURL] : nil;
+    // A truncated or foreign file is treated as missing so that a new key gets generated
+    return keyData.length == kCCKeySizeAES256 ? keyData : nil;
+}
+
+static BOOL SEBWriteDefaultsKey(NSData *keyData)
+{
+    NSURL *keyFileURL = SEBDefaultsKeyFileURL();
+    if (!keyFileURL || !keyData) {
+        return NO;
+    }
+    NSError *error;
+    if (![keyData writeToURL:keyFileURL options:NSDataWritingAtomic error:&error]) {
+        DDLogError(@"%s: Could not write %@: %@", __FUNCTION__, keyFileURL.path, error);
+        return NO;
+    }
+    [[NSFileManager defaultManager] setAttributes:@{NSFilePosixPermissions: @0600}
+                                     ofItemAtPath:keyFileURL.path
+                                            error:nil];
+    return YES;
+}
+#endif
+
+
 @implementation SEBKeychainManager
 
 
@@ -271,8 +327,12 @@
 // Add a generic key to the keychain
 - (BOOL) storeKey:(NSData *)keyData
 {
+#if !TARGET_OS_IPHONE
+    return SEBWriteDefaultsKey(keyData);
+#else
     NSString *keyID = @"4815162342";
     return [self storeKeyWithID:keyID keyData:keyData];
+#endif
 }
 
 // Add key with ID to the keychain
@@ -325,8 +385,12 @@
 // Update a generic key in the keychain
 - (BOOL) updateKey:(NSData *)keyData
 {
+#if !TARGET_OS_IPHONE
+    return SEBWriteDefaultsKey(keyData);
+#else
     NSString *keyID = @"4815162342";
     return [self updateKeyWithID:keyID keyData:keyData];
+#endif
 }
 
 // Update a key with ID in the keychain
@@ -379,8 +443,12 @@
 // Get a generic key from the keychain
 - (NSData *) retrieveKey
 {
+#if !TARGET_OS_IPHONE
+    return SEBReadDefaultsKey();
+#else
     NSString *keyID = @"4815162342";
     return [self retrieveKeyWithID:keyID];
+#endif
 }
 
 

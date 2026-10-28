@@ -31,6 +31,7 @@
 //  Contributor(s): ______________________________________.
 //
 
+#import "ExamStartPage.h"
 #import "SEBBrowserWindow.h"
 #import "SEBConfigFileManager.h"
 #import "SEBBrowserWindowDocument.h"

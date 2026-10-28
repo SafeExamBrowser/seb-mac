@@ -94,8 +94,14 @@
 - (void) initGeneralProperties
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+#if TARGET_OS_OSX
+    // Copy and paste always use the Mac's own clipboard, so text can be moved between the exam and any other
+    // app (open-book exams); no exam configuration can switch SEB's isolated private clipboard back on
+    [self.browserControllerDelegate setPrivateClipboardEnabled:NO];
+#else
     [self.browserControllerDelegate setPrivateClipboardEnabled:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboard"] ||
      [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboardMacEnforce"]];
+#endif
     [self.browserControllerDelegate setAllowDictionaryLookup:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"]];
     [self.browserControllerDelegate setAllowPDFPlugIn:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPDFPlugIn"]];
 }
@@ -858,6 +864,12 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             newNavigationAction.policy = SEBNavigationActionPolicyCancel;
             return newNavigationAction;
         }
+    }
+    // exambrowser://open?url=<link>: the start page asks to open an exam link
+    if (url.scheme && [url.scheme caseInsensitiveCompare:@"exambrowser"] == NSOrderedSame) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"requestOpenExamURL" object:self userInfo:@{@"url": url}];
+        newNavigationAction.policy = SEBNavigationActionPolicyCancel;
+        return newNavigationAction;
     }
     // Check if this is a seb:// or sebs:// link or a .seb file link
     if (((url.scheme && [url.scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame) ||

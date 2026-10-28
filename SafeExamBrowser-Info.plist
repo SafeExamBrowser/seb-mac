@@ -106,7 +106,7 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Camera access is required for web applications / remote proctoring.</string>
+	<string>Camera access is needed by exam web pages that use it (for example a webcam exam). The app itself never records or uploads anything.</string>
 	<key>NSCrossWebsiteTrackingUsageDescription</key>
 	<string>Cross-website tracking may be needed by some web applications.</string>
 	<key>NSDesktopFolderUsageDescription</key>
@@ -122,7 +122,7 @@
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Microphone access is required for web applications / remote proctoring.</string>
+	<string>Microphone access is needed by exam web pages that use it (for example a webcam exam). The app itself never records or uploads anything.</string>
 	<key>NSPrincipalClass</key>
 	<string>$(PRODUCT_MODULE_NAME).SEBApplication</string>
 	<key>NSRequiresAquaSystemAppearance</key>

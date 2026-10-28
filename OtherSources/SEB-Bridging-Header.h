@@ -8,6 +8,8 @@
 #import "MyGlobals.h"
 #import "SEBAbstractWebView.h"
 #import "SEBURLFilter.h"
+#import "ExamStartPage.h"
+#import "ExamPageGuard.h"
 #import "SEBBatteryController.h"
 #import "SEBWiFiController.h"
 #import "SEBSystemManager.h"
