@@ -59,6 +59,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, strong, nonatomic) NSURL *currentURL;
 @property (strong, nonatomic) NSString *javaScriptFunctions;
 @property (readwrite) BOOL isMainBrowserWindow;
+// YES while the window is hidden (alpha 0) for the multi-display fade-in and waiting to be revealed
+// once it has settled on the allowed main screen (see -[SEBOSXBrowserController fadeInBrowserWindow:]
+// and -[SEBBrowserWindowController adjustWindowForScreen:moveBack:]).
+@property (nonatomic) BOOL pendingFadeIn;
 @property (strong) IBOutlet NSWindow *URLFilterAlert;
 @property (strong) IBOutlet NSWindow *customAlert;
 @property (weak) IBOutlet SEBTextField *customAlertText;

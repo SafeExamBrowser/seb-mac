@@ -35,8 +35,14 @@
 #import "SEBDockWindow.h"
 #import "SEBDockView.h"
 #import "SEBDockItemButton.h"
+#import "NSScreen+SEBScreen.h"
 
-@interface SEBDockController ()
+@interface SEBDockController () {
+    // Display ID of the screen the dock was deliberately placed on. Used to detect and revert
+    // unsolicited window moves by the system and to re-resolve the screen (with current
+    // coordinates) after display configuration changes, as NSScreen objects are snapshots.
+    NSNumber *pinnedDisplayID;
+}
 
 @end
 
@@ -56,7 +62,14 @@
         self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:initialContentRect styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:YES];
         self.dockWindow.releasedWhenClosed = YES;
         self.dockWindow.autorecalculatesKeyViewLoop = YES;
-        self.dockWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
+        // CanJoinAllSpaces for the same reason as the covering windows: on multi-display setups
+        // with "Displays have separate Spaces", a window bound to a single display's Space can be
+        // relocated to another display by the system when Spaces or the display configuration
+        // change, which displaced the dock onto a wrong (covered) display.
+        self.dockWindow.collectionBehavior = NSWindowCollectionBehaviorCanJoinAllSpaces |
+                                             NSWindowCollectionBehaviorStationary |
+                                             NSWindowCollectionBehaviorFullScreenAuxiliary |
+                                             NSWindowCollectionBehaviorFullScreenDisallowsTiling;
         if ([NSUserDefaults standardUserDefaults].allowWindowCapture == NO) {
             [self.dockWindow setSharingType:NSWindowSharingNone];
         }
@@ -78,8 +91,55 @@
         [self.window setAcceptsMouseMovedEvents:YES];
         NSString *dockTitle = [NSString stringWithFormat:NSLocalizedString(@"%@ Dock", @""), SEBShortAppName];
         self.window.contentView.accessibilityLabel = dockTitle;
+
+        // The system can move windows to another display (observed on multi-display setups when
+        // presentation options, window levels or Spaces change while SEB enforces kiosk mode).
+        // The browser windows revert such unsolicited moves in their windowDidChangeScreen
+        // delegate method; this observer provides the same protection for the dock window.
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(dockWindowDidChangeScreen:)
+                                                     name:NSWindowDidChangeScreenNotification
+                                                   object:self.dockWindow];
     }
     return self;
+}
+
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+// Returns the screen the dock was deliberately placed on, re-resolved from the current screen
+// list: a retained NSScreen is a snapshot whose frame can be outdated after the display
+// configuration or arrangement changed. Returns nil if that display is no longer connected.
+- (NSScreen *) pinnedScreen
+{
+    if (pinnedDisplayID) {
+        for (NSScreen *screen in [NSScreen screens]) {
+            if (screen.displayID.unsignedIntValue == pinnedDisplayID.unsignedIntValue) {
+                return screen;
+            }
+        }
+    }
+    return nil;
+}
+
+
+- (void)dockWindowDidChangeScreen:(NSNotification *)notification
+{
+    if (!pinnedDisplayID || !self.window.isVisible) {
+        return;
+    }
+    NSScreen *currentScreen = self.dockWindow.screen;
+    if (currentScreen.displayID.unsignedIntValue != pinnedDisplayID.unsignedIntValue) {
+        NSScreen *pinnedScreen = [self pinnedScreen];
+        if (pinnedScreen) {
+            DDLogWarn(@"SEB Dock window was moved to screen %@ by the system, moving it back to screen %@", currentScreen, pinnedScreen);
+            [self.dockWindow setCalculatedFrame:pinnedScreen];
+        }
+    }
 }
 
 
@@ -391,10 +451,11 @@
 - (void) showDockOnScreen:(NSScreen *)screen
 {
     DDLogDebug(@"[SEBDockController showDock]");
+    pinnedDisplayID = screen.displayID;
     [self.dockWindow setCalculatedFrame:screen];
-    
+
     [self.window recalculateKeyViewLoop];
-    
+
     [self showWindow:self];
 }
 
@@ -476,13 +537,25 @@
 - (void) adjustDock
 {
     DDLogDebug(@"[SEBDockController adjustDock]");
-    [self.dockWindow setCalculatedFrame:self.window.screen];
+    // Re-pin to the screen the dock belongs on, re-resolved with current coordinates.
+    // Using self.window.screen here would adopt whatever (wrong) display the window
+    // drifted to during a display configuration change.
+    NSScreen *screen = [self pinnedScreen];
+    if (!screen) {
+        screen = self.window.screen;
+        pinnedDisplayID = screen.displayID;
+    }
+    [self.dockWindow setCalculatedFrame:screen];
 }
 
 
 - (void) moveDockToScreen:(NSScreen *)screen
 {
     DDLogDebug(@"[SEBDockController moveDockToScreen: %@]", screen);
+    if (!screen) {
+        return;
+    }
+    pinnedDisplayID = screen.displayID;
     [self.dockWindow setCalculatedFrame:screen];
 }
 

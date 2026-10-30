@@ -692,7 +692,17 @@
     [newAlert addButtonWithTitle:NSLocalizedString(@"Apply Anyways", @"")];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     [newAlert setAlertStyle:NSAlertStyleCritical];
-    switch([newAlert runModal])
+    // Route through the SEB controller so the alert is centered on SEB's screen (or, in client mode,
+    // the Settings window's screen) instead of AppKit's default position. runModalAlert: runs the
+    // modal synchronously (non-AAC) and invokes the handler before returning, so the answer is
+    // available immediately; on macOS 11 under AAC this method already returned above.
+    __block NSModalResponse alertAnswer = NSModalResponseCancel;
+    [self.sebController runModalAlert:newAlert
+              conditionallyForWindow:MBPreferencesController.sharedController.window
+                   completionHandler:^(NSModalResponse returnCode) {
+        alertAnswer = returnCode;
+    }];
+    switch(alertAnswer)
     {
         case NSAlertFirstButtonReturn:
             return SEBDisabledPreferencesAnswerOverride;
@@ -727,7 +737,14 @@
     [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Save", @"")];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     [newAlert setAlertStyle:NSAlertStyleWarning];
-    switch([newAlert runModal])
+    // Center on SEB's / the Settings window's screen (see note in -askToOverrideDisabledPreferences…).
+    __block NSModalResponse alertAnswer = NSModalResponseCancel;
+    [self.sebController runModalAlert:newAlert
+              conditionallyForWindow:MBPreferencesController.sharedController.window
+                   completionHandler:^(NSModalResponse returnCode) {
+        alertAnswer = returnCode;
+    }];
+    switch(alertAnswer)
     {
         case NSAlertFirstButtonReturn:
             return SEBUnsavedSettingsAnswerSave;
@@ -760,7 +777,13 @@
     [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Apply", @"")];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Apply", @"")];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-    NSInteger answer = [newAlert runModal];
+    // Center on SEB's / the Settings window's screen (see note in -askToOverrideDisabledPreferences…).
+    __block NSModalResponse answer = NSModalResponseCancel;
+    [self.sebController runModalAlert:newAlert
+              conditionallyForWindow:MBPreferencesController.sharedController.window
+                   completionHandler:^(NSModalResponse returnCode) {
+        answer = returnCode;
+    }];
     switch(answer)
     {
         case NSAlertFirstButtonReturn:
@@ -1230,7 +1253,14 @@
             [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Share as Configuration", @"")];
             [newAlert setAlertStyle:NSAlertStyleCritical];
-            switch([newAlert runModal])
+            // Center on SEB's / the Settings window's screen (see note in -askToOverrideDisabledPreferences…).
+            __block NSModalResponse alertAnswer = NSModalResponseCancel;
+            [self.sebController runModalAlert:newAlert
+                      conditionallyForWindow:MBPreferencesController.sharedController.window
+                           completionHandler:^(NSModalResponse returnCode) {
+                alertAnswer = returnCode;
+            }];
+            switch(alertAnswer)
             {
                 case NSAlertFirstButtonReturn:
                     // Saving settings was canceled
@@ -1310,7 +1340,13 @@
             [newAlert setInformativeText:NSLocalizedString(@"Do you want to continue editing the saved settings file?", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Edit File", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-            NSInteger answer = [newAlert runModal];
+            // Center on SEB's / the Settings window's screen (see note in -askToOverrideDisabledPreferences…).
+            __block NSModalResponse answer = NSModalResponseCancel;
+            [self.sebController runModalAlert:newAlert
+                      conditionallyForWindow:MBPreferencesController.sharedController.window
+                           completionHandler:^(NSModalResponse returnCode) {
+                answer = returnCode;
+            }];
             switch(answer)
             {
                 case NSAlertFirstButtonReturn:

@@ -536,9 +536,14 @@ bool insideMatrix(void);
                      options:NSKeyValueObservingOptionNew
                      context:NULL];
     
-    // Add a observer for changes of the screen configuration
+    // Add a observer for changes of the screen configuration. The notification is routed through a
+    // debouncer (-screenParametersChanged:) rather than calling -adjustScreenLocking: directly:
+    // macOS can deliver this notification in bursts (observed: every ~10 ms for over a minute while
+    // SEB sat at a permission dialog), and -adjustScreenLocking: does heavy work (rebuilds covering
+    // windows, repositions browser windows and the dock), so running it per notification is wasteful
+    // and churns windows. Coalescing collapses a burst into a single adjustment after things settle.
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(adjustScreenLocking:)
+                                             selector:@selector(screenParametersChanged:)
                                                  name:NSApplicationDidChangeScreenParametersNotification
                                                object:NSApp];
     
@@ -6237,6 +6242,13 @@ bool insideMatrix(void){
 }
 
                            
+// Keys for the covering window's intended display ID (NSNumber) and global frame (NSValue/NSRect),
+// stored as associated objects in -fillScreensWithCoveringWindows: and used by
+// -coveringWindowDidChangeScreen: to revert unsolicited moves to another display.
+static const void *SEBCoveringWindowPinnedDisplayIDKey = &SEBCoveringWindowPinnedDisplayIDKey;
+static const void *SEBCoveringWindowPinnedFrameKey = &SEBCoveringWindowPinnedFrameKey;
+
+
 - (NSMutableArray *) fillScreensWithCoveringWindows:(coveringWindowKind)coveringWindowKind windowLevel:(NSUInteger)windowLevel excludeMenuBar:(BOOL)excludeMenuBar {
     NSMutableArray *coveringWindows = [NSMutableArray new];	// array for storing our cap (covering)  windows
     NSArray *screens = [NSScreen screens];	// get all available screens
@@ -6330,12 +6342,33 @@ bool insideMatrix(void){
         [coveringWindows addObject: window];
         NSView *superview = [window contentView];
         [superview addSubview:capview];
-        
+
+        // Pin the covering window to the display it was placed on, so that if the system later
+        // moves it to another display (observed on multi-display setups during the kiosk-mode
+        // churn — presentation-option/window-level/Spaces changes), we can move it back. Without
+        // this, a background cover could drift off its screen and leave an inactive display showing
+        // the desktop (the uncovered-Dell bug). The intended display ID and global frame are kept as
+        // associated objects; -coveringWindowDidChangeScreen: reverts unsolicited moves.
+        objc_setAssociatedObject(window, SEBCoveringWindowPinnedDisplayIDKey, iterScreen.displayID, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(window, SEBCoveringWindowPinnedFrameKey, [NSValue valueWithRect:coveringFrame], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(coveringWindowDidChangeScreen:)
+                                                     name:NSWindowDidChangeScreenNotification
+                                                   object:window];
+
         //[window orderBack:self];
         CapWindowController *capWindowController = [[CapWindowController alloc] initWithWindow:window];
         //CapWindow *loadedCapWindow = capWindowController.window;
         [capWindowController showWindow:self];
-        [window makeKeyAndOrderFront:self];
+        // The black kiosk background covers only need to be visible; making them key/main is
+        // unnecessary and was a plausible trigger for the system relocating windows across displays
+        // during startup. Order them front without taking key status. The lockdown/modal alert
+        // covers host the dismiss UI and still become key/front.
+        if (coveringWindowKind == coveringWindowBackground) {
+            [window orderFront:self];
+        } else {
+            [window makeKeyAndOrderFront:self];
+        }
         //[window orderBack:self];
         //BOOL isWindowLoaded = capWindowController.isWindowLoaded;
 #ifdef DEBUG
@@ -6343,6 +6376,26 @@ bool insideMatrix(void){
 #endif
     }
     return coveringWindows;
+}
+
+
+// Moves a covering window back to the display it was placed on if the system relocated it to a
+// different display (see the pinning note in -fillScreensWithCoveringWindows:). Loop-safe: it only
+// acts when the window actually left its pinned display, so re-pinning to the correct display is a
+// no-op that posts no further relocation.
+- (void) coveringWindowDidChangeScreen:(NSNotification *)notification
+{
+    NSWindow *window = notification.object;
+    NSNumber *pinnedDisplayID = objc_getAssociatedObject(window, SEBCoveringWindowPinnedDisplayIDKey);
+    NSValue *pinnedFrameValue = objc_getAssociatedObject(window, SEBCoveringWindowPinnedFrameKey);
+    if (!pinnedDisplayID || !pinnedFrameValue) {
+        return;
+    }
+    if (window.screen.displayID.unsignedIntValue != pinnedDisplayID.unsignedIntValue) {
+        DDLogWarn(@"Covering window %@ was moved to screen %@ by the system, moving it back to display ID %@",
+                  window, window.screen, pinnedDisplayID);
+        [window setFrame:pinnedFrameValue.rectValue display:YES];
+    }
 }
 
 
@@ -6441,6 +6494,25 @@ bool insideMatrix(void){
 }
 
 
+// Debounces NSApplicationDidChangeScreenParametersNotification. macOS can deliver this notification
+// in rapid bursts (observed every ~10 ms for over a minute while SEB sat at a permission dialog);
+// running the heavy -adjustScreenLocking: for each one is wasteful and churns windows. We coalesce
+// by cancelling any pending adjustment and scheduling a single one shortly after the last
+// notification, so a storm collapses into one adjustment once the configuration settles. A real
+// display connect/disconnect is a single notification and is handled after the short delay.
+// adjustScreenLocking: is invoked with a nil argument here so the cancel below reliably matches the
+// pending request (its only use of the argument is debug logging).
+- (void) screenParametersChanged:(NSNotification *)notification
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self
+                                             selector:@selector(adjustScreenLocking:)
+                                               object:nil];
+    [self performSelector:@selector(adjustScreenLocking:)
+               withObject:nil
+               afterDelay:0.5];
+}
+
+
 // Called when changes of the screen configuration occur
 // (new display is contected or removed or display mirroring activated)
 
@@ -6495,8 +6567,14 @@ bool insideMatrix(void){
             [self closeCapWindows];
         }
         
-        // We adjust position and size of the SEB Dock
-        [self.dockController adjustDock];
+        // We adjust position and size of the SEB Dock. In a secure session, re-pin it to the
+        // main screen recomputed above (conditionallyTerminateDisplayMirroring); in client/
+        // browser mode (mainScreen is nil) adjustDock re-pins it to its current screen.
+        if (self.mainScreen) {
+            [self.dockController moveDockToScreen:self.mainScreen];
+        } else {
+            [self.dockController adjustDock];
+        }
         
         // We adjust the size of the main browser window
         [self.browserController adjustMainBrowserWindow];
@@ -6507,11 +6585,12 @@ bool insideMatrix(void){
 // Called when main browser window changed screen
 - (void) changeMainScreen: (id)sender
 {
-    // Follow the main browser window to its screen. The mainBrowserWindow property is weak and
-    // its screen can momentarily be nil (e.g. before the window is pinned to the main screen);
-    // moving the dock to a nil screen would collapse it to a zero frame on the wrong display,
-    // so fall back to the authoritative main screen in that case.
-    NSScreen *screen = self.browserController.mainBrowserWindow.screen ?: self.mainScreen;
+    // In a secure session, the authoritative main screen decides where the dock belongs: the
+    // main browser window can transiently report a wrong screen while the system moves it
+    // around (it is moved back to the main screen afterwards), and following it would strand
+    // the dock on a covered display. Only in client/browser mode (where mainScreen isn't
+    // computed and is nil) the dock follows the main browser window.
+    NSScreen *screen = self.mainScreen ?: self.browserController.mainBrowserWindow.screen;
     [self.dockController moveDockToScreen:screen];
 }
 
@@ -6611,18 +6690,46 @@ conditionallyForWindow:(NSWindow *)window
              [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"],
              _isAACEnabled,
              _wasAACEnabled);
-    // Center the alert on SEB's screen. NSAlert -runModal is application-modal and AppKit centers
-    // it on the screen carrying the menu bar, which on a multi-display setup can be a display SEB
-    // isn't running on (so the alert appears off on the wrong screen). Position it on the parent
-    // window's screen (falling back to the main screen) so it's centered where the exam is shown.
-    // The deferred re-centering wins over AppKit's own centering, which happens when the modal
-    // window is ordered front inside -runModal.
-    NSScreen *alertScreen = window.screen ?: self.mainScreen;
+    // Center the alert on SEB's configured screen. NSAlert -runModal is application-modal and AppKit
+    // centers it on the screen carrying the menu bar, which on a multi-display setup can be a display
+    // SEB isn't running on. In a secure session SEB's main screen is authoritative and is where the
+    // student looks, so center there — NOT on the parent window's screen: the parent passed in is
+    // often the active browser window, which can be a secondary window that momentarily sits on
+    // another (covered) display, dragging the alert off onto it. Only in client/pre-session mode
+    // (mainScreen is nil) do we fall back to the parent window's screen. The deferred re-centering
+    // wins over AppKit's own centering, which happens when the modal window is ordered front inside
+    // -runModal.
+    NSScreen *alertScreen = self.mainScreen ?: window.screen;
     [alert layout];
+    // Ensure the alert can actually be shown on the active Space before blocking in -runModal. On
+    // multi-display setups with "Displays have separate Spaces", a window bound to a single
+    // display's Space can end up off-screen (not on the display's currently active Space); this
+    // left startup alerts (e.g. the Location Services wait dialog) invisible while the main thread
+    // sat blocked in the nested -runModal loop below, so SEB looked crashed/hung with no way to
+    // dismiss the alert. Letting the alert join all Spaces (as the covering windows do) and
+    // activating SEB so it becomes frontmost makes the modal reliably visible. We do NOT order the
+    // alert window in ourselves here: -runModal orders and centers it, and ordering it front
+    // beforehand defeated that centering.
+    alert.window.collectionBehavior |= NSWindowCollectionBehaviorCanJoinAllSpaces |
+                                       NSWindowCollectionBehaviorStationary |
+                                       NSWindowCollectionBehaviorFullScreenAuxiliary;
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self centerWindow:alert.window onScreen:alertScreen];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self centerWindow:alert.window onScreen:alertScreen];
-    });
+    // -runModal re-centers the alert itself when it orders the window front, using AppKit's own
+    // placement, which on a multi-display setup lands it at the wrong display's edge before our
+    // deferred re-center (below) corrects it — a visible jump. Only on multi-display do we hide the
+    // window until it has been re-centered and then reveal it, so the user never sees the jump. With
+    // a single display AppKit's own centering is already correct, so there's nothing to correct and
+    // we skip the hide/reveal to avoid a needless moment of invisibility.
+    NSWindow *alertWindow = alert.window;
+    BOOL multipleDisplays = NSScreen.screens.count > 1;
+    if (multipleDisplays) {
+        alertWindow.alphaValue = 0.0;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self centerWindow:alertWindow onScreen:alertScreen];
+            alertWindow.alphaValue = 1.0;
+        });
+    }
     NSModalResponse answer = [alert runModal];
     if (handler) {
         handler(answer);
@@ -7326,7 +7433,13 @@ conditionallyForWindow:(NSWindow *)window
 	NSUInteger windowCount = [windows count];
     for (windowIndex = 0; windowIndex < windowCount; windowIndex++ )
     {
-		[(NSWindow *)[windows objectAtIndex:windowIndex] close];
+        NSWindow *coveringWindow = (NSWindow *)[windows objectAtIndex:windowIndex];
+        // Remove the move-back guard observer registered in -fillScreensWithCoveringWindows:
+        // before the window is closed (these windows are released when closed).
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:NSWindowDidChangeScreenNotification
+                                                      object:coveringWindow];
+        [coveringWindow close];
 	}
     [windows removeAllObjects];
 }

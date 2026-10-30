@@ -58,6 +58,11 @@
         
 - (void) setCalculatedFrame:(NSScreen *)screen
 {
+    if (!screen) {
+        // Keep the current frame: messaging nil would collapse the dock
+        // to a zero-size frame at the global origin
+        return;
+    }
     // Get frame of the screen
     NSRect screenFrame = screen.frame;
 

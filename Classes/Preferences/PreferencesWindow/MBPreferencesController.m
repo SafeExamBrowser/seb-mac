@@ -146,16 +146,28 @@ static MBPreferencesController *sharedPreferencesController = nil;
         [defaultModule willBeDisplayed];
     }
 
-    // NOTE: On a multi-display setup where the menu bar is on a display SEB isn't running on, and
-    // macOS "Displays have separate Spaces" is enabled, the preferences window opens on the menu-bar
-    // display instead of SEB's screen. The window server binds the window to that display's Space
-    // when it's first shown and overrides subsequent frame changes, so this can't be reliably
-    // corrected here. Accepted as a known macOS limitation.
-	[self.window center];
+    // On a multi-display setup where the menu bar is on a display SEB isn't running on (and macOS
+    // "Displays have separate Spaces" is enabled), the window server opens the preferences window on
+    // the menu-bar display. The pitfall: -[NSWindow center] centers the window on the screen it is
+    // currently associated with — SEB's exam display, which has a negative global x origin — so it
+    // computes a negative x. The window server then relocates the window to the menu-bar display but
+    // keeps those (negative) global coordinates, and macOS clamps it to that display's left edge.
+    // That is why the window appeared at the left edge rather than centered. Fix: center explicitly
+    // on the menu-bar display (the primary screen at global origin (0,0), where the window actually
+    // ends up) using global coordinates, so x is centered on that display.
+    NSScreen *menuBarScreen = NSScreen.screens.firstObject;
+    for (NSScreen *screen in NSScreen.screens) {
+        if (NSEqualPoints(screen.frame.origin, NSZeroPoint)) {
+            menuBarScreen = screen;
+            break;
+        }
+    }
+    NSRect visibleFrame = menuBarScreen.visibleFrame;
+    NSSize windowSize = self.window.frame.size;
 
     NSPoint topLeftPoint;
-    topLeftPoint.x = self.window.frame.origin.x;
-    topLeftPoint.y = self.window.screen.frame.size.height - 44;
+    topLeftPoint.x = visibleFrame.origin.x + (visibleFrame.size.width - windowSize.width) / 2.0;
+    topLeftPoint.y = visibleFrame.origin.y + visibleFrame.size.height - 44;
 
     [self.window setFrameTopLeftPoint:topLeftPoint];
 

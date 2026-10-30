@@ -161,6 +161,41 @@
 }
 
 // Open a new WebView and show its window
+// A browser window is born by AppKit on the menu-bar display and only afterwards relocated to SEB's
+// main screen, which on a multi-display setup produces a brief flash of the window on the wrong
+// display. To avoid that, hide the window (alpha 0) right before it is first shown and reveal it only
+// once it has been positioned (mirrors the modal alert fade-in). Only needed with more than one
+// display; with a single display there's no relocation, so we keep the window visible throughout.
+// Returns YES if the window was hidden and the caller must later call -fadeInBrowserWindow:.
+- (BOOL) hideBrowserWindowForFadeInIfNeeded:(SEBBrowserWindow *)browserWindow
+{
+    if (NSScreen.screens.count <= 1) {
+        return NO;
+    }
+    browserWindow.alphaValue = 0.0;
+    browserWindow.pendingFadeIn = YES;
+    return YES;
+}
+
+// Reveals a browser window hidden by -hideBrowserWindowForFadeInIfNeeded:. The window is normally
+// revealed by -[SEBBrowserWindowController adjustWindowForScreen:moveBack:] as soon as it has settled
+// on the allowed main screen — this correctly handles windows that AppKit/WebKit first place on the
+// menu-bar display and then move back (e.g. a target=_blank window, whose window WebKit orders front
+// only AFTER we return from -createWebViewWith…, i.e. after any immediate reveal would have run).
+// This method only provides a FALLBACK reveal, after a short delay, for windows that are born on the
+// correct screen and therefore never trigger a screen change: without it such a window would stay
+// invisible. If a reveal already happened (pendingFadeIn cleared), this is a no-op.
+- (void) fadeInBrowserWindow:(SEBBrowserWindow *)browserWindow
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (browserWindow.pendingFadeIn) {
+            browserWindow.pendingFadeIn = NO;
+            [browserWindow setCalculatedFrameOnScreen:browserWindow.screen];
+            browserWindow.alphaValue = 1.0;
+        }
+    });
+}
+
 - (SEBAbstractWebView *) openAndShowWebViewWithURL:(nullable NSURL *)url
                                      configuration:(WKWebViewConfiguration *)configuration
                                              title:(NSString *)title
@@ -170,7 +205,7 @@
     SEBBrowserWindow *newBrowserWindow = [self openBrowserWindowWithURL:url configuration:configuration title:title overrideSpellCheck:overrideSpellCheck mainWebView:mainBrowserWindow];
     SEBAbstractWebView *newWindowWebView = newBrowserWindow.webView;
     newBrowserWindow.browserControllerDelegate = newWindowWebView;
-    
+
     if ([NSUserDefaults standardUserDefaults].allowWindowCapture == NO) {
         [newBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     }
@@ -180,9 +215,18 @@
     [self setLevelForBrowserWindow:newBrowserWindow elevateLevels:elevateWindowLevels];
     self.activeBrowserWindow = newBrowserWindow;
     self.activeBrowserWindowTitle = NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled");
+    // Deliberately do NOT hide/fade the main browser window: at initial launch it takes several
+    // relocation passes to settle on the configured screen (longer than the fallback reveal delay,
+    // and before the disallowed display is flagged inactive / the main screen is computed), so hiding
+    // it would either flash anyway or add fragility to the critical startup path. Its brief initial
+    // relocation is the long-standing behavior. Additional / link / temporary / alert windows still fade.
+    BOOL fadeIn = !mainBrowserWindow && [self hideBrowserWindowForFadeInIfNeeded:newBrowserWindow];
     [newBrowserWindow setCalculatedFrameOnScreen:newBrowserWindow.screen mainBrowserWindow:mainBrowserWindow temporaryWindow:temporaryWindow];
     [newBrowserWindow.windowController showWindow:self];
     [newBrowserWindow makeKeyAndOrderFront:self];
+    if (fadeIn) {
+        [self fadeInBrowserWindow:newBrowserWindow];
+    }
     [self transferCookiesToWKWebViewWithCompletionHandler:^{
         [newWindowWebView loadURL:url];
     }];
@@ -263,7 +307,14 @@
 - (void) webViewShow:(SEBAbstractWebView *)sender
 {
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
+    // Hide/reveal around the show to avoid the window flashing on the menu-bar display before it is
+    // relocated to SEB's main screen (see -hideBrowserWindowForFadeInIfNeeded:).
+    SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)sender.window;
+    BOOL fadeIn = [self hideBrowserWindowForFadeInIfNeeded:browserWindow];
     [browserWindowDocument showWindows];
+    if (fadeIn) {
+        [self fadeInBrowserWindow:browserWindow];
+    }
     DDLogInfo(@"Now showing new document browser window for: %@",sender);
 }
 

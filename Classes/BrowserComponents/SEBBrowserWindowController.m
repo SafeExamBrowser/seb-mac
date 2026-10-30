@@ -422,7 +422,16 @@ static const CGFloat SEBResultsCountRightPadding = 4.0;
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"mainScreenChanged" object:self];
         }
-        
+
+        // Reveal a window that was hidden for the multi-display fade-in now that it has settled on an
+        // allowed screen (it was moved back from / never ended up on a disallowed display). This is the
+        // primary reveal path; the delayed fallback in -[SEBOSXBrowserController fadeInBrowserWindow:]
+        // only covers windows born on the correct screen that never change screen.
+        if (self.browserWindow.pendingFadeIn && newScreen && !newScreen.inactive) {
+            self.browserWindow.pendingFadeIn = NO;
+            self.browserWindow.alphaValue = 1.0;
+        }
+
     } else {
         DDLogDebug(@"%s: No mouse buttons pressed, don't adjust window", __FUNCTION__);
     }
