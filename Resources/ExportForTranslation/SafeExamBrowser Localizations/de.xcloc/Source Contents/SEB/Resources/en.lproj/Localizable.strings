@@ -170,6 +170,9 @@
 "Always" = "Always";
 
 /* No comment provided by engineer. */
+"An assessment session is already active." = "An assessment session is already active.";
+
+/* No comment provided by engineer. */
 "An identity needs a unique name." = "An identity needs a unique name.";
 
 /* No comment provided by engineer. */
@@ -394,6 +397,15 @@ Shown while connecting to the server to fetch its certificate */
 
 /* No comment provided by engineer. */
 "Could not save downloaded data, probably a wrong download directory was used in %@ settings." = "Could not save downloaded data, probably a wrong download directory was used in %@ settings.";
+
+/* No comment provided by engineer. */
+"Could not Start Assessment Mode" = "Could not Start Assessment Mode";
+
+/* No comment provided by engineer. */
+"Could Not Start Assessment Mode" = "Could Not Start Assessment Mode";
+
+/* No comment provided by engineer. */
+"Could not start Assessment Mode with error: %@" = "Could not start Assessment Mode with error: %@";
 
 /* No comment provided by engineer. */
 "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution.";
@@ -832,9 +844,6 @@ Shown while connecting to the server to fetch its certificate */
 
 /* No comment provided by engineer. */
 "No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." = "No %1$@ settings have been found at the specified URL. Use a correct link to configure %2$@ or start an exam.";
-
-/* No comment provided by engineer. */
-"No Assessment Mode Available" = "No Assessment Mode Available";
 
 /* No comment provided by engineer. */
 "No Camera Available" = "No Camera Available";

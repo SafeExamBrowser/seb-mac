@@ -78,6 +78,8 @@
 #define SEBErrorParsingSettingsSerializingFailed 205
 #define SEBErrorOpeningUniversalLinkFailed 300
 
+#define SEBErrorAssessmentSessionAlreadyActive 310
+
 #define SEBErrorKillProcessFailed -99
 #define SEBErrorKillProcessAlreadyTerminated -991
 

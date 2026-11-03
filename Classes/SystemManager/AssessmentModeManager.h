@@ -70,8 +70,8 @@ API_AVAILABLE(macos(10.15.4), ios(13.4))
 - (instancetype)initWithCallback:(id)callback
                         selector:(SEL)selector
                         fallback:(BOOL)fallback;
-- (BOOL) beginAssessmentMode;
-- (BOOL) beginAssessmentModeWithConfiguration:(AEAssessmentConfiguration*)config;
+- (nullable NSError *) beginAssessmentMode;
+- (nullable NSError *) beginAssessmentModeWithConfiguration:(AEAssessmentConfiguration*)config;
 - (BOOL) endAssessmentModeWithCallback:(id)callback
                               selector:(SEL)selector
               quittingToAssessmentMode:(BOOL)quittingToAssessmentMode;

@@ -51,27 +51,30 @@
     return self;
 }
 
-- (BOOL) beginAssessmentMode
+- (nullable NSError *) beginAssessmentMode
 {
     AEAssessmentConfiguration *config = [AEAssessmentConfiguration new];
     return [self beginAssessmentModeWithConfiguration:config];
 }
 
-- (BOOL) beginAssessmentModeWithConfiguration:(AEAssessmentConfiguration*)config
+- (nullable NSError *) beginAssessmentModeWithConfiguration:(AEAssessmentConfiguration*)config
 {
     DDLogDebug(@"%s", __FUNCTION__);
-    
+
     if (self.assessmentSession && self.assessmentSession.active) {
         DDLogWarn(@"Assessment session is already active!");
-        return NO;
+        return [NSError errorWithDomain:sebErrorDomain
+                                   code:SEBErrorAssessmentSessionAlreadyActive
+                               userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Could Not Start Assessment Mode", @""),
+                                          NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"An assessment session is already active.", @"")}];
     }
     AEAssessmentSession *session = [[AEAssessmentSession alloc] initWithConfiguration:config];
     session.delegate = self;
     self.assessmentSession = session;
     [self.delegate assessmentSessionWillBegin];
-    
+
     [session begin];
-    return YES;
+    return nil;
 }
 
 - (BOOL) endAssessmentModeWithCallback:(id)callback

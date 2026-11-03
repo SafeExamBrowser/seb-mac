@@ -5295,6 +5295,11 @@ It is deleted when the session ends</target>
         <target state="new">%@ Version Not Allowed!</target>
         <note/>
       </trans-unit>
+      <trans-unit id="%@ cannot read the macOS system database that lists apps with Accessibility permissions because the file system denied access (error %ld: %@ at /Library/Application Support/com.apple.TCC). The permissions of that system folder appear to have been changed from their macOS default (drwxr-xr-x, owner root, group wheel). An administrator should restore the default permissions (for example with “sudo chown root:wheel” and “sudo chmod 755” on that folder), then click Retry." xml:space="preserve">
+        <source>%1$@ cannot read the macOS system database that lists apps with Accessibility permissions because the file system denied access (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). The permissions of that system folder appear to have been changed from their macOS default (drwxr-xr-x, owner root, group wheel). An administrator should restore the default permissions (for example with “sudo chown root:wheel” and “sudo chmod 755” on that folder), then click Retry.</source>
+        <target state="new">%1$@ cannot read the macOS system database that lists apps with Accessibility permissions because the file system denied access (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). The permissions of that system folder appear to have been changed from their macOS default (drwxr-xr-x, owner root, group wheel). An administrator should restore the default permissions (for example with “sudo chown root:wheel” and “sudo chmod 755” on that folder), then click Retry.</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="%@ cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit %@. If the window isn't open and this alert is displayed anyways, restart your Mac." xml:space="preserve">
         <source>%@ cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit %@. If the window isn't open and this alert is displayed anyways, restart your Mac.</source>
         <target state="new">%@ cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit %@. If the window isn't open and this alert is displayed anyways, restart your Mac.</target>
@@ -5570,6 +5575,11 @@ It is deleted when the session ends</target>
         <target state="new">Add Preset Permitted Process</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Additional App Not Found" xml:space="preserve">
+        <source>Additional App Not Found</source>
+        <target state="new">Additional App Not Found</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Additional Applications Not Available" xml:space="preserve">
         <source>Additional Applications Not Available</source>
         <target state="new">Additional Applications Not Available</target>
@@ -5588,6 +5598,11 @@ It is deleted when the session ends</target>
       <trans-unit id="Always" xml:space="preserve">
         <source>Always</source>
         <target state="new">Always</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="An assessment session is already active." xml:space="preserve">
+        <source>An assessment session is already active.</source>
+        <target state="new">An assessment session is already active.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Applications" xml:space="preserve">
@@ -5946,6 +5961,11 @@ Shown while connecting to the server to fetch its certificate</note>
         <target state="new">Could Not Access Data of Additional Apps</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Could Not Start Assessment Mode" xml:space="preserve">
+        <source>Could Not Start Assessment Mode</source>
+        <target state="new">Could Not Start Assessment Mode</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Could not connect to the server." xml:space="preserve">
         <source>Could not connect to the server.</source>
         <target state="new">Could not connect to the server.</target>
@@ -6241,11 +6261,6 @@ Shown while connecting to the server to fetch its certificate</note>
         <target state="new">Error Decrypting Settings</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Even though Full Disk Access appears to be granted, %@ still cannot read the macOS system database that lists apps with Accessibility permissions (error %ld: %@ at /Library/Application Support/com.apple.TCC). This can happen if Full Disk Access has not taken effect for this copy of %@ (for example if it was updated in place or launched from a quarantined location), or if the permissions of that system folder have been changed from their macOS default. Try removing %@ from System Settings / Privacy &amp; Security / Full Disk Access, reinstalling it by dragging it into the Applications folder, and adding it again. If that does not help, an administrator should check that the folder still has its default permissions. Then click Retry." xml:space="preserve">
-        <source>Even though Full Disk Access appears to be granted, %1$@ still cannot read the macOS system database that lists apps with Accessibility permissions (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). This can happen if Full Disk Access has not taken effect for this copy of %4$@ (for example if it was updated in place or launched from a quarantined location), or if the permissions of that system folder have been changed from their macOS default. Try removing %5$@ from System Settings / Privacy &amp; Security / Full Disk Access, reinstalling it by dragging it into the Applications folder, and adding it again. If that does not help, an administrator should check that the folder still has its default permissions. Then click Retry.</source>
-        <target state="new">Even though Full Disk Access appears to be granted, %1$@ still cannot read the macOS system database that lists apps with Accessibility permissions (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). This can happen if Full Disk Access has not taken effect for this copy of %4$@ (for example if it was updated in place or launched from a quarantined location), or if the permissions of that system folder have been changed from their macOS default. Try removing %5$@ from System Settings / Privacy &amp; Security / Full Disk Access, reinstalling it by dragging it into the Applications folder, and adding it again. If that does not help, an administrator should check that the folder still has its default permissions. Then click Retry.</target>
-        <note/>
-      </trans-unit>
       <trans-unit id="Exam" xml:space="preserve">
         <source>Exam</source>
         <target state="new">Exam</target>
@@ -6379,6 +6394,11 @@ Shown while connecting to the server to fetch its certificate</note>
       <trans-unit id="Full Disk Access Not Working" xml:space="preserve">
         <source>Full Disk Access Not Working</source>
         <target state="new">Full Disk Access Not Working</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Full Disk Access still isn't in effect for %@, so it cannot read the macOS system database that lists apps with Accessibility permissions (error %ld: %@ at /Library/Application Support/com.apple.TCC). Make sure Full Disk Access is enabled for %@ in System Settings / Privacy &amp; Security / Full Disk Access. If it is already enabled, the grant may not apply to this copy of %@ (for example if it was updated in place or launched from a quarantined location) — remove %@ from the list, reinstall it by dragging it into the Applications folder, and add it again. Then click Retry." xml:space="preserve">
+        <source>Full Disk Access still isn't in effect for %1$@, so it cannot read the macOS system database that lists apps with Accessibility permissions (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). Make sure Full Disk Access is enabled for %4$@ in System Settings / Privacy &amp; Security / Full Disk Access. If it is already enabled, the grant may not apply to this copy of %5$@ (for example if it was updated in place or launched from a quarantined location) — remove %6$@ from the list, reinstall it by dragging it into the Applications folder, and add it again. Then click Retry.</source>
+        <target state="new">Full Disk Access still isn't in effect for %1$@, so it cannot read the macOS system database that lists apps with Accessibility permissions (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). Make sure Full Disk Access is enabled for %4$@ in System Settings / Privacy &amp; Security / Full Disk Access. If it is already enabled, the grant may not apply to this copy of %5$@ (for example if it was updated in place or launched from a quarantined location) — remove %6$@ from the list, reinstall it by dragging it into the Applications folder, and add it again. Then click Retry.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Full user name: %@" xml:space="preserve">
@@ -7309,6 +7329,11 @@ Shown while connecting to the server to fetch its certificate</note>
       <trans-unit id="The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
         <source>The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target state="new">The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="The additional application with the bundle identifier %@ required by the current settings isn't installed on this Mac. Ask your exam support how to proceed." xml:space="preserve">
+        <source>The additional application with the bundle identifier %@ required by the current settings isn't installed on this Mac. Ask your exam support how to proceed.</source>
+        <target state="new">The additional application with the bundle identifier %@ required by the current settings isn't installed on this Mac. Ask your exam support how to proceed.</target>
         <note/>
       </trans-unit>
       <trans-unit id="The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB." xml:space="preserve">
@@ -9716,6 +9741,11 @@ untitled filename</note>
         <target>Always</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="An assessment session is already active." xml:space="preserve">
+        <source>An assessment session is already active.</source>
+        <target>An assessment session is already active.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="An identity needs a unique name." xml:space="preserve">
         <source>An identity needs a unique name.</source>
         <target>An identity needs a unique name.</target>
@@ -10052,9 +10082,19 @@ Shown while connecting to the server to fetch its certificate</note>
         <target>Correct password entered</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Could Not Start Assessment Mode" xml:space="preserve">
+        <source>Could Not Start Assessment Mode</source>
+        <target>Could Not Start Assessment Mode</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Could not Export Identity" xml:space="preserve">
         <source>Could not Export Identity</source>
         <target>Could not Export Identity</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Could not Start Assessment Mode" xml:space="preserve">
+        <source>Could not Start Assessment Mode</source>
+        <target>Could not Start Assessment Mode</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Could not connect to the server." xml:space="preserve">
@@ -10070,6 +10110,11 @@ Shown while connecting to the server to fetch its certificate</note>
       <trans-unit id="Could not save downloaded data, probably a wrong download directory was used in %@ settings." xml:space="preserve">
         <source>Could not save downloaded data, probably a wrong download directory was used in %@ settings.</source>
         <target>Could not save downloaded data, probably a wrong download directory was used in %@ settings.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Could not start Assessment Mode with error: %@" xml:space="preserve">
+        <source>Could not start Assessment Mode with error: %@</source>
+        <target>Could not start Assessment Mode with error: %@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." xml:space="preserve">
@@ -10725,11 +10770,6 @@ Shown while connecting to the server to fetch its certificate</note>
       <trans-unit id="No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." xml:space="preserve">
         <source>No %1$@ settings have been found at the specified URL. Use a correct link to configure %2$@ or start an exam.</source>
         <target>No %1$@ settings have been found at the specified URL. Use a correct link to configure %2$@ or start an exam.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="No Assessment Mode Available" xml:space="preserve">
-        <source>No Assessment Mode Available</source>
-        <target>No Assessment Mode Available</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No Camera Available" xml:space="preserve">

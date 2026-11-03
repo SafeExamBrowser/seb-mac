@@ -170,6 +170,9 @@
 "Always" = "Immer";
 
 /* No comment provided by engineer. */
+"An assessment session is already active." = "Eine Prüfungssession ist bereits aktiv.";
+
+/* No comment provided by engineer. */
 "An identity needs a unique name." = "Identität benötigt einmaligen Namen.";
 
 /* No comment provided by engineer. */
@@ -385,6 +388,15 @@ Shown while connecting to the server to fetch its certificate */
 
 /* Error when the connection to the entered server failed */
 "Could not connect to the server." = "Verbindung zum Server nicht möglich.";
+
+/* No comment provided by engineer. */
+"Could Not Start Assessment Mode" = "Prüfungsmodus konnte nicht gestartet werden";
+
+/* No comment provided by engineer. */
+"Could not Start Assessment Mode" = "Prüfungsmodus konnte nicht gestartet werden";
+
+/* No comment provided by engineer. */
+"Could not start Assessment Mode with error: %@" = "Prüfungsmodus konnte nicht gestartet werden, Fehler: %@";
 
 /* No comment provided by engineer. */
 "Could not determine a correct hostname. You can enter the domain URL of your institution manually." = "Es konnte kein korrekter Hostname ermittelt werden. Sie können die Domain-URL Ihrer Institution manuell eingeben.";
@@ -832,9 +844,6 @@ Shown while connecting to the server to fetch its certificate */
 
 /* No comment provided by engineer. */
 "No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." = "An der angegebenen URL wurden keine %1$@ Einstellungen gefunden. Benutzen Sie einen korrekten Link, um %2$@ zu konfigurieren oder eine Prüfung zu starten";
-
-/* No comment provided by engineer. */
-"No Assessment Mode Available" = "Kein Prüfungsmodus verfügbar";
 
 /* No comment provided by engineer. */
 "No Camera Available" = "Keine Kamera verfügbar";

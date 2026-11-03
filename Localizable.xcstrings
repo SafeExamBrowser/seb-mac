@@ -845,6 +845,36 @@
         }
       }
     },
+    "Additional App Not Found" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zusätzliche Applikation nicht gefunden"
+          }
+        }
+      }
+    },
+    "An assessment session is already active." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eine Prüfungssession ist bereits aktiv."
+          }
+        }
+      }
+    },
+    "The additional application with the bundle identifier %@ required by the current settings isn't installed on this Mac. Ask your exam support how to proceed." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die von den aktuellen Einstellungen benötigte zusätzliche Applikation mit dem Bundle-Identifier %@ ist auf diesem Mac nicht installiert. Wenden Sie sich an Ihren Prüfungs-Support."
+          }
+        }
+      }
+    },
     "Applications" : {
       "comment" : "Title of 'Applications' preference pane",
       "localizations" : {
@@ -1627,6 +1657,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Die heruntergeladenen Daten konnten nicht gespeichert werden, wahrscheinlich wurde in den %@-Einstellungen ein falsches Download-Verzeichnis verwendet."
+          }
+        }
+      }
+    },
+    "Could Not Start Assessment Mode" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prüfungsmodus konnte nicht gestartet werden"
           }
         }
       }

@@ -4053,7 +4053,9 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
 //                            DDLogWarn(@"AAC with screen proctoring enabled: API to allow screen shots is not available.");
 //                        }
 //                    }
-                    if ([self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration] == NO) {
+                    NSError *beginError = [self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration];
+                    if (beginError) {
+                        DDLogError(@"%s: Failed to begin AAC Assessment Mode: %@", __FUNCTION__, beginError);
                         [self assessmentSessionDidEndWithCallback:callback selector:selector quittingToAssessmentMode:NO];
                     }
                 };
@@ -8283,6 +8285,13 @@ conditionallyForWindow:(NSWindow *)window
                 if ([permittedProcess[@"iconInTaskbar"] boolValue] == YES) {
                     NSString *appName = permittedProcess[@"title"];
                     NSString *appBundleID = permittedProcess[@"identifier"];
+                    // Skip adding a dock item for additional apps that aren't installed on this Mac,
+                    // otherwise pressing the item would try to open a nil application URL (crash)
+                    NSURL *appURL = [[NSWorkspace sharedWorkspace] URLForApplicationWithBundleIdentifier:appBundleID];
+                    if (appURL == nil) {
+                        DDLogWarn(@"Additional app with Bundle ID %@ isn't installed on this Mac, not adding a dock item for it.", appBundleID);
+                        continue;
+                    }
                     if (appName.length == 0) {
                         appName = permittedProcess[@"executable"];
                     }
@@ -8290,7 +8299,7 @@ conditionallyForWindow:(NSWindow *)window
                         appName = appBundleID;
                     }
                     BOOL allowManualStart = [permittedProcess[@"allowManualStart"] boolValue];
-                    NSImage *appIcon = [[NSWorkspace sharedWorkspace] iconForFile:[[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:appBundleID]];
+                    NSImage *appIcon = [[NSWorkspace sharedWorkspace] iconForFile:appURL.path];
 
                     SEBDockItem *dockItemApp = [[SEBDockItem alloc] initWithTitle:appName
                                                                          bundleID:appBundleID
@@ -8564,6 +8573,17 @@ conditionallyForWindow:(NSWindow *)window
         DDLogInfo(@"Application with Bundle ID %@ (%@) was already running", bundleID, applicationInstances[0]);
         BOOL activationSuccess = [applicationInstances[0] activateWithOptions:NSApplicationActivateAllWindows];
         DDLogInfo(@"Activating application %@ was %@successful", applicationInstances[0], activationSuccess ? @"" : @"not ");
+    } else if (appURL == nil) {
+        // The additional app isn't installed on this Mac: we cannot start it
+        DDLogError(@"Application with Bundle ID %@ couldn't be found on this Mac and cannot be started.", bundleID);
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:NSLocalizedString(@"Additional App Not Found", @"")];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"The additional application with the bundle identifier %@ required by the current settings isn't installed on this Mac. Ask your exam support how to proceed.", @""), bundleID]];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+        [modalAlert setAlertStyle:NSAlertStyleCritical];
+        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:^(NSModalResponse answer) {
+            [self removeAlertWindow:modalAlert.window];
+        }];
     } else {
         if (appButton.allowManualStart == YES) {
             if (@available(macOS 10.15, *)) {

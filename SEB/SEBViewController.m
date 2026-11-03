@@ -4898,7 +4898,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     DDLogError(@"Could not start AAC Assessment Mode with error: %@", error);
     self.ASAMActive = NO;
-    [self showNoKioskModeAvailable];
+    [self showNoKioskModeAvailableWithError:error];
 }
 
 
@@ -5377,10 +5377,11 @@ void run_on_ui_thread(dispatch_block_t block)
                     
                     DDLogInfo(@"%s Starting AAC using modern API with additional apps: %@", __FUNCTION__, self.permittedProcesses);
                     AEAssessmentConfiguration *configuration = [[AEAssessmentConfiguration alloc] initWithPermittedApplications:self.permittedProcesses];
-                    if ([self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration] == NO) {
-                        DDLogError(@"%s: Failed to enter AAC/Autonomous Single App Mode", __FUNCTION__);
+                    NSError *beginError = [self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration];
+                    if (beginError) {
+                        DDLogError(@"%s: Failed to enter AAC/Autonomous Single App Mode: %@", __FUNCTION__, beginError);
                         self.ASAMActive = NO;
-                        [self showNoKioskModeAvailable];
+                        [self showNoKioskModeAvailableWithError:beginError];
                         [self assessmentSessionDidEndWithCallback:self selector:@selector(showNoKioskModeAvailable) quittingToAssessmentMode:NO];
                     }
                     return;
@@ -5480,6 +5481,7 @@ void run_on_ui_thread(dispatch_block_t block)
         }
     } else {
         // SAM isn't allowed: SEB refuses to start the exam
+        
         [self showNoKioskModeAvailable];
     }
 }
@@ -5488,12 +5490,18 @@ void run_on_ui_thread(dispatch_block_t block)
 // No Assessment Mode Available: SEB refuses to start the exam
 - (void) showNoKioskModeAvailable
 {
+    [self showNoKioskModeAvailableWithError:nil];
+}
+
+// No Assessment Mode Available: SEB refuses to start the exam
+- (void) showNoKioskModeAvailableWithError:(nullable NSError *)error
+{
     DDLogDebug(@"%s", __FUNCTION__);
     
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
             self.alertController = nil;
-            [self showNoKioskModeAvailable];
+            [self showNoKioskModeAvailableWithError:error];
         }];
         return;
     }
@@ -5501,9 +5509,15 @@ void run_on_ui_thread(dispatch_block_t block)
         [self.topMostController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
     }
     _noSAMAlertDisplayed = YES;
-    DDLogError(@"%s Showing alert 'No Assessment Mode Available – Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.'", __FUNCTION__);
-    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Assessment Mode Available", @"")
-                                                            message:NSLocalizedString(@"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.", @"")
+    NSString *alertMessage;
+    if (error.localizedFailureReason) {
+        alertMessage = [NSString stringWithFormat:NSLocalizedString(@"Could not start Assessment Mode with error: %@", @""), error.localizedFailureReason];
+    } else {
+        alertMessage = NSLocalizedString(@"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.", @"");
+    }
+    DDLogError(@"%s Showing alert 'Could not Start Assessment Mode – %@'", __FUNCTION__, alertMessage);
+    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Could not Start Assessment Mode", @"")
+                                                            message:alertMessage
                                                      preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", @"")
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

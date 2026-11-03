@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="26.6" build-num="17F113"/>
@@ -5351,6 +5352,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target state="translated">%@-Version nicht erlaubt!</target>
         <note/>
       </trans-unit>
+      <trans-unit id="%@ cannot read the macOS system database that lists apps with Accessibility permissions because the file system denied access (error %ld: %@ at /Library/Application Support/com.apple.TCC). The permissions of that system folder appear to have been changed from their macOS default (drwxr-xr-x, owner root, group wheel). An administrator should restore the default permissions (for example with “sudo chown root:wheel” and “sudo chmod 755” on that folder), then click Retry." xml:space="preserve">
+        <source>%1$@ cannot read the macOS system database that lists apps with Accessibility permissions because the file system denied access (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). The permissions of that system folder appear to have been changed from their macOS default (drwxr-xr-x, owner root, group wheel). An administrator should restore the default permissions (for example with “sudo chown root:wheel” and “sudo chmod 755” on that folder), then click Retry.</source>
+        <target state="translated">%1$@ kann die macOS-Systemdatenbank mit der Liste der Apps mit Bedienungshilfen-Berechtigungen nicht lesen, weil das Dateisystem den Zugriff verweigert hat (Fehler %2$ld: %3$@ unter /Library/Application Support/com.apple.TCC). Die Berechtigungen dieses Systemordners wurden offenbar gegenüber dem macOS-Standard geändert (drwxr-xr-x, Eigentümer root, Gruppe wheel). Ein Administrator sollte die Standardberechtigungen wiederherstellen (zum Beispiel mit „sudo chown root:wheel“ und „sudo chmod 755“ für diesen Ordner) und anschließend auf „Wiederholen“ klicken.</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="%@ cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit %@. If the window isn't open and this alert is displayed anyways, restart your Mac." xml:space="preserve">
         <source>%@ cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit %@. If the window isn't open and this alert is displayed anyways, restart your Mac.</source>
         <target state="translated">%1$@ kann nicht gestartet werden, wenn das Fenster 'Programme sofort beenden' oder ein anderer System-Dialog im Vordergrund geöffnet ist. Dieses Fenster schliessen oder %2$@ beenden. Falls die Fehlermeldung weiterhin angezeigt wird, starten Sie Ihren Mac neu.</target>
@@ -5626,6 +5632,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target state="translated">Voreingestellten erlaubten Prozess hinzufügen</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Additional App Not Found" xml:space="preserve">
+        <source>Additional App Not Found</source>
+        <target state="translated">Zusätzliche Applikation nicht gefunden</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Additional Applications Not Available" xml:space="preserve">
         <source>Additional Applications Not Available</source>
         <target state="translated">Zusätzliche Applikationen nicht verfügbar</target>
@@ -5644,6 +5655,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Always" xml:space="preserve">
         <source>Always</source>
         <target state="translated">Immer</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="An assessment session is already active." xml:space="preserve">
+        <source>An assessment session is already active.</source>
+        <target state="translated">Eine Prüfungssession ist bereits aktiv.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Applications" xml:space="preserve">
@@ -6002,6 +6018,11 @@ Shown while connecting to the server to fetch its certificate</note>
         <target state="translated">Kein Zugriff auf Daten zusätzlicher Applikationen möglich</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Could Not Start Assessment Mode" xml:space="preserve">
+        <source>Could Not Start Assessment Mode</source>
+        <target state="translated">Prüfungsmodus konnte nicht gestartet werden</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Could not connect to the server." xml:space="preserve">
         <source>Could not connect to the server.</source>
         <target state="translated">Verbindung zum Server nicht möglich.</target>
@@ -6297,11 +6318,6 @@ Shown while connecting to the server to fetch its certificate</note>
         <target state="translated">Fehler beim Entschlüsseln der Einstellungen</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Even though Full Disk Access appears to be granted, %@ still cannot read the macOS system database that lists apps with Accessibility permissions (error %ld: %@ at /Library/Application Support/com.apple.TCC). This can happen if Full Disk Access has not taken effect for this copy of %@ (for example if it was updated in place or launched from a quarantined location), or if the permissions of that system folder have been changed from their macOS default. Try removing %@ from System Settings / Privacy &amp; Security / Full Disk Access, reinstalling it by dragging it into the Applications folder, and adding it again. If that does not help, an administrator should check that the folder still has its default permissions. Then click Retry." xml:space="preserve">
-        <source>Even though Full Disk Access appears to be granted, %1$@ still cannot read the macOS system database that lists apps with Accessibility permissions (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). This can happen if Full Disk Access has not taken effect for this copy of %4$@ (for example if it was updated in place or launched from a quarantined location), or if the permissions of that system folder have been changed from their macOS default. Try removing %5$@ from System Settings / Privacy &amp; Security / Full Disk Access, reinstalling it by dragging it into the Applications folder, and adding it again. If that does not help, an administrator should check that the folder still has its default permissions. Then click Retry.</source>
-        <target state="translated">Obwohl Full Disk Access anscheinend erteilt wurde, kann %1$@ die macOS-Systemdatenbank mit der Liste der Apps mit Bedienungshilfen-Berechtigungen nicht lesen (Fehler %2$ld: %3$@ unter /Library/Application Support/com.apple.TCC). Dies kann vorkommen, wenn Full Disk Access für diese Kopie von %4$@ nicht wirksam geworden ist (zum Beispiel wenn sie an Ort und Stelle aktualisiert oder aus einem Quarantäne-Speicherort gestartet wurde) oder wenn die Berechtigungen dieses Systemordners gegenüber den macOS-Standardwerten geändert wurden. Versuchen Sie, %5$@ in den Systemeinstellungen / Datenschutz &amp; Sicherheit / Full Disk Access zu entfernen, es durch Ziehen in den Programme-Ordner neu zu installieren und erneut hinzuzufügen. Falls das nicht hilft, sollte ein Administrator prüfen, ob der Ordner noch seine Standardberechtigungen hat. Klicken Sie anschließend auf „Wiederholen“.</target>
-        <note/>
-      </trans-unit>
       <trans-unit id="Exam" xml:space="preserve">
         <source>Exam</source>
         <target state="translated">Prüfung</target>
@@ -6435,6 +6451,11 @@ Shown while connecting to the server to fetch its certificate</note>
       <trans-unit id="Full Disk Access Not Working" xml:space="preserve">
         <source>Full Disk Access Not Working</source>
         <target state="translated">Full Disk Access funktioniert nicht</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Full Disk Access still isn't in effect for %@, so it cannot read the macOS system database that lists apps with Accessibility permissions (error %ld: %@ at /Library/Application Support/com.apple.TCC). Make sure Full Disk Access is enabled for %@ in System Settings / Privacy &amp; Security / Full Disk Access. If it is already enabled, the grant may not apply to this copy of %@ (for example if it was updated in place or launched from a quarantined location) — remove %@ from the list, reinstall it by dragging it into the Applications folder, and add it again. Then click Retry." xml:space="preserve">
+        <source>Full Disk Access still isn't in effect for %1$@, so it cannot read the macOS system database that lists apps with Accessibility permissions (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). Make sure Full Disk Access is enabled for %4$@ in System Settings / Privacy &amp; Security / Full Disk Access. If it is already enabled, the grant may not apply to this copy of %5$@ (for example if it was updated in place or launched from a quarantined location) — remove %6$@ from the list, reinstall it by dragging it into the Applications folder, and add it again. Then click Retry.</source>
+        <target state="translated">Full Disk Access ist für %1$@ immer noch nicht wirksam, daher kann die macOS-Systemdatenbank mit der Liste der Apps mit Bedienungshilfen-Berechtigungen nicht gelesen werden (Fehler %2$ld: %3$@ unter /Library/Application Support/com.apple.TCC). Stellen Sie sicher, dass Full Disk Access für %4$@ in den Systemeinstellungen / Datenschutz &amp; Sicherheit / Full Disk Access aktiviert ist. Falls es bereits aktiviert ist, gilt die Berechtigung möglicherweise nicht für diese Kopie von %5$@ (zum Beispiel wenn sie an Ort und Stelle aktualisiert oder aus einem Quarantäne-Speicherort gestartet wurde) — entfernen Sie %6$@ aus der Liste, installieren Sie es durch Ziehen in den Programme-Ordner neu und fügen Sie es erneut hinzu. Klicken Sie anschließend auf „Wiederholen“.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Full user name: %@" xml:space="preserve">
@@ -7365,6 +7386,11 @@ Shown while connecting to the server to fetch its certificate</note>
       <trans-unit id="The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
         <source>The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target state="translated">Der %@-Prozess wurde unterbrochen, was auf eine Manipulation hindeuten könnte. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="The additional application with the bundle identifier %@ required by the current settings isn't installed on this Mac. Ask your exam support how to proceed." xml:space="preserve">
+        <source>The additional application with the bundle identifier %@ required by the current settings isn't installed on this Mac. Ask your exam support how to proceed.</source>
+        <target state="translated">Die von den aktuellen Einstellungen benötigte zusätzliche Applikation mit dem Bundle-Identifier %@ ist auf diesem Mac nicht installiert. Wenden Sie sich an Ihren Prüfungs-Support.</target>
         <note/>
       </trans-unit>
       <trans-unit id="The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB." xml:space="preserve">
@@ -9772,6 +9798,11 @@ untitled filename</note>
         <target>Immer</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="An assessment session is already active." xml:space="preserve">
+        <source>An assessment session is already active.</source>
+        <target>Eine Prüfungssession ist bereits aktiv.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="An identity needs a unique name." xml:space="preserve">
         <source>An identity needs a unique name.</source>
         <target>Identität benötigt einmaligen Namen.</target>
@@ -10108,9 +10139,19 @@ Shown while connecting to the server to fetch its certificate</note>
         <target>Korrektes Passwort eingegeben</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Could Not Start Assessment Mode" xml:space="preserve">
+        <source>Could Not Start Assessment Mode</source>
+        <target>Prüfungsmodus konnte nicht gestartet werden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Could not Export Identity" xml:space="preserve">
         <source>Could not Export Identity</source>
         <target>Konnte Identität nicht exportieren</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Could not Start Assessment Mode" xml:space="preserve">
+        <source>Could not Start Assessment Mode</source>
+        <target>Prüfungsmodus konnte nicht gestartet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Could not connect to the server." xml:space="preserve">
@@ -10126,6 +10167,11 @@ Shown while connecting to the server to fetch its certificate</note>
       <trans-unit id="Could not save downloaded data, probably a wrong download directory was used in %@ settings." xml:space="preserve">
         <source>Could not save downloaded data, probably a wrong download directory was used in %@ settings.</source>
         <target>Die heruntergeladenen Daten konnten nicht gespeichert werden, wahrscheinlich wurde in den %@-Einstellungen ein falsches Download-Verzeichnis verwendet.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Could not start Assessment Mode with error: %@" xml:space="preserve">
+        <source>Could not start Assessment Mode with error: %@</source>
+        <target>Prüfungsmodus konnte nicht gestartet werden, Fehler: %@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." xml:space="preserve">
@@ -10781,11 +10827,6 @@ Shown while connecting to the server to fetch its certificate</note>
       <trans-unit id="No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." xml:space="preserve">
         <source>No %1$@ settings have been found at the specified URL. Use a correct link to configure %2$@ or start an exam.</source>
         <target>An der angegebenen URL wurden keine %1$@ Einstellungen gefunden. Benutzen Sie einen korrekten Link, um %2$@ zu konfigurieren oder eine Prüfung zu starten</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="No Assessment Mode Available" xml:space="preserve">
-        <source>No Assessment Mode Available</source>
-        <target>Kein Prüfungsmodus verfügbar</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No Camera Available" xml:space="preserve">
