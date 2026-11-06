@@ -150,6 +150,13 @@ bool insideMatrix(void);
 // actual database-access error (see -conditionallyInitSEBProcessesCheckedWithCallback:selector:),
 // instead of repeating the misleading "Full Disk Access is not granted" message indefinitely.
 @property (assign) NSInteger fullDiskAccessRetryCount;
+// Signature of the screen configuration (display IDs + frames) at the time -adjustScreenLocking:
+// last did its work. Used to ignore NSApplicationDidChangeScreenParametersNotification that report
+// an unchanged configuration: macOS posts these spuriously (e.g. WebKit reinitializing its GPU/
+// display context on a page reload), and acting on them rebuilds the covering windows (briefly
+// exposing the desktop) and resets the main browser window to its configured size — observed as the
+// window "jumping to full screen" shortly after pressing Reload.
+@property (nonatomic, copy) NSArray<NSString *> *lastScreenConfigurationSignature;
 - (BOOL) relaxKioskModeForPermissionDialog;
 - (void) restoreKioskModeAfterPermissionDialog;
 - (void) presentLocationServicesWaitAlertWithCompletion:(void (^)(void))completion;
@@ -6506,12 +6513,43 @@ static const void *SEBCoveringWindowPinnedFrameKey = &SEBCoveringWindowPinnedFra
 // pending request (its only use of the argument is debug logging).
 - (void) screenParametersChanged:(NSNotification *)notification
 {
+    // Ignore notifications that report an unchanged screen configuration. macOS posts
+    // NSApplicationDidChangeScreenParametersNotification spuriously (notably when WebKit
+    // reinitializes its GPU/display context on a page reload), and running the heavy
+    // -adjustScreenLocking: for those rebuilds the covering windows (briefly exposing the desktop)
+    // and resets the main browser window to its configured size. Only react when the set of
+    // displays or their frames actually changed since the last adjustment; a real display
+    // connect/disconnect/resolution change always alters this signature and is still handled.
+    NSArray<NSString *> *currentSignature = [self currentScreenConfigurationSignature];
+    if (_lastScreenConfigurationSignature && [currentSignature isEqualToArray:_lastScreenConfigurationSignature]) {
+        DDLogDebug(@"%s: screen configuration unchanged (%@), ignoring spurious notification", __FUNCTION__, currentSignature);
+        return;
+    }
+    DDLogInfo(@"%s: screen configuration changed from %@ to %@, scheduling screen locking adjustment", __FUNCTION__, _lastScreenConfigurationSignature, currentSignature);
     [NSObject cancelPreviousPerformRequestsWithTarget:self
                                              selector:@selector(adjustScreenLocking:)
                                                object:nil];
     [self performSelector:@selector(adjustScreenLocking:)
                withObject:nil
                afterDelay:0.5];
+}
+
+
+// A stable, comparable description of the current screen configuration: one entry per connected
+// display (its display ID, frame and backing scale factor), sorted so the comparison is independent
+// of enumeration order. Used by -screenParametersChanged: to detect real configuration changes.
+- (NSArray<NSString *> *) currentScreenConfigurationSignature
+{
+    NSMutableArray<NSString *> *signature = [NSMutableArray new];
+    for (NSScreen *screen in [NSScreen screens]) {
+        NSRect frame = screen.frame;
+        [signature addObject:[NSString stringWithFormat:@"%@:{%.0f,%.0f,%.0f,%.0f}@%.2f",
+                              screen.displayID,
+                              frame.origin.x, frame.origin.y, frame.size.width, frame.size.height,
+                              screen.backingScaleFactor]];
+    }
+    [signature sortUsingSelector:@selector(compare:)];
+    return signature;
 }
 
 
@@ -6530,7 +6568,11 @@ static const void *SEBCoveringWindowPinnedFrameKey = &SEBCoveringWindowPinnedFra
 #endif
     
     if (!_isTerminating && !self.settingsOpen) {
-        
+
+        // Record the screen configuration we're adjusting to, so -screenParametersChanged: can
+        // ignore subsequent spurious notifications reporting this same (unchanged) configuration.
+        self.lastScreenConfigurationSignature = [self currentScreenConfigurationSignature];
+
         // Close inactive screen covering windows if some are open
         for (CapWindow *coverWindowToClose in _inactiveScreenWindows) {
             [coverWindowToClose close];

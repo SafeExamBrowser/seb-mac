@@ -198,17 +198,17 @@
 }
 
 
-- (void) setCalculatedFrame
+- (BOOL) setCalculatedFrame
 {
-    [self setCalculatedFrameOnScreen:self.screen mainBrowserWindow:NO temporaryWindow:NO];
+    return [self setCalculatedFrameOnScreen:self.screen mainBrowserWindow:NO temporaryWindow:NO];
 }
 
-- (void) setCalculatedFrameOnScreen:(NSScreen *)screen
+- (BOOL) setCalculatedFrameOnScreen:(NSScreen *)screen
 {
-    [self setCalculatedFrameOnScreen:screen mainBrowserWindow:NO temporaryWindow:NO];
+    return [self setCalculatedFrameOnScreen:screen mainBrowserWindow:NO temporaryWindow:NO];
 }
 
-- (void) setCalculatedFrameOnScreen:(NSScreen *)screen mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow
+- (BOOL) setCalculatedFrameOnScreen:(NSScreen *)screen mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow
 {
     // Robustly detect the main browser window. The mainBrowserWindow argument is only passed
     // as YES when the window is first opened; on later recalculations (screen parameter changes,
@@ -297,9 +297,25 @@
         }
         // Calculate y position: On top
         windowFrame.origin.y = screenFrame.origin.y + screenFrame.size.height - windowFrame.size.height;
+
+        // Only actually resize/move the window if the computed frame differs from the current one.
+        // macOS can deliver NSApplicationDidChangeScreenParametersNotification repeatedly even when
+        // the display configuration hasn't really changed; recalculating and re-applying an identical
+        // frame on every such notification needlessly resizes the window (to its configured, often
+        // maximized, size) and, together with the makeKeyAndOrderFront in the callers, keeps pulling
+        // the main window in front of auxiliary windows (e.g. a PDF opened in a separate window).
+        NSRect currentFrame = self.frame;
+        if (fabs(currentFrame.origin.x - windowFrame.origin.x) < 1.0 &&
+            fabs(currentFrame.origin.y - windowFrame.origin.y) < 1.0 &&
+            fabs(currentFrame.size.width - windowFrame.size.width) < 1.0 &&
+            fabs(currentFrame.size.height - windowFrame.size.height) < 1.0) {
+            return NO;
+        }
         // Change Window size
         [self setFrame:windowFrame display:YES];
+        return YES;
     }
+    return NO;
 }
 
 

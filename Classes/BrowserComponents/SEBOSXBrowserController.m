@@ -428,8 +428,13 @@
 - (void) adjustMainBrowserWindow
 {
     if (self.mainBrowserWindow.isVisible) {
-        [self.mainBrowserWindow setCalculatedFrame];
-        [self.mainBrowserWindow makeKeyAndOrderFront:self];
+        // Only bring the window forward if its frame actually changed. Otherwise a spurious
+        // screen-parameter change (macOS can deliver these repeatedly even when nothing really
+        // changed) would keep pulling the main window in front of auxiliary windows the student
+        // is using (e.g. a PDF opened in a separate window).
+        if ([self.mainBrowserWindow setCalculatedFrame]) {
+            [self.mainBrowserWindow makeKeyAndOrderFront:self];
+        }
     }
 }
 
@@ -437,17 +442,30 @@
 // Change window level of all open browser windows
 - (void) moveAllBrowserWindowsToScreen:(NSScreen *)screen
 {
+    BOOL anyWindowMoved = NO;
     NSArray *openWindowDocuments = [[NSDocumentController sharedDocumentController] documents];
     SEBBrowserWindowDocument *openWindowDocument;
     for (openWindowDocument in openWindowDocuments) {
         SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)openWindowDocument.mainWindowController.window;
-        if (browserWindow.screen != screen) {
-            [browserWindow setCalculatedFrameOnScreen:screen];
+        // Compare the window's current and target screen by display ID, not by NSScreen pointer:
+        // macOS recreates NSScreen objects on every screen reconfiguration, so a pointer comparison
+        // always reports a change and would needlessly recalculate (and resize) every window on each
+        // NSApplicationDidChangeScreenParametersNotification, even when the window is already on the
+        // correct display.
+        if (![browserWindow.screen.displayID isEqual:screen.displayID]) {
+            if ([browserWindow setCalculatedFrameOnScreen:screen]) {
+                anyWindowMoved = YES;
+            }
         }
     }
-    
-    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    [self.mainBrowserWindow makeKeyAndOrderFront:self];
+
+    // Only re-activate SEB and bring the main browser window forward if a window was actually
+    // relocated. Doing this unconditionally on every (possibly spurious) screen-parameter change
+    // would keep stealing focus and pulling the main window in front of auxiliary windows.
+    if (anyWindowMoved) {
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        [self.mainBrowserWindow makeKeyAndOrderFront:self];
+    }
 }
 
 

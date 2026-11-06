@@ -91,9 +91,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite) BOOL toolbarWasHidden;
 - (void) conditionallyDisplayToolbar;
 
-- (void) setCalculatedFrame;
-- (void) setCalculatedFrameOnScreen:(NSScreen *)screen;
-- (void) setCalculatedFrameOnScreen:(NSScreen *)screen mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow;
+// These return YES if the window's frame was actually changed, NO if the computed frame equals the
+// current one (so callers can avoid disruptive re-activation / re-fronting when nothing moved).
+- (BOOL) setCalculatedFrame;
+- (BOOL) setCalculatedFrameOnScreen:(NSScreen *)screen;
+- (BOOL) setCalculatedFrameOnScreen:(NSScreen *)screen mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow;
 
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;
