@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 29.12.11.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //  
@@ -24,7 +24,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -73,8 +73,12 @@
 #define SEBErrorDecryptingNoAdminPasswordEntered 106
 #define SEBErrorDecryptingIdentityNotFound 110
 #define SEBErrorParsingSettingsFailedValueClassMissmatch 201
+#define SEBErrorParsingSettingsFailedForbiddenCharacter 202
+#define SEBErrorParsingSettingsFailedInvalidHashValue 203
 #define SEBErrorParsingSettingsSerializingFailed 205
 #define SEBErrorOpeningUniversalLinkFailed 300
+
+#define SEBErrorAssessmentSessionAlreadyActive 310
 
 #define SEBErrorKillProcessFailed -99
 #define SEBErrorKillProcessAlreadyTerminated -991
@@ -85,7 +89,7 @@
 #define SEBErrorGettingConnectionTokenFailed 401
 #define SEBScreenProctoringCacheSizeDefault 500
 
-#define currentStableMajoriOSVersion 26
+#define currentStableMajoriOSVersion 27
 
 #define WebViewDefaultTextSize 120.0
 #define WebViewDefaultTextZoom 1.0
@@ -207,7 +211,7 @@ typedef NSUInteger cryptoIdentities;
 
 enum {
     iOSBetaVersionNone                          = 0,
-    iOSBetaVersion26                            = 26
+    iOSBetaVersion27                            = 27
 };
 typedef NSUInteger iOSBetaVersion;
 
@@ -282,6 +286,79 @@ enum {
     mobileStatusBarAppearanceExtendedNoneLight  = 4
 };
 typedef NSUInteger mobileStatusBarAppearancesExtended;
+
+
+/**
+ * @typedef lockdownModePolicy
+ * @brief Controls which kiosk/lockdown mode SEB uses on macOS.
+ *
+ * Preference key: @c org_safeexambrowser_SEB_lockdownModePolicy
+ * Default: @c lockdownModePolicyAutomatic (0)
+ *
+ * @constant lockdownModePolicyAutomatic
+ *   SEB automatically selects the lockdown mode based on the running macOS version
+ *   and current settings. Automatic Assessment Configuration (AAC) is used when the
+ *   macOS version supports it (≥ 10.15.4 except 10.15.5, ≥ 11 with DNS pre-pinning,
+ *   ≥ 12.0 with DNS pre-pinning, ≥ 12.1 unconditionally) AND none of the following
+ *   are enabled: screen capture, window capture, screen sharing, browser screen
+ *   capture, or screen proctoring. Falls back to Classic kiosk mode otherwise.
+ *
+ * @constant lockdownModePolicyEnforceClassic
+ *   Always uses Classic kiosk mode (elevated window levels, no AAC), regardless of
+ *   macOS version or other settings. Dictionary lookup is only available in this mode.
+ *   The UI shows @c allowSwitchToApplications instead of @c allowOpenAndSavePanel.
+ *
+ * @constant lockdownModePolicyEnforceAAC
+ *   Always enforces Automatic Assessment Configuration (AAC). If the running macOS
+ *   version does not support AAC, SEB logs an error and AAC is disabled at runtime.
+ *   The UI shows @c allowOpenAndSavePanel and @c allowShareSheet instead of
+ *   @c allowSwitchToApplications.
+ *
+ * @note Migration: config files that lack this key but have @c enableMacOSAAC=YES are
+ *   automatically migrated to @c lockdownModePolicyEnforceAAC when their minimum macOS
+ *   version requirement implies AAC support.
+ */
+enum {
+    lockdownModePolicyAutomatic                 = 0,
+    lockdownModePolicyEnforceClassic            = 1,
+    lockdownModePolicyEnforceAAC                = 2
+};
+typedef NSInteger lockdownModePolicy;
+
+
+/**
+ * @typedef ScreenProctoringAACCapturePolicy
+ * @brief Controls how screen proctoring captures the screen while AAC
+ *   (Automatic Assessment Configuration) is active on macOS.
+ *
+ * Preference key: @c org_safeexambrowser_SEB_screenProctoringAACCapturePolicy
+ * Default: @c ScreenProctoringAACCapturePolicyAllWindows (2)
+ *
+ * Under AAC the system screen capture API (CGWindowListCreateImage) returns
+ * black output, so screen proctoring instead renders SEB's own windows via
+ * NSView cacheDisplay. This policy selects what gets captured.
+ *
+ * @constant ScreenProctoringAACCapturePolicyNone
+ *   Screen proctoring does not use view-based capture under AAC. In the
+ *   automatic lockdown mode this additionally prevents AAC from being selected
+ *   while screen proctoring is enabled (SEB falls back to Classic kiosk mode,
+ *   where system screen capture works). If AAC is force-enabled anyway, capture
+ *   falls back to the active window (system capture would be black).
+ *
+ * @constant ScreenProctoringAACCapturePolicyActiveWindow
+ *   Captures only the active browser window (including its window chrome).
+ *
+ * @constant ScreenProctoringAACCapturePolicyAllWindows
+ *   Captures all SEB-owned windows (browser windows, Dock, alerts/dialogs) and
+ *   composites them onto a full virtual-screen image using their positions and
+ *   z-order. Content that isn't in the view's backing store (e.g. hardware or
+ *   protected video) may appear black.
+ */
+typedef NS_ENUM(NSInteger, ScreenProctoringAACCapturePolicy) {
+    ScreenProctoringAACCapturePolicyNone         = 0,
+    ScreenProctoringAACCapturePolicyActiveWindow = 1,
+    ScreenProctoringAACCapturePolicyAllWindows   = 2
+};
 
 
 enum {
@@ -600,6 +677,7 @@ static NSString __unused *TouchBarFnDefaultsValue = @"functionKeys";
 static NSString __unused *BTouchBarAgent = @"BetterTouchTool";
 static NSString __unused *BTouchBarRestartAgent = @"BTTRelaunch";
 static NSString __unused *WebKitNetworkingProcessBundleID = @"com.apple.WebKit.Networking";
+static NSString __unused *WebKitContentProcessBundleID = @"com.apple.WebKit.WebContent";
 static NSString __unused *UniversalControlBundleID = @"com.apple.universalcontrol";
 static NSString __unused *KeyboardViewerBundleID = @"com.apple.inputmethod.AssistiveControl";
 static NSString __unused *PasswordsMenuBarExtraExecutable = @"PasswordsMenuBarExtra";
@@ -609,6 +687,7 @@ static NSString __unused *KeyBindingsPath = @"/KeyBindings/DefaultKeyBinding.dic
 static NSString __unused *cachedTouchBarGlobalSettingsKey = @"cachedTouchBarGlobalSettingsKey";
 static NSString __unused *cachedTouchBarFnDictionarySettingsKey = @"cachedTouchBarFnDictionarySettingsKey";
 static NSString __unused *systemPreferencesBundleID = @"com.apple.systempreferences";
+static NSString __unused *securityAgentBundleID = @"com.apple.SecurityAgent";
 static NSString __unused *pathToKeyboardPreferences = @"/System/Library/PreferencePanes/Keyboard.prefPane";
 static NSString __unused *pathToSecurityPrivacyPreferences = @"x-apple.systempreferences:com.apple.preference.security?Privacy";
 static NSString __unused *DictationProcess = @"DictationIM";
@@ -621,6 +700,12 @@ static NSString __unused *cachedDictationSettingKey = @"cachedDictationSettingKe
 static NSString __unused *cachedRemoteDictationSettingKey = @"cachedRemoteDictationSettingKey";
 static NSString __unused *RemoteDictationDefaultsDomain = @"com.apple.assistant.support";
 static NSString __unused *RemoteDictationDefaultsKey = @"Dictation Enabled";
+static NSString __unused *PasteboardHistoryDefaultsDomain = @"com.apple.Spotlight";
+static NSString __unused *PasteboardHistoryDefaultsKey = @"PasteboardHistoryEnabled";
+static NSString __unused *cachedPasteboardHistorySettingKey = @"cachedPasteboardHistorySettingKey";
+static NSString __unused *RemoteLiveActivitiesDefaultsDomain = @"com.apple.controlcenter";
+static NSString __unused *RemoteLiveActivitiesDefaultsKey = @"RemoteLiveActivitiesEnabled";
+static NSString __unused *cachedRemoteLiveActivitiesSettingKey = @"cachedRemoteLiveActivitiesSettingKey";
 static NSString __unused *AppleSpellProcess = @"AppleSpell";
 static NSString __unused *fontDownloadAttemptedKey = @"fontDownloadAttempted";
 static NSString __unused *fontDownloadAttemptedOnPageTitleKey = @"fontDownloadAttemptedOnPageTitle";

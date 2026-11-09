@@ -274,6 +274,9 @@
 /* Class = "NSButtonCell"; title = "Regex"; ObjectID = "f49-Sx-zE7"; */
 "f49-Sx-zE7.title" = "Regex";
 
+/* Class = "NSButtonCell"; title = "Fetch from Server…"; ObjectID = "fss-Ce-ll00"; */
+"fss-Ce-ll00.title" = "Vom Server abrufen…";
+
 /* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "URL Filter message"; ObjectID = "gNh-Qf-Z8W"; */
 "gNh-Qf-Z8W.ibExternalAccessibilityDescription" = "URL-Filter-Nachricht";
 

@@ -3,7 +3,7 @@
 //  SEB
 //
 //  Created by Daniel R. Schneider on 10/09/15.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -374,6 +374,13 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 // settings are initialized
 - (void) initializeTemporaryLogger
 {
+    // Log startup events at Debug level until the log level from the current settings is
+    // applied later. The global dynamic log level (ddLogLevel) is otherwise still at its
+    // initial value at this point, which doesn't include Info, so the Info startup lines
+    // below (the "STARTING UP SEB" header and the system info) would be dropped and the log
+    // would appear to start only at the first Warning.
+    [[MyGlobals sharedMyGlobals] setDDLogLevel:SEBLogLevelDebug];
+
     _myLogger = [MyGlobals initializeFileLoggerWithDirectory:nil];
     [DDLog addLogger:_myLogger];
     
@@ -620,20 +627,22 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"SEB.sqlite"];
     NSError *error = nil;
-    NSString *failureReason = @"There was an error creating or loading the application's saved data.";
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        // Report any error we got.
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        dict[NSLocalizedDescriptionKey] = @"Failed to initialize the application's saved data";
-        dict[NSLocalizedFailureReasonErrorKey] = failureReason;
-        dict[NSUnderlyingErrorKey] = error;
-        error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
-        // Replace this with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+        // The store lives in the Caches directory and only holds disposable browser
+        // session/event data, so it can be purged by the OS or become incompatible after
+        // a data model change. Instead of aborting (which crashes the app on launch, see
+        // SEBMAC-857), discard the existing store and recreate it.
+        DDLogError(@"Could not add persistent store (%@, %@) - recreating it", error, error.userInfo);
+        error = nil;
+        [_persistentStoreCoordinator destroyPersistentStoreAtURL:storeURL withType:NSSQLiteStoreType options:nil error:&error];
+        error = nil;
+        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+            // Still failing: continue without a persistent store rather than crashing.
+            // Core Data then operates in-memory only for this launch.
+            DDLogError(@"Could not recreate persistent store (%@, %@) - continuing without persisted session data", error, error.userInfo);
+        }
     }
-    
+
     return _persistentStoreCoordinator;
 }
 
@@ -660,10 +669,11 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     if (managedObjectContext != nil) {
         NSError *error = nil;
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
+            // This only persists disposable browser session/event data (stored in the
+            // Caches directory), so a failed save must not crash the app (see SEBMAC-857).
+            // Log and roll back the unsaved changes instead of aborting.
+            DDLogError(@"Could not save managed object context (%@, %@) - rolling back", error, error.userInfo);
+            [managedObjectContext rollback];
         }
     }
 }

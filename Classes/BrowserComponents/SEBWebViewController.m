@@ -52,12 +52,6 @@
 
         // Set bindings to web preferences
         WebPreferences *webPrefs = [WebPreferences standardPreferences];
-    #ifndef __i386__        // Plugins can't be switched on in the 32-bit Intel build
-        [webPrefs bind:@"plugInsEnabled"
-              toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
-           withKeyPath:@"values.org_safeexambrowser_SEB_enablePlugIns"
-               options:nil];
-    #endif
         [webPrefs bind:@"javaEnabled"
               toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
            withKeyPath:@"values.org_safeexambrowser_SEB_enableJava"
@@ -691,7 +685,10 @@ willPerformClientRedirectToURL:(NSURL *)URL
     NSString *absoluteRequestURLTrimmed = [absoluteRequestURL stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
 
     // Check if quit URL has been clicked (regardless of current URL Filter)
-    if ([absoluteRequestURLTrimmed isEqualTo:quitURLTrimmed]) {
+    // Only compare if a quit URL is actually configured (non-empty), otherwise a
+    // request with an empty URL would wrongfully match an empty quit URL.
+    DDLogDebug(@"Checking for quit URL: comparing request URL '%@' (trimmed) with quit URL '%@' (trimmed)", absoluteRequestURLTrimmed, quitURLTrimmed);
+    if (quitURLTrimmed.length > 0 && [absoluteRequestURLTrimmed isEqualToString:quitURLTrimmed]) {
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"quitLinkDetected" object:self];
         return request;

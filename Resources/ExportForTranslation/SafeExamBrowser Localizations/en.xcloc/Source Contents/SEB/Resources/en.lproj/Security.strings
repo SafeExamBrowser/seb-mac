@@ -50,7 +50,7 @@
 "8" = "8";
 "9" = "9";
 "None" = "None";
-"iOS 18" = "iOS 18";
+"iOS 27" = "iOS 27";
 
 /* String for FooterText elements */
 "Uses either AAC Assessment Mode (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC). Modern AAC API is necessay for Multi App Mode." = "Uses either AAC Assessment Mode (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC). Modern AAC API is necessay for Multi App Mode.";

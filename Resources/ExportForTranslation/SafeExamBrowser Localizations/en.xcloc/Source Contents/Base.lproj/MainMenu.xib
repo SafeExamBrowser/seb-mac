@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -447,7 +447,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1289"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1860"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -617,7 +617,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1289"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1860"/>
             <value key="minSize" type="size" width="412" height="107"/>
             <view key="contentView" misplaced="YES" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="107"/>
@@ -713,7 +713,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1289"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1860"/>
             <value key="minSize" type="size" width="412" height="107"/>
             <view key="contentView" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ee8-wp-re5">
                 <rect key="frame" x="0.0" y="-7" width="412" height="114"/>
@@ -874,7 +874,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="156"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1289"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1860"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" misplaced="YES" id="6KH-Lc-Pm5">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="156"/>
@@ -1122,10 +1122,10 @@ DQ
             <rect key="frame" x="0.0" y="0.0" width="500" height="733"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JHq-vY-HE2">
-                    <rect key="frame" x="20" y="133" width="460" height="592"/>
+                    <rect key="frame" x="20" y="137" width="460" height="588"/>
                     <subviews>
                         <textField focusRingType="none" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
-                            <rect key="frame" x="-2" y="568" width="464" height="24"/>
+                            <rect key="frame" x="-2" y="564" width="464" height="24"/>
                             <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="Prohibited Process Locked SEB!" id="9V8-Fs-9oi">
                                 <font key="font" size="20" name="HelveticaNeue-Bold"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1136,7 +1136,7 @@ DQ
                             </connections>
                         </textField>
                         <textField focusRingType="none" horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-Md-KnP" customClass="SEBTextField">
-                            <rect key="frame" x="-2" y="512" width="464" height="48"/>
+                            <rect key="frame" x="-2" y="508" width="464" height="48"/>
                             <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="xDQ-P3-KpK">
                                 <font key="font" metaFont="system"/>
                                 <string key="title">SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</string>
@@ -1148,7 +1148,7 @@ DQ
                             </connections>
                         </textField>
                         <scrollView verifyAmbiguity="off" borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZz-tz-Eao">
-                            <rect key="frame" x="0.0" y="124" width="460" height="380"/>
+                            <rect key="frame" x="0.0" y="120" width="460" height="380"/>
                             <clipView key="contentView" copiesOnScroll="NO" id="5ua-AF-4aq">
                                 <rect key="frame" x="1" y="1" width="458" height="378"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1186,7 +1186,7 @@ DQ
                             </scroller>
                         </scrollView>
                         <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o5V-2d-p9N" userLabel="QuitUnlockPasswordUI">
-                            <rect key="frame" x="0.0" y="40" width="460" height="76"/>
+                            <rect key="frame" x="0.0" y="36" width="460" height="76"/>
                             <subviews>
                                 <textField focusRingType="none" verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="d45-bx-wxa" customClass="SEBTextField">
                                     <rect key="frame" x="45" y="60" width="370" height="16"/>
@@ -1373,58 +1373,25 @@ DQ
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
-                        <stackView toolTip="Show QR code for SEB Verificator" distribution="fill" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VZ1-LZ-RP1">
-                            <rect key="frame" x="0.0" y="0.0" width="460" height="32"/>
-                            <subviews>
-                                <button verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="l7B-SX-Hmy">
-                                    <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SEBQRCode" imagePosition="only" alignment="center" imageScaling="axesIndependently" inset="2" id="zWa-Ut-d8j">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="32" id="3Vc-K4-7ms"/>
-                                        <constraint firstAttribute="width" constant="32" id="ZQm-V0-ljo"/>
-                                    </constraints>
-                                    <accessibility description="OK"/>
-                                    <connections>
-                                        <action selector="qrVerifyButtonPressed:" target="543" id="0Wa-oi-P8A"/>
-                                        <binding destination="993" name="hidden" keyPath="values.org_safeexambrowser_SEB_showQRVerifyButton" id="NTQ-NG-RVh">
-                                            <dictionary key="options">
-                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                            </dictionary>
-                                        </binding>
-                                    </connections>
-                                </button>
-                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f1D-nX-D3M" userLabel="QuitOnlyButton">
-                                    <rect key="frame" x="52" y="4" width="408" height="28"/>
-                                    <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hZU-Wv-guz">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="systemBold"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="quitOnlyButtonPressed:" target="agr-W5-n2K" id="9LL-tS-EH4"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <visibilityPriorities>
-                                <integer value="1000"/>
-                                <integer value="1000"/>
-                            </visibilityPriorities>
-                            <customSpacing>
-                                <real value="3.4028234663852886e+38"/>
-                                <real value="3.4028234663852886e+38"/>
-                            </customSpacing>
-                        </stackView>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f1D-nX-D3M" userLabel="QuitOnlyButton">
+                            <rect key="frame" x="0.0" y="0.0" width="460" height="28"/>
+                            <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hZU-Wv-guz">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="systemBold"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="quitOnlyButtonPressed:" target="agr-W5-n2K" id="9LL-tS-EH4"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="5Ez-0g-525" secondAttribute="trailing" id="9Zb-TJ-scx"/>
+                        <constraint firstItem="f1D-nX-D3M" firstAttribute="centerX" secondItem="JHq-vY-HE2" secondAttribute="centerX" id="E4c-oF-yF6"/>
                         <constraint firstItem="5sW-Md-KnP" firstAttribute="leading" secondItem="JHq-vY-HE2" secondAttribute="leading" id="JqT-2o-KB6"/>
                         <constraint firstAttribute="trailing" secondItem="o5V-2d-p9N" secondAttribute="trailing" id="Mlq-Zc-n1M"/>
                         <constraint firstItem="o5V-2d-p9N" firstAttribute="leading" secondItem="JHq-vY-HE2" secondAttribute="leading" id="bAE-cA-Pfg"/>
                         <constraint firstAttribute="trailing" secondItem="5sW-Md-KnP" secondAttribute="trailing" id="dCv-8E-WGh"/>
                         <constraint firstItem="5Ez-0g-525" firstAttribute="leading" secondItem="JHq-vY-HE2" secondAttribute="leading" id="qd2-Fa-Pxe"/>
-                        <constraint firstAttribute="trailing" secondItem="VZ1-LZ-RP1" secondAttribute="trailing" id="sjc-ve-1qT"/>
                     </constraints>
                     <visibilityPriorities>
                         <integer value="1000"/>
@@ -1454,7 +1421,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="44"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1289"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1860"/>
             <view key="contentView" id="94S-Ha-RmY">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -1587,6 +1554,5 @@ DQ
     <resources>
         <image name="NSGoRightTemplate" width="12" height="17"/>
         <image name="SEBBatteryIcon" width="512" height="512"/>
-        <image name="SEBQRCode" width="54" height="54"/>
     </resources>
 </document>

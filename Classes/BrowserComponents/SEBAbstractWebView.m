@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 04.11.20.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -529,6 +529,13 @@
     [self.navigationDelegate searchTextMatchFound:matchFound];
 }
 
+- (void) searchTextResultCurrent:(NSInteger)currentResult total:(NSInteger)totalResults
+{
+    if ([self.navigationDelegate respondsToSelector:@selector(searchTextResultCurrent:total:)]) {
+        [self.navigationDelegate searchTextResultCurrent:currentResult total:totalResults];
+    }
+}
+
 
 @synthesize customSEBUserAgent;
 
@@ -563,7 +570,25 @@
     NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
     [generalPasteboard clearContents];
     NSArray *archive = self.navigationDelegate.privatePasteboardItems;
-    [generalPasteboard restoreArchive:archive];
+
+    // Restore archived items with concealed/transient markers so clipboard
+    // history managers (including macOS 26 Spotlight) won't capture them
+    NSPasteboardType const concealedType = @"org.nspasteboard.ConcealedType";
+    NSPasteboardType const transientType = @"org.nspasteboard.TransientType";
+    NSMutableArray *items = [NSMutableArray array];
+    for (NSPasteboardItem *archivedItem in archive) {
+        NSPasteboardItem *newItem = [[NSPasteboardItem alloc] init];
+        for (NSString *type in [archivedItem types]) {
+            NSData *data = [archivedItem dataForType:type];
+            if (data) {
+                [newItem setData:data forType:type];
+            }
+        }
+        [newItem setData:[NSData data] forType:concealedType];
+        [newItem setData:[NSData data] forType:transientType];
+        [items addObject:newItem];
+    }
+    [generalPasteboard writeObjects:items];
 #endif
 }
 
@@ -710,7 +735,12 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
     
     // Check if quit URL has been clicked (regardless of current URL Filter)
-    if ([[originalURL.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]] isEqualToString:quitURLTrimmed]) {
+    // Only compare if a quit URL is actually configured (non-empty), otherwise a
+    // request with an empty URL (e.g. from window.open("")) would wrongfully match
+    // an empty quit URL and trigger quitting.
+    NSString *absoluteRequestURLTrimmed = [originalURL.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+    DDLogDebug(@"Checking for quit URL: comparing request URL '%@' (trimmed) with quit URL '%@' (trimmed)", absoluteRequestURLTrimmed, quitURLTrimmed);
+    if (quitURLTrimmed.length > 0 && [absoluteRequestURLTrimmed isEqualToString:quitURLTrimmed]) {
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"quitLinkDetected" object:self];
         return newNavigationAction;

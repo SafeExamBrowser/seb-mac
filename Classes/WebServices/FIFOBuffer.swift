@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 18.08.2024.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -12,7 +12,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -81,21 +81,25 @@ public class FIFOBuffer {
     }
     
     var isEmpty: Bool {
-        return queue.isEmpty
+        fifoDispatchQueue.sync {
+            return queue.isEmpty
+        }
     }
 
     var count: Int {
-        return queue.count
+        fifoDispatchQueue.sync {
+            return queue.count
+        }
     }
     
     func pushObject(_ object: AnyHashable) {
-        fifoDispatchQueue.async(flags: .barrier) {
+        fifoDispatchQueue.async {
             self.queue.enqueue(object)
         }
     }
     
     func popObject() -> AnyHashable? {
-        fifoDispatchQueue.sync(flags: .barrier) {
+        fifoDispatchQueue.sync {
             guard let object = self.queue.dequeue() else {
                 return nil
             }
@@ -104,13 +108,17 @@ public class FIFOBuffer {
     }
     
     func removeObject(_ object: AnyHashable) -> Bool {
-        return self.queue.remove(object)
+        fifoDispatchQueue.sync {
+            return self.queue.remove(object)
+        }
     }
     
     func copyObject() -> AnyHashable? {
-        guard let object = self.queue.copyFirst() else {
-            return nil
+        fifoDispatchQueue.sync {
+            guard let object = self.queue.copyFirst() else {
+                return nil
+            }
+            return object
         }
-        return object
     }
 }

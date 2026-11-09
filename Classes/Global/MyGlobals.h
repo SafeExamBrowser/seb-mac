@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 13.10.11.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //  
@@ -24,7 +24,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -66,6 +66,12 @@ static NSString __unused *DownloadPathsKey = @"downloadPathsList";
 
 + (NSArray<NSString *> *) logSystemInfo;
 
+// Runs the given block, catching any Objective-C NSException (which Swift cannot
+// catch) and reporting it as an NSError. Returns YES if the block completed without
+// an exception. Used to guard against e.g. -[NSURLSession dataTaskWithRequest:]
+// throwing "Task created in a session that has been invalidated".
++ (BOOL)catchException:(void (NS_NOESCAPE ^)(void))tryBlock error:(NSError * _Nullable * _Nullable)error;
+
 @property(readwrite) BOOL finishedInitializing;
 @property(copy, readwrite) NSMutableArray *downloadPath;
 @property(readwrite) NSInteger lastDownloadPath;
@@ -97,6 +103,17 @@ static NSString __unused *DownloadPathsKey = @"downloadPathsList";
 - (id)infoValueForKey:(NSString*)key;
 - (void)setDDLogLevel:(SEBLogLevel)sebLogLevel;
 + (DDFileLogger *)initializeFileLoggerWithDirectory:(nullable NSString *)logPath;
+
+// Returns the passed file URL with symbolic links and Finder alias files resolved
+// (e.g. a user folder like ~/Documents redirected to a cloud storage location)
+// If alias resolution fails, the URL with only its
+// symbolic links resolved is returned. Non-file URLs are returned unchanged.
++ (NSURL *)resolvedDirectoryURL:(NSURL *)directoryURL;
+
+// Returns YES if the passed file URL (or any component of its path) is a symbolic link
+// or Finder alias file, i.e. the directory is redirected to another location
++ (BOOL)directoryIsRedirected:(NSURL *)directoryURL;
+
 - (NSString *)createUniqueFilename:(nullable NSString *)filename
                  intendedExtension:(nullable NSString*)extension;
 - (nullable NSString *)fileExtensionForConfigFormat:(ShareConfigFormat)configFormat;

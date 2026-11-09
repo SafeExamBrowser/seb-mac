@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Security
 
 @objc public protocol ApplicationsPreferencesDelegate: AnyObject {
     func selectedPermittedProccessChanged()
@@ -48,9 +49,28 @@ import Foundation
         if (appName ?? "").isEmpty {
             appName = executable as? String
         }
+        let teamIdentifier = teamIdentifier(for: bundle)
         newPermittedProcess.setValue(bundleID, forKey: "identifier")
         newPermittedProcess.setValue(appName, forKey: "title")
         newPermittedProcess.setValue(executable, forKey: "executable")
+        newPermittedProcess.setValue(teamIdentifier, forKey: "teamIdentifier")
         addObject(newPermittedProcess)
+    }
+
+    /// Extracts the Team Identifier from the code signature of the app bundle.
+    /// Returns an empty string if the app isn't signed or the Team Identifier can't be read.
+    private func teamIdentifier(for bundle: Bundle) -> String {
+        var staticCode: SecStaticCode?
+        guard SecStaticCodeCreateWithPath(bundle.bundleURL as CFURL, [], &staticCode) == errSecSuccess,
+              let code = staticCode else {
+            return ""
+        }
+        var signingInformation: CFDictionary?
+        guard SecCodeCopySigningInformation(code, SecCSFlags(rawValue: kSecCSSigningInformation), &signingInformation) == errSecSuccess,
+              let info = signingInformation as? [String: Any],
+              let teamIdentifier = info[kSecCodeInfoTeamIdentifier as String] as? String else {
+            return ""
+        }
+        return teamIdentifier
     }
 }

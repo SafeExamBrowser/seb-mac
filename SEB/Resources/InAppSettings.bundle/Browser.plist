@@ -28,6 +28,10 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>Block When on Different Server</string>
@@ -241,6 +245,10 @@
 			</array>
 			<key>FooterText</key>
 			<string>SEB always appends its version number. Default string depends on the iOS version and therefore can differ on exam clients.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
 			<key>Type</key>

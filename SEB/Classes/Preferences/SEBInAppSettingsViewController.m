@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 26.10.18.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -34,6 +34,7 @@
 #import "SEBInAppSettingsViewController.h"
 #import "CustomViewCell.h"
 #import "SEBUIUserDefaultsController.h"
+#import "SafeExamBrowser-Swift.h"
 
 
 @implementation SEBInAppSettingsViewController
@@ -96,6 +97,12 @@
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {
+    // Reject applying settings that contain a disallowed character or an invalid
+    // hash value; keep the Settings UI open (don't dismiss) so the user can
+    // correct the offending setting (an alert was shown).
+    if (![self->_sebViewController editedSettingsValidForApplying]) {
+        return;
+    }
     [sender dismissViewControllerAnimated:YES completion:^{
         [self->_sebViewController settingsViewControllerDidEnd:sender];
     }];
@@ -344,7 +351,22 @@
          cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
          return cell;
      }
-     
+
+     if ([specifier.parentSpecifier.key isEqualToString:@"org_safeexambrowser_SEB_sebAllowedVersions"]) {
+         // Allowed SEB versions are stored as plain version restriction strings (not
+         // dictionaries), so the row's value can be either a string or, transiently
+         // right after adding/editing (before it is normalized), a {version: ...} dict.
+         id entry = [self.appSettingsViewController.settingsStore objectForSpecifier:specifier];
+         NSString *version = [entry isKindOfClass:NSDictionary.class] ? ((NSDictionary *)entry)[@"version"] : entry;
+         UITableViewCell *cell = [settingsViewController.tableView dequeueReusableCellWithIdentifier:@"allowedSEBVersionCell"];
+         if (!cell) {
+             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"allowedSEBVersionCell"];
+         }
+         cell.textLabel.text = [version isKindOfClass:NSString.class] ? version : @"";
+         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+         return cell;
+     }
+
     CustomViewCell *cell = (CustomViewCell*)[settingsViewController.tableView dequeueReusableCellWithIdentifier:specifier.key];
     if (!cell) {
         cell = (CustomViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"CustomViewCell"
@@ -391,6 +413,26 @@
         }
         return YES;
     }
+    if ([specifier.parentSpecifier.key isEqualToString:@"org_safeexambrowser_SEB_sebAllowedVersions"]) {
+        // Allowed SEB versions are stored as plain strings, so when editing an existing
+        // entry IASK opens the child pane with an empty content dictionary. Seed it once
+        // (on the initial validation pass, before the user edits) with the current version
+        // string so the text field shows the value being edited.
+        if (!specifier.isAddSpecifier && contentDictionary[@"version"] == nil) {
+            NSArray *versions = [self.appSettingsViewController.settingsStore arrayForSpecifier:specifier.parentSpecifier];
+            if (specifier.itemIndex < versions.count) {
+                id entry = versions[specifier.itemIndex];
+                NSString *version = [entry isKindOfClass:NSDictionary.class] ? ((NSDictionary *)entry)[@"version"] : entry;
+                if ([version isKindOfClass:NSString.class]) {
+                    [contentDictionary setValue:version forKey:@"version"];
+                }
+            }
+        }
+        // Only allow adding/keeping an entry when it contains a non-empty version string.
+        NSString *version = contentDictionary[@"version"];
+        return [version isKindOfClass:NSString.class] &&
+               [version stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length > 0;
+    }
     return YES;
 }
 
@@ -427,6 +469,15 @@
         return self.embeddedCertificatesList;
     }
     return nil;
+}
+
+
+- (void)settingsViewController:(IASKAppSettingsViewController*)settingsViewController buttonTappedForSpecifier:(IASKSpecifier*)specifier
+{
+    // Add a TLS/SSL or CA certificate by entering a server URL (Settings/Network/Certificates)
+    if ([specifier.key isEqualToString:@"org_safeexambrowser_fetchServerCertificate"]) {
+        [self fetchServerCertificate];
+    }
 }
 
 
@@ -602,8 +653,14 @@
     if ([changedKeys containsObject:@"org_safeexambrowser_SEB_allowDownUploads"]) {
         [self setDependentKeysForAllowDownUploads];
     }
-   
-    
+
+    /// Security / Allowed SEB Versions
+
+    if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sebAllowedVersions"]) {
+        [self normalizeAllowedSEBVersions];
+    }
+
+
     /// Exam Session
     
     if ([changedKeys containsObject:@"org_safeexambrowser_configFileShareBrowserExamKey"] ||
@@ -746,6 +803,32 @@
          [changedKeys containsObject:@"org_safeexambrowser_SEB_mobileEnableModernAAC"]) {
          [self setDependentKeysForAAC];
      }
+}
+
+
+// The Allowed SEB Versions setting is stored (and shared cross-platform / used for the
+// Config Key) as an array of plain version restriction strings. IASK's list group editor
+// however persists each added/edited row as a {version: ...} dictionary. After such a
+// change we flatten the array back to trimmed, non-empty strings so the stored value keeps
+// the expected format. Writing back via setSecureObject: doesn't post kIASKAppSettingChanged,
+// so this doesn't recurse.
+- (void)normalizeAllowedSEBVersions
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSArray *rawVersions = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_sebAllowedVersions"];
+    NSMutableArray<NSString *> *normalizedVersions = [NSMutableArray arrayWithCapacity:rawVersions.count];
+    for (id entry in rawVersions) {
+        NSString *version = [entry isKindOfClass:NSDictionary.class] ? ((NSDictionary *)entry)[@"version"] : entry;
+        if ([version isKindOfClass:NSString.class]) {
+            NSString *trimmedVersion = [version stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            if (trimmedVersion.length > 0) {
+                [normalizedVersions addObject:trimmedVersion];
+            }
+        }
+    }
+    if (![normalizedVersions isEqualToArray:rawVersions]) {
+        [preferences setSecureObject:normalizedVersions.copy forKey:@"org_safeexambrowser_SEB_sebAllowedVersions"];
+    }
 }
 
 
@@ -1112,10 +1195,10 @@
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                                NSString *enteredAdminPassword = self.sebViewController.alertController.textFields.firstObject.text;
-                                                                               NSData *enteredAdminPasswordHash = [[self.keychainManager generateSHAHashString:enteredAdminPassword].uppercaseString dataUsingEncoding:NSUTF8StringEncoding];
+                                                                               NSString *identityAdminPasswordHashString = [[NSString alloc] initWithData:identityAdminPasswordHash encoding:NSUTF8StringEncoding];
 
                                                                                self.sebViewController.alertController = nil;
-                                                                               if (enteredAdminPasswordHash.length > 0 && ![identityAdminPasswordHash isEqualToData:enteredAdminPasswordHash]) {
+                                                                               if (![self.keychainManager hashedString:identityAdminPasswordHashString matchesPassword:enteredAdminPassword]) {
                                                                                    [self.sebViewController alertWithTitle:NSLocalizedString(@"Re-enter Identity Admin Password", @"")
                                                                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"The entered %@ admin password didn't match the one stored for this identity. Try again.", @""), SEBShortAppName]
                                                                                                              action1Title:NSLocalizedString(@"OK", @"")
@@ -1157,6 +1240,69 @@
     [embeddedCertificates addObject:identityToEmbed];
     [preferences setSecureObject:embeddedCertificates.copy forKey:@"org_safeexambrowser_SEB_embeddedCertificates"];
     return YES;
+}
+
+
+// Present the "Add Certificate from URL" screen (fetch a server's TLS/SSL certificate
+// chain and embed the chosen certificate(s)). Config-time only; requires iOS 15+.
+- (void)fetchServerCertificate
+{
+    if (@available(iOS 15.0, *)) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSString *startURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        __weak typeof(self) weakSelf = self;
+        UIViewController *fetchViewController =
+        [SEBiOSServerCertificateFetchPresenter makeViewControllerWithStartURLString:startURLString
+                                                                           onEmbed:^(NSArray<SEBEmbeddableCertificate *> * _Nonnull certificates) {
+            [weakSelf embedFetchedServerCertificates:certificates];
+        }
+                                                                          onCancel:^{
+            [weakSelf.appSettingsViewController dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [self.appSettingsViewController presentViewController:fetchViewController animated:YES completion:nil];
+    } else {
+        [_sebViewController alertWithTitle:NSLocalizedString(@"Requires iOS 15 or Newer", @"")
+                                   message:NSLocalizedString(@"Adding a certificate by entering a server URL requires iOS 15 or newer. On earlier versions, embed TLS/SSL and CA certificates using a SEB desktop version.", @"")
+                              action1Title:NSLocalizedString(@"OK", @"")
+                            action1Handler:^{}
+                              action2Title:nil
+                            action2Handler:^{}];
+    }
+}
+
+
+// Append the certificate(s) chosen in the fetch screen to the embedded certificates and
+// refresh the list. TLS/SSL and CA certificates are stored base64-encoded under the
+// "certificateDataBase64" key (see SEBCertServices), matching the SEB desktop versions.
+- (void)embedFetchedServerCertificates:(NSArray<SEBEmbeddableCertificate *> *)certificates
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *embeddedCertificates = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_embeddedCertificates"].mutableCopy;
+    if (!embeddedCertificates) {
+        embeddedCertificates = [NSMutableArray new];
+    }
+    for (SEBEmbeddableCertificate *certificate in certificates) {
+        NSDictionary *certificateToEmbed = @{
+            @"type" : [NSNumber numberWithInteger:certificate.type],
+            @"name" : certificate.name,
+            @"certificateDataBase64" : certificate.certificateDataBase64,
+        };
+        [embeddedCertificates addObject:certificateToEmbed];
+    }
+    [preferences setSecureObject:embeddedCertificates.copy forKey:@"org_safeexambrowser_SEB_embeddedCertificates"];
+
+    self->_embeddedCertificatesList = nil;
+    self->_embeddedCertificatesListCounter = nil;
+
+    // Hide the PSMultiValueSpecifier list and unhide it again, this is a
+    // workaround to refresh the list of embedded certificates
+    NSSet *currentlyHiddenKeys = self.appSettingsViewController.hiddenKeys;
+    NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:currentlyHiddenKeys];
+    [newHiddenKeys addObject: @"org_safeexambrowser_embeddedCertificatesList"];
+    [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+    [self.appSettingsViewController setHiddenKeys:currentlyHiddenKeys];
+
+    [self.appSettingsViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 

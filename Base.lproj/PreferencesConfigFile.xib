@@ -327,7 +327,7 @@
                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="gk8-DP-i3l">
                             <rect key="frame" x="0.0" y="212" width="613" height="16"/>
                             <subviews>
-                                <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="259">
+                                <button toolTip="Usually disable Settings window on exam clients besides for debugging purposes" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="259">
                                     <rect key="frame" x="0.0" y="0.0" width="263" height="16"/>
                                     <buttonCell key="cell" type="check" title="Allow to open Settings window on client" bezelStyle="regularSquare" imagePosition="left" inset="2" id="260">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -384,7 +384,7 @@
                                                     </button>
                                                     <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vsD-Tt-Wm6">
                                                         <rect key="frame" x="305" y="2" width="288" height="14"/>
-                                                        <string key="toolTip">Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings</string>
+                                                        <string key="toolTip">Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the document picker or if you dismiss the picker, create a new config with default settings</string>
                                                         <buttonCell key="cell" type="check" title="Show 'Edit Config File' Quick Action" bezelStyle="regularSquare" imagePosition="left" inset="2" id="7KN-IV-lyH">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>

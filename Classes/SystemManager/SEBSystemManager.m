@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 14.11.13.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -81,6 +81,16 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
                                                                    key:RemoteDictationDefaultsKey] boolValue];
     [preferences setPersistedSecureBool:remoteDictationEnabled forKey:cachedRemoteDictationSettingKey];
     
+    // Cache current system preferences setting for Spotlight clipboard history (macOS 26+)
+    BOOL pasteboardHistoryEnabled = [[preferences valueForDefaultsDomain:PasteboardHistoryDefaultsDomain
+                                                                    key:PasteboardHistoryDefaultsKey] boolValue];
+    [preferences setPersistedSecureBool:pasteboardHistoryEnabled forKey:cachedPasteboardHistorySettingKey];
+    
+    // Cache current system preferences setting for remote Live Activities from iPhone (macOS 26+)
+    BOOL remoteLiveActivitiesEnabled = [[preferences valueForDefaultsDomain:RemoteLiveActivitiesDefaultsDomain
+                                                                       key:RemoteLiveActivitiesDefaultsKey] boolValue];
+    [preferences setPersistedSecureBool:remoteLiveActivitiesEnabled forKey:cachedRemoteLiveActivitiesSettingKey];
+    
     // Cache current system preferences setting for TouchBar
     NSString *touchBarGlobalDefaultsValue = (NSString *)[preferences valueForDefaultsDomain:TouchBarDefaultsDomain
                                                                              key:TouchBarGlobalDefaultsKey];
@@ -116,6 +126,18 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     [preferences setValue:[NSNumber numberWithBool:remoteDictationEnabled]
                    forKey:RemoteDictationDefaultsKey
         forDefaultsDomain:RemoteDictationDefaultsDomain];
+    
+    // Restore setting for Spotlight clipboard history before SEB was running to system preferences
+    BOOL pasteboardHistoryEnabled = [preferences persistedSecureBoolForKey:cachedPasteboardHistorySettingKey];
+    [preferences setValue:[NSNumber numberWithBool:pasteboardHistoryEnabled]
+                   forKey:PasteboardHistoryDefaultsKey
+        forDefaultsDomain:PasteboardHistoryDefaultsDomain];
+    
+    // Restore setting for remote Live Activities from iPhone before SEB was running to system preferences
+    BOOL remoteLiveActivitiesEnabled = [preferences persistedSecureBoolForKey:cachedRemoteLiveActivitiesSettingKey];
+    [preferences setValue:[NSNumber numberWithBool:remoteLiveActivitiesEnabled]
+                   forKey:RemoteLiveActivitiesDefaultsKey
+        forDefaultsDomain:RemoteLiveActivitiesDefaultsDomain];
     
     // Restore setting for TouchBar before SEB was running to system preferences
     NSString *touchBarGlobalDefaultsValue = [preferences persistedSecureObjectForKey:cachedTouchBarGlobalSettingsKey];
@@ -337,6 +359,12 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *storedDirectoryData = [preferences persistedSecureObjectForKey:key];
+    // unarchivedObjectOfClass:fromData:error: returns nil + error for corrupted data,
+    // but throws an NSException when passed nil data. Guard against nil so a missing
+    // stored value returns nil instead of aborting the app.
+    if (storedDirectoryData == nil) {
+        return nil;
+    }
     NSError *error = nil;
     NSURL *storedURL = [NSKeyedUnarchiver unarchivedObjectOfClass:NSURL.class fromData:storedDirectoryData error:&error];
     if (error) {

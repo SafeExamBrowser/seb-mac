@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 15/12/15.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -1034,6 +1034,14 @@
 #pragma clang diagnostic pop
 
 - (NSString *) generateSHAHashString:(NSString*)inputString {
+    // Normalize to Unicode NFC (precomposed) form before hashing, so accented
+    // characters produce the same UTF-8 bytes (and therefore the same hash) as
+    // on Windows and in Moodle. Text entered on Apple platforms is often in NFD
+    // (decomposed) form, which would otherwise yield a different hash.
+    return [self generateSHAHashStringWithoutNormalization:[inputString precomposedStringWithCanonicalMapping]];
+}
+
+- (NSString *) generateSHAHashStringWithoutNormalization:(NSString*)inputString {
     unsigned char hashedChars[32];
     CC_SHA256([inputString UTF8String],
               (CC_LONG)[inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
@@ -1043,6 +1051,23 @@
         [hashedString appendFormat: @"%02x", hashedChars[i]];
     }
     return hashedString;
+}
+
+// Check whether the given password matches the stored password hash.
+// The primary comparison uses the NFC-normalized hash (consistent with Windows
+// and Moodle). If that doesn't match, we additionally compare against the
+// non-normalized hash for backward compatibility with password hashes that were
+// generated on Apple platforms before NFC normalization was introduced (e.g. an
+// accented password set in SEB preferences on macOS/iOS, which was stored in NFD
+// form). The comparison is case-insensitive, as the hash case isn't significant.
+- (BOOL) hashedString:(NSString *)hashedString matchesPassword:(NSString *)password {
+    if (hashedString == nil) {
+        return NO;
+    }
+    if ([hashedString caseInsensitiveCompare:[self generateSHAHashString:password]] == NSOrderedSame) {
+        return YES;
+    }
+    return [hashedString caseInsensitiveCompare:[self generateSHAHashStringWithoutNormalization:password]] == NSOrderedSame;
 }
 
 

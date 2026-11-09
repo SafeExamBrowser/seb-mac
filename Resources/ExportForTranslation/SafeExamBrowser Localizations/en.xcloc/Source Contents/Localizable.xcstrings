@@ -1,0 +1,1712 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    " (%d:%d Remaining)" : {
+
+    },
+    " (after quitting %@)" : {
+
+    },
+    " (Connected to Power Source)" : {
+
+    },
+    " (from client settings)" : {
+      "comment" : "Suffix marking a process offered from the local client settings"
+    },
+    " %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use." : {
+
+    },
+    " 1" : {
+
+    },
+    " and " : {
+
+    },
+    " copy" : {
+      "comment" : "word indicating the duplicate of a file, same as in Finder ' copy'"
+    },
+    " settings don't allow to run on the macOS version installed on this device. Update to latest macOS version or at least macOS " : {
+
+    },
+    " settings require AAC Assessment Mode, which is not supported on the macOS version installed on this device. Please update to at least " : {
+
+    },
+    ", but compressed using gzip." : {
+
+    },
+    "(This function doesn't log you out if you are logged in on a website)" : {
+
+    },
+    "(Unnamed process)" : {
+
+    },
+    "%@ %@ Configurations Not Allowed!" : {
+
+    },
+    "%@ cannot read the macOS system database that lists apps with Accessibility permissions because the file system denied access (error %ld: %@ at /Library/Application Support/com.apple.TCC). The permissions of that system folder appear to have been changed from their macOS default (drwxr-xr-x, owner root, group wheel). An administrator should restore the default permissions (for example with “sudo chown root:wheel” and “sudo chmod 755” on that folder), then click Retry." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ cannot read the macOS system database that lists apps with Accessibility permissions because the file system denied access (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). The permissions of that system folder appear to have been changed from their macOS default (drwxr-xr-x, owner root, group wheel). An administrator should restore the default permissions (for example with “sudo chown root:wheel” and “sudo chmod 755” on that folder), then click Retry."
+          }
+        }
+      }
+    },
+    "%@ cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit %@. If the window isn't open and this alert is displayed anyways, restart your Mac." : {
+
+    },
+    "%@ Dock" : {
+
+    },
+    "%@ doesn't allow to use custom key bindings. Please delete or rename the file at the path %@ and restart %@" : {
+
+    },
+    "%@ files is not allowed in current %@ settings. Report this to your exam provider." : {
+
+    },
+    "%@ has to be placed in the %@ folder in order for all features to work correctly. Move the '%@' app to your %@ folder and make sure that you don't have any other versions of %@ installed on your system. %@ will quit now." : {
+
+    },
+    "%@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." : {
+
+    },
+    "%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." : {
+
+    },
+    "%@ is disabled!" : {
+
+    },
+    "%@ is disabled. Enable %@ and restart %@." : {
+
+    },
+    "%@ is locked because a process, which isn't allowed to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows." : {
+
+    },
+    "%@ is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows." : {
+      "comment" : "Lockdown alert message text for switching the user"
+    },
+    "%@ is Locked!" : {
+
+    },
+    "%@ is required for this exam." : {
+
+    },
+    "%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy located in System Settings." : {
+
+    },
+    "%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. %@ is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security & Privacy / Accessibility." : {
+
+    },
+    "%@ needs Location Services permission to display the current Wi-Fi network name. Grant Location Services access to %@ in System Settings / Privacy & Security / Location Services." : {
+      "extractionState" : "manual"
+    },
+    "%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.%@Grant Location Services access to %@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted." : {
+
+    },
+    "%@ Not Allowed!" : {
+
+    },
+    "%@ Not in %@ Folder!" : {
+
+    },
+    "%@ of %@ configurations is not allowed in current settings. Report this to your exam provider." : {
+
+    },
+    "%@ process was stopped for %ld:%.2ld (minutes:seconds)" : {
+
+    },
+    "%@ Process Was Stopped!" : {
+      "comment" : "Lockdown alert title text for SEB process was stopped"
+    },
+    "%@ Re-Configured" : {
+
+    },
+    "%@ session was inactive for %ld:%.2ld(minutes:seconds)" : {
+
+    },
+    "%@ Version" : {
+
+    },
+    "%@ version %@" : {
+
+    },
+    "%@ version %@ (Build %@)" : {
+      "comment" : "App full/build version"
+    },
+    "%@ version %@ or higher" : {
+
+    },
+    "%@ Version Not Allowed!" : {
+
+    },
+    "%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" : {
+
+    },
+    "%@ was locked by SEB Server. Please contact your exam support." : {
+
+    },
+    "%@ was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." : {
+
+    },
+    "%@ will quit now, install the required apps and then restart this exam." : {
+
+    },
+    "%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." : {
+
+    },
+    "%@, current window" : {
+      "comment" : "Accessibility label for the active window in the SEB Dock open windows menu"
+    },
+    "%@, or %@" : {
+
+    },
+    "%1$ld of %2$ld" : {
+      "comment" : "Search results counter shown in the search field, e.g. '1 of 15'"
+    },
+    "10.7 (this %@: 10.13)" : {
+
+    },
+    "10.8 (this %@: 10.13)" : {
+
+    },
+    "10.9 (this %@: 10.13)" : {
+
+    },
+    "10.10 (this %@: 10.13)" : {
+
+    },
+    "10.11 (this %@: 10.13)" : {
+
+    },
+    "10.12 (this %@: 10.13)" : {
+
+    },
+    "10.13 High Sierra" : {
+
+    },
+    "10.14 Mojave" : {
+
+    },
+    "10.15 Catalina" : {
+
+    },
+    "11 Big Sur" : {
+
+    },
+    "12 Monterey" : {
+
+    },
+    "13 Ventura" : {
+
+    },
+    "14 Sonoma" : {
+
+    },
+    "15 Sequoia" : {
+
+    },
+    "26 Tahoe" : {
+
+    },
+    "A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again." : {
+
+    },
+    "A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows." : {
+
+    },
+    "A setting contains a double quote followed by a comma, which is not allowed. Please remove it from the setting '%@' and try again." : {
+
+    },
+    "AAC Assessment Mode Not Supported!" : {
+
+    },
+    "Accessibility Permissions Required" : {
+
+    },
+    "Activates %@ browser. Right click displays menu with open webpages." : {
+
+    },
+    "Add" : {
+
+    },
+    "Add Preset Permitted Process" : {
+
+    },
+    "Additional App Not Found" : {
+
+    },
+    "Additional Applications Not Available" : {
+
+    },
+    "administrator" : {
+
+    },
+    "All cached screenshots transmitted" : {
+
+    },
+    "allow" : {
+
+    },
+    "allow to use %@ only with service" : {
+
+    },
+    "allow to use %@ without service" : {
+
+    },
+    "Allowed %@ Versions" : {
+
+    },
+    "Always" : {
+
+    },
+    "An assessment session is already active." : {
+
+    },
+    "Applications" : {
+      "comment" : "Title of 'Applications' preference pane"
+    },
+    "Apply" : {
+
+    },
+    "Apply Anyways" : {
+
+    },
+    "Apply Edited Settings?" : {
+
+    },
+    "Applying Settings Failed" : {
+
+    },
+    "Are you sure you want to quit %@?" : {
+
+    },
+    "Are you sure you want to quit this session?" : {
+
+    },
+    "Are you sure you want to restart this session?" : {
+
+    },
+    "Are you sure?" : {
+
+    },
+    "Assessment Mode was interrupted with error: " : {
+
+    },
+    "Authentication Required" : {
+
+    },
+    "Authorize" : {
+
+    },
+    "Auto Proxy Discovery" : {
+
+    },
+    "Automatic" : {
+
+    },
+    "Automatic Proxy Configuration" : {
+
+    },
+    "Back to Start" : {
+
+    },
+    "Battery Level %.f%%%@" : {
+
+    },
+    "Battery Status" : {
+
+    },
+    "Before receiving title" : {
+
+    },
+    "Before running %@, you had the Touch Bar mode 'App Controls' set. %@ cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Settings / Keyboard / 'Touch Bar shows'. %@ will open this System Settings tab for you." : {
+
+    },
+    "Black on White" : {
+
+    },
+    "block" : {
+
+    },
+    "Browser" : {
+      "comment" : "Title of 'Browser' preference pane"
+    },
+    "Browser Window" : {
+
+    },
+    "Bundle ID: %@, executable: %@" : {
+
+    },
+    "by attempting to upload same file downloaded before" : {
+
+    },
+    "by only allowing to upload the same file downloaded before" : {
+
+    },
+    "CA anchor" : {
+      "comment" : "Certificate embed type: a CA trust anchor"
+    },
+    "CA Certificate" : {
+
+    },
+    "camera" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Cannot access server because of error: " : {
+
+    },
+    "Cannot Configure Client" : {
+
+    },
+    "Cannot Decrypt Settings" : {
+
+    },
+    "Cannot Display Open File Dialog" : {
+
+    },
+    "Cannot Establish Server Connection" : {
+
+    },
+    "Cannot Get Exam Config" : {
+
+    },
+    "Cannot Get Exam List" : {
+
+    },
+    "Cannot Get Server API" : {
+
+    },
+    "Cannot Open Exam" : {
+
+    },
+    "Cannot Open Settings" : {
+
+    },
+    "Cannot Reconfigure Client" : {
+
+    },
+    "Cannot Remove Preset Prohibited Process" : {
+
+    },
+    "Cannot Restore Touch Bar Mode" : {
+
+    },
+    "Cannot Start Exam" : {
+
+    },
+    "Center" : {
+
+    },
+    "Check your server connection configuration." : {
+
+    },
+    "Checking server health" : {
+
+    },
+    "Choose" : {
+
+    },
+    "Choose File Dialog Blocked by Settings" : {
+
+    },
+    "Classic WebView is deprecated and no longer fully supported by macOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView." : {
+
+    },
+    "Clear" : {
+
+    },
+    "Clear Ignored URL List" : {
+
+    },
+    "Close Force Quit Window" : {
+
+    },
+    "Close Warning" : {
+
+    },
+    "Closing lockdown windows" : {
+
+    },
+    "Closing Session" : {
+
+    },
+    "Code contributions © 2015 - 2016 Janison" : {
+
+    },
+    "Config Too Large for QR Code" : {
+
+    },
+    "Config URL" : {
+
+    },
+    "Configuration" : {
+      "comment" : "Title of 'Configuration' preference pane"
+    },
+    "Configure Client" : {
+
+    },
+    "Configuring Client" : {
+
+    },
+    "Connected (network name unavailable)" : {
+
+    },
+    "Connecting to SEB Server" : {
+
+    },
+    "Connecting…" : {
+      "comment" : "'Connecting…' header in 'Connecting to SEB Server' table view.\nShown while connecting to the server to fetch its certificate"
+    },
+    "Connection to SEB Server Failed" : {
+
+    },
+    "Connection to SEB Server Failed: Fallback Option" : {
+
+    },
+    "Contact your exam administrator" : {
+
+    },
+    "Contact your server administrator" : {
+
+    },
+    "Contact your server/exam administrator (Server error: " : {
+
+    },
+    "Continue" : {
+
+    },
+    "Contributors: (see below)" : {
+
+    },
+    "Correct password entered" : {
+
+    },
+    "Could Not Access Data of Additional Apps" : {
+
+    },
+    "Could not connect to the server." : {
+      "comment" : "Error when the connection to the entered server failed"
+    },
+    "Could not determine a correct hostname. You can enter the domain URL of your institution manually." : {
+
+    },
+    "Could not save downloaded data, probably a wrong download directory was used in %@ settings." : {
+
+    },
+    "Could Not Start Assessment Mode" : {
+
+    },
+    "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." : {
+
+    },
+    "Couldn't terminate process: %@" : {
+
+    },
+    "Current settings have unsaved changes. If you don't save those first, you will loose them." : {
+
+    },
+    "Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." : {
+
+    },
+    "Current settings require access to the directory %@ for saving downloads." : {
+
+    },
+    "Current settings require access to the directory %@ for saving log files." : {
+      "extractionState" : "stale"
+    },
+    "Custom Key Binding Detected" : {
+
+    },
+    "Custom Scheme" : {
+      "comment" : "Label for custom (URL protocol) scheme property of an iPadOS/iOS permitted process/Additional App"
+    },
+    "Debug" : {
+
+    },
+    "Debug Certificate" : {
+
+    },
+    "decoding error: " : {
+
+    },
+    "Decrypting exam settings was canceled" : {
+
+    },
+    "Decrypting settings was canceled" : {
+
+    },
+    "Detecting dictation was disabled!" : {
+
+    },
+    "Detecting processes was completely disabled!" : {
+
+    },
+    "Detecting screen sharing was disabled!" : {
+
+    },
+    "Detecting Siri was disabled!" : {
+
+    },
+    "Detecting specific processes was disabled!" : {
+
+    },
+    "Detecting the processes listed above was disabled!" : {
+
+    },
+    "Device name: %@" : {
+
+    },
+    "Dictation activity detected. Enter the quit/unlock password, which usually exam supervision/support knows." : {
+
+    },
+    "Dictation Detected!" : {
+
+    },
+    "Dictation is still active" : {
+
+    },
+    "Dictation Locked %@!" : {
+      "comment" : "Lockdown alert title text for Siri"
+    },
+    "Dictation was activated" : {
+
+    },
+    "Disable" : {
+
+    },
+    "Disconnecting from SEB Server" : {
+
+    },
+    "Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save." : {
+
+    },
+    "Do you really want to reload the current web page?" : {
+
+    },
+    "Do you want to continue editing the saved settings file?" : {
+
+    },
+    "Don't Apply" : {
+
+    },
+    "Don't Save" : {
+
+    },
+    "Down/Uploads" : {
+      "comment" : "Title of 'Down/Uploads' preference pane"
+    },
+    "Download %@" : {
+
+    },
+    "Download Failed" : {
+
+    },
+    "Download Finished" : {
+
+    },
+    "Downloading" : {
+
+    },
+    "Downloading and Opening" : {
+
+    },
+    "Downloading Settings Failed" : {
+
+    },
+    "Due to Zoom licensing issues, Zoom live proctoring is only available for SEB Alliance members. Please see https://safeexambrowser.org/alliance." : {
+
+    },
+    "Edit File" : {
+
+    },
+    "Edit Saved Settings?" : {
+
+    },
+    "Edited settings have unsaved changes." : {
+
+    },
+    "Embed Server Certificate" : {
+      "comment" : "Title of the fetch-server-certificate sheet window"
+    },
+    "Enable" : {
+
+    },
+    "Enter administrator password:" : {
+
+    },
+    "Enter Exam Password:" : {
+
+    },
+    "Enter password for \"%@\"" : {
+
+    },
+    "Enter password used to encrypt these settings:" : {
+
+    },
+    "Enter quit password:" : {
+
+    },
+    "Enter quit/unlock password:" : {
+
+    },
+    "Enter SEB Server fallback password:" : {
+
+    },
+    "Enter the %@ administrator password used in client settings:" : {
+
+    },
+    "Enter the %@ administrator password used in these settings:" : {
+
+    },
+    "Entering the current %@ administrator password was canceled" : {
+
+    },
+    "Error" : {
+
+    },
+    "Error Decrypting Settings" : {
+
+    },
+    "Exam" : {
+      "comment" : "Title of 'Exam' preference pane"
+    },
+    "Exam List is Empty" : {
+
+    },
+    "Exporting Identity Failed" : {
+
+    },
+    "Failed" : {
+
+    },
+    "Failed to Save Downloaded File" : {
+
+    },
+    "Failed, retrying..." : {
+
+    },
+    "Fallback" : {
+
+    },
+    "Fetch" : {
+      "comment" : "Button that fetches the certificate chain from the entered server",
+      "extractionState" : "stale"
+    },
+    "Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." : {
+      "comment" : "Explanation at the top of the fetch-server-certificate sheet (Network / Certificates settings)"
+    },
+    "Fetching a server certificate by URL is available on macOS 12 (Monterey) and later." : {
+      "comment" : "Alert message shown when Fetch from Server is used on macOS 11 or older"
+    },
+    "Fetching identities" : {
+
+    },
+    "File" : {
+
+    },
+    "File Automatically Chosen" : {
+
+    },
+    "File to Upload Not Found!" : {
+
+    },
+    "Finalizing Screen Proctoring" : {
+
+    },
+    "For this exam session, screen capturing is required. You need to authorize Screen Recording for %@ in System Settings / Security & Privacy%@. Then restart %@ and your exam." : {
+
+    },
+    "For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions." : {
+
+    },
+    "For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session." : {
+
+    },
+    "For using permitted macOS third-party applications, AAC Assessment Mode must be enabled, file and share dialogs blocked and macOS 12 or newer enforced. Do you want to update your %@ settings accordingly?" : {
+
+    },
+    "Force Classic" : {
+
+    },
+    "Force Close" : {
+
+    },
+    "Force Modern" : {
+
+    },
+    "Force Modern in New Tab+Different Host" : {
+
+    },
+    "Force Quit All Processes" : {
+
+    },
+    "Force Quitting Processes Failed" : {
+
+    },
+    "FTP Proxy" : {
+
+    },
+    "Full Disk Access Not Working" : {
+
+    },
+    "Full Disk Access still isn't in effect for %@, so it cannot read the macOS system database that lists apps with Accessibility permissions (error %ld: %@ at /Library/Application Support/com.apple.TCC). Make sure Full Disk Access is enabled for %@ in System Settings / Privacy & Security / Full Disk Access. If it is already enabled, the grant may not apply to this copy of %@ (for example if it was updated in place or launched from a quarantined location) — remove %@ from the list, reinstall it by dragging it into the Applications folder, and add it again. Then click Retry." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Full Disk Access still isn't in effect for %1$@, so it cannot read the macOS system database that lists apps with Accessibility permissions (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). Make sure Full Disk Access is enabled for %4$@ in System Settings / Privacy & Security / Full Disk Access. If it is already enabled, the grant may not apply to this copy of %5$@ (for example if it was updated in place or launched from a quarantined location) — remove %6$@ from the list, reinstall it by dragging it into the Applications folder, and add it again. Then click Retry."
+          }
+        }
+      }
+    },
+    "Full user name: %@" : {
+
+    },
+    "General" : {
+      "comment" : "Title of 'General' preference pane"
+    },
+    "get generally blocked" : {
+
+    },
+    "Getting Exam Config..." : {
+
+    },
+    "Good server health, waiting until %@ to resume sending cached screen shots" : {
+
+    },
+    "Grant access in System Settings / Privacy & Security / Files & Folders / %@." : {
+
+    },
+    "Grant access to Folder" : {
+
+    },
+    "Grant Full Disk Access" : {
+
+    },
+    "Holding Command Key Not Allowed!" : {
+
+    },
+    "Holding the Command key down while restarting %@ is not allowed, release it to continue." : {
+
+    },
+    "Holding the Command key down while starting %@ is not allowed. Restart %@ without holding any keys." : {
+
+    },
+    "Identity" : {
+
+    },
+    "If SEB Server doesn't respond for a while, you can forcibly close the connection" : {
+
+    },
+    "If you don't enter the correct %@ administrator password, then you cannot open preferences." : {
+
+    },
+    "If you don't enter the correct quit password, then you cannot quit." : {
+
+    },
+    "If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." : {
+
+    },
+    "If you don't enter the right administrator password used in these settings you cannot open them." : {
+
+    },
+    "If you don't grant access to %@, you cannot use such webpages. Last time %@ was running, the webpage with the title '%@' (%@) tried to download a font." : {
+
+    },
+    "If your institution does not support Automatic %@ Client Configuration, follow instructions of your exam administrator." : {
+
+    },
+    "Ignore" : {
+
+    },
+    "in System Preferences " : {
+
+    },
+    "Info" : {
+
+    },
+    "iOS" : {
+
+    },
+    "iOS >18" : {
+
+    },
+    "iOS User agent" : {
+
+    },
+    "iPadOS" : {
+
+    },
+    "It's not allowed to open this URL! You can create a new filter rule based on the following patterns:" : {
+
+    },
+    "Join" : {
+
+    },
+    "Known Networks" : {
+
+    },
+    "Left" : {
+
+    },
+    "Load Error" : {
+
+    },
+    "Loaded data doesn't contain valid %@ settings." : {
+
+    },
+    "Loaded settings are empty and cannot be used." : {
+
+    },
+    "Loading New %@ Settings Not Allowed!" : {
+
+    },
+    "Loading settings" : {
+
+    },
+    "Loading Settings" : {
+
+    },
+    "Local %@ Settings Have Been Reset" : {
+
+    },
+    "Local Client Settings" : {
+
+    },
+    "Local client settings have the option 'Allow to open Settings window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option." : {
+
+    },
+    "Local hostname: %@" : {
+
+    },
+    "Local preferences were created by an incompatible %@ version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure %@ correctly." : {
+
+    },
+    "Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing %@." : {
+
+    },
+    "Location Services Required for Wi-Fi" : {
+
+    },
+    "Log in to" : {
+
+    },
+    "macOS" : {
+
+    },
+    "Main Browser Window" : {
+
+    },
+    "manually with file requester" : {
+
+    },
+    "microphone" : {
+
+    },
+    "Missing Connection Settings" : {
+
+    },
+    "Moodle" : {
+
+    },
+    "More information at https://safeexambrowser.org" : {
+
+    },
+    "Network" : {
+      "comment" : "Title of 'Network' preference pane"
+    },
+    "Never" : {
+
+    },
+    "New settings have been saved, they will also be used when you start %@ next time again. Do you want to start working with %@ or quit for now?" : {
+
+    },
+    "New settings have been saved, they will be used when you start %@ next time again. Do you want to continue working with %@ or quit for now?" : {
+
+    },
+    "No %@ Configuration Found" : {
+
+    },
+    "No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." : {
+
+    },
+    "No built-in display available, although required in settings!" : {
+
+    },
+    "No Built-In Display Available!" : {
+      "comment" : "Lockdown alert title text for no required built-in display available"
+    },
+    "No configuration data." : {
+
+    },
+    "No Encryption Credentials Chosen" : {
+
+    },
+    "No Hostname Found" : {
+
+    },
+    "No networks found" : {
+
+    },
+    "No Preset Processes Available" : {
+
+    },
+    "No SEB Server Fallback Password entered" : {
+
+    },
+    "None" : {
+
+    },
+    "None - Black" : {
+
+    },
+    "None - White" : {
+
+    },
+    "Not Connected" : {
+
+    },
+    "Not Connected to Wi-Fi or VPN" : {
+
+    },
+    "OK" : {
+
+    },
+    "one of the %@ versions %@" : {
+
+    },
+    "one of the %@ versions %@ or higher" : {
+
+    },
+    "Only on load error" : {
+
+    },
+    "Open edX" : {
+
+    },
+    "open in new window" : {
+
+    },
+    "open in same window" : {
+
+    },
+    "Open System Settings" : {
+
+    },
+    "Open webpages" : {
+
+    },
+    "Open/save panels for file selection are disabled in current %@ settings, contact your exam provider." : {
+
+    },
+    "Opening" : {
+
+    },
+    "Opening %@ Config" : {
+      "comment" : "Title of a temporary browser window for opening a SEB link"
+    },
+    "Opening Exam..." : {
+
+    },
+    "Opening New Settings Failed!" : {
+
+    },
+    "Opening Preferences Disabled" : {
+
+    },
+    "Opening Settings Failed" : {
+
+    },
+    "Opening Universal Link" : {
+
+    },
+    "Opening Universal Link Failed" : {
+
+    },
+    "OS version %@" : {
+
+    },
+    "Other Networks" : {
+
+    },
+    "Override" : {
+
+    },
+    "Overriding required built-in display was enabled!" : {
+
+    },
+    "Parsing Settings Failed" : {
+
+    },
+    "Password" : {
+
+    },
+    "Paste from saved clipboard" : {
+
+    },
+    "Path" : {
+      "comment" : "Label for path property of a Windows permitted process"
+    },
+    "Permissions Required for %@" : {
+
+    },
+    "Permissions Required for Screen Capture" : {
+
+    },
+    "Please confirm the %@ password first." : {
+
+    },
+    "Please contact your exam support." : {
+
+    },
+    "Please enter a valid server URL or host name." : {
+      "comment" : "Error when the entered server URL / host is not valid"
+    },
+    "Please enter correct confirm password" : {
+
+    },
+    "Preferences shortcut menu" : {
+
+    },
+    "Previously interrupted exam was re-opened!" : {
+
+    },
+    "Proctoring Error Locked %@!" : {
+      "comment" : "Lockdown alert title text for proctoring failure"
+    },
+    "Proctoring failed with error '%@'. Enter the quit/unlock password, which usually exam supervision/support knows." : {
+
+    },
+    "Proctoring failed: " : {
+
+    },
+    "Prohibited Process Locked %@!" : {
+      "comment" : "Lockdown alert title text for prohibited process"
+    },
+    "Prohibited processes (check overridden) still running" : {
+
+    },
+    "Prohibited Processes Are Running" : {
+
+    },
+    "Prohibited processes detected" : {
+
+    },
+    "Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." : {
+
+    },
+    "Project concept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." : {
+
+    },
+    "QR Code" : {
+
+    },
+    "quit" : {
+
+    },
+    "Quit" : {
+
+    },
+    "Quit %@" : {
+
+    },
+    "Quit All Applications" : {
+
+    },
+    "Quit Session" : {
+
+    },
+    "Raise Hand" : {
+
+    },
+    "Re-opening an exam which was locked before" : {
+
+    },
+    "Re-Opening Locked Exam!" : {
+      "comment" : "Lockdown alert title text for re-opening a locked exam"
+    },
+    "Reading Settings Failed" : {
+
+    },
+    "Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." : {
+
+    },
+    "Reload" : {
+
+    },
+    "Reload Current Page" : {
+
+    },
+    "remote proctoring" : {
+
+    },
+    "Remote Proctoring" : {
+
+    },
+    "Remote Proctoring Not Available" : {
+
+    },
+    "Remote Proctoring Session" : {
+
+    },
+    "Remove" : {
+
+    },
+    "Repeating Error: Invalid Token" : {
+
+    },
+    "Request failed" : {
+
+    },
+    "Request failed, retrying..." : {
+
+    },
+    "Required built-in display is still not available!" : {
+
+    },
+    "Requires macOS 12 or Later" : {
+      "comment" : "Alert title shown when Fetch from Server is used on macOS 11 or older"
+    },
+    "Reset" : {
+
+    },
+    "Resources" : {
+      "comment" : "Title of 'Resources' preference pane"
+    },
+    "Restart" : {
+
+    },
+    "Restart Session" : {
+
+    },
+    "Retry" : {
+
+    },
+    "return to %@ and re" : {
+
+    },
+    "Revert to Client Settings" : {
+
+    },
+    "Right" : {
+
+    },
+    "root" : {
+      "comment" : "Badge for a self-signed root CA certificate"
+    },
+    "Running on Current macOS Version Not Allowed!" : {
+
+    },
+    "Save Changes" : {
+
+    },
+    "Save settings to display its Browser Exam Key" : {
+
+    },
+    "Save settings to display its Config Key" : {
+
+    },
+    "Save Unencrypted" : {
+
+    },
+    "Saved file '%@'" : {
+
+    },
+    "Saving Settings Failed" : {
+
+    },
+    "Screen Proctoring Active" : {
+
+    },
+    "Screen Proctoring Connection Failed" : {
+
+    },
+    "Screen Proctoring Inactive" : {
+
+    },
+    "Screen Proctoring Session" : {
+
+    },
+    "Screen Sharing Detected!" : {
+
+    },
+    "Screen sharing detected. Enter the quit/unlock password, which usually exam supervision/support knows." : {
+
+    },
+    "Screen sharing is still active" : {
+
+    },
+    "Screen Sharing Locked %@!" : {
+      "comment" : "Lockdown alert title text for screen sharing"
+    },
+    "Screen sharing was activated" : {
+
+    },
+    "Searching for %@ Configuration Canceled" : {
+
+    },
+    "Searching for a valid %@ config file …" : {
+
+    },
+    "Searching for a valid %@ config file was canceled." : {
+
+    },
+    "Searching local network for Automatic %@ Client Configuration requires a Wi-Fi or VPN connection. You can enter the domain URL of your institution manually too." : {
+
+    },
+    "Secure exam session was started, URL: " : {
+
+    },
+    "Secure session was started" : {
+
+    },
+    "Secure Web Proxy (HTTPS)" : {
+
+    },
+    "Security" : {
+      "comment" : "Title of 'Security' preference pane"
+    },
+    "Security Warning" : {
+
+    },
+    "Select" : {
+
+    },
+    "Select Exam" : {
+      "comment" : "'Select Exam' header in 'Connecting to SEB Server' table view."
+    },
+    "Select the certificate(s) to embed and choose their type:" : {
+      "comment" : "Heading above the list of fetched certificates"
+    },
+    "Select the permitted processes you want to add to your %@ exam settings. The list includes the built-in preset processes and the permitted processes from your local client settings (marked accordingly). They will be added as active processes." : {
+
+    },
+    "Select the preset permitted processes you want to add to your %@ settings. They will be added as active processes." : {
+
+    },
+    "self-signed" : {
+      "comment" : "Badge for a self-signed (non-CA) server certificate"
+    },
+    "Sending cached screen shots, server health %d out of 10" : {
+
+    },
+    "Server health %d out of 10" : {
+
+    },
+    "Server health %d out of 10, deferring sending screen shots" : {
+
+    },
+    "Server health %d out of 10, waiting until %@ to resume sending cached screen shots" : {
+
+    },
+    "Server URL or host (e.g. exam.example.org)" : {
+      "comment" : "Placeholder in the server URL field of the fetch-server-certificate sheet",
+      "extractionState" : "stale"
+    },
+    "settings" : {
+
+    },
+    "Settings for Configuring Client" : {
+
+    },
+    "Settings for Starting Exam" : {
+
+    },
+    "Settings have been saved, use this file to configure a %@ client permanently." : {
+
+    },
+    "Settings have been saved, use this file to start an exam with %@." : {
+
+    },
+    "Share as Configuration" : {
+
+    },
+    "Siri activity detected. Enter the quit/unlock password, which usually exam supervision/support knows." : {
+
+    },
+    "Siri Detected!" : {
+
+    },
+    "Siri is still active" : {
+
+    },
+    "Siri Locked %@!" : {
+      "comment" : "Lockdown alert title text for Siri"
+    },
+    "Siri was activated" : {
+
+    },
+    "Skip" : {
+
+    },
+    "SOCKS Proxy" : {
+
+    },
+    "Specify one or more %@ version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: \"Win.3.9.min\" allows %@ for Windows 3.9 or newer." : {
+
+    },
+    "SSL Certificate" : {
+
+    },
+    "Standard user agent" : {
+
+    },
+    "Start SEB" : {
+
+    },
+    "Starting Exam" : {
+
+    },
+    "Streaming Proxy (RTSP)" : {
+
+    },
+    "Switched back after user switch / login window" : {
+
+    },
+    "System Default" : {
+
+    },
+    "System Preferences" : {
+
+    },
+    "The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows." : {
+
+    },
+    "The additional application with the bundle identifier %@ required by the current settings isn't installed on this Mac. Ask your exam support how to proceed." : {
+
+    },
+    "The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB." : {
+
+    },
+    "The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to %@ to continue to the exam." : {
+
+    },
+    "The configuration will be saved unencrypted" : {
+
+    },
+    "The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use." : {
+
+    },
+    "the exam page" : {
+
+    },
+    "The file dialog will not be displayed, because Open and Save Panels are blocked (see Applications pane)." : {
+
+    },
+    "The identity certificate might be corrupted or the associated private key was imported to the Keychain as 'non-exportable'. If the identity was embedded in a config file, open it here in Preferences. Then the private key will be added to the Keychain as 'exportable'." : {
+
+    },
+    "The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution." : {
+
+    },
+    "The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?" : {
+
+    },
+    "The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently." : {
+      "comment" : "Warning shown when a fetched certificate chain fails normal system trust validation"
+    },
+    "The server did not present any certificates." : {
+      "comment" : "Error when a fetched TLS connection returned no certificates"
+    },
+    "The server didn't return any %@ settings data." : {
+
+    },
+    "The server returned an error (HTTP status code %ld)." : {
+
+    },
+    "The server returned an error: %ld %@" : {
+      "comment" : "Shown when a page load fails with an HTTP error status code",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The server returned an error: %1$ld %2$@"
+          }
+        }
+      }
+    },
+    "The user name or password for %@ was incorrect. Please try again." : {
+
+    },
+    "The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again." : {
+      "comment" : "Shown when the web content process keeps terminating",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "the webpage" : {
+
+    },
+    "Then restart %@/the exam." : {
+
+    },
+    "There are currently no additional preset permitted processes which could be added to your %@ settings." : {
+
+    },
+    "These settings are corrupted and cannot be used (failing key: %@)." : {
+
+    },
+    "These settings are corrupted and cannot be used." : {
+
+    },
+    "These settings cannot be used. They may have been created by an incompatible version of %@ or are corrupted." : {
+
+    },
+    "These settings have the option 'Allow to open Settings window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session." : {
+
+    },
+    "This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings." : {
+
+    },
+    "This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:" : {
+
+    },
+    "This exam session requires the following additional applications to be available:" : {
+
+    },
+    "This exam session requires using additional applications. You have to allow access to their data, as %@ has to remove the saved state of previously open document windows in these apps (%@ is not accessing any of your data created in these apps). %@ will quit now, restart the exam and grant access to the data of additional apps next time." : {
+
+    },
+    "This exam was interrupted before and not finished properly. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows." : {
+
+    },
+    "This is a preset prohibited process, which cannot be removed. %@ automatically adds it to any configuration. You can deactivate this preset process or change its properties." : {
+
+    },
+    "This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board." : {
+
+    },
+    "This setting allows to switch to any application on the exam client computer. Use this option only for open book exams (without lock down) or for debugging." : {
+
+    },
+    "This version of %@ is not allowed for this exam." : {
+
+    },
+    "TLS/SSL pin" : {
+      "comment" : "Certificate embed type: a TLS/SSL public-key pin"
+    },
+    "To avoid that %@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %@ is still running." : {
+
+    },
+    "To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol." : {
+
+    },
+    "To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Settings/Sharing. You can also ask your network administrators to block ports used for the VNC protocol." : {
+
+    },
+    "To detect apps with Accessibility permissions, %@ requires Full Disk Access. %@ is not reading any other data than the macOS system list of applications with Accessibility permissions. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry." : {
+
+    },
+    "Toggle Proctoring View" : {
+
+    },
+    "Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane." : {
+
+    },
+    "Touch Optimized Mode Warning" : {
+
+    },
+    "Transmitting screen shot %d of %d" : {
+
+    },
+    "Transmitting screen shot failed with error: %@" : {
+
+    },
+    "Unconfirmed Password" : {
+
+    },
+    "Unsaved Changes" : {
+
+    },
+    "Untitled" : {
+      "comment" : "Title of a new opened browser window; Untitled\nuntitled filename"
+    },
+    "Update Settings" : {
+
+    },
+    "Update Settings for Download/Opening/Upload Files" : {
+
+    },
+    "Update Settings for Multi App Mode" : {
+
+    },
+    "Uploading" : {
+
+    },
+    "URL Blocked!" : {
+
+    },
+    "URLSession was invalidated" : {
+
+    },
+    "Use Start URL" : {
+      "comment" : "Link that fills the URL field with the exam's start URL host"
+    },
+    "Used third-party frameworks:" : {
+
+    },
+    "User Interface" : {
+      "comment" : "Title of 'Appearance' preference pane"
+    },
+    "User name: %@" : {
+
+    },
+    "User switch / switch to login window detected" : {
+
+    },
+    "User Switch Locked %@!" : {
+      "comment" : "Lockdown alert title text for switching the user"
+    },
+    "Verbose" : {
+
+    },
+    "Version" : {
+
+    },
+    "Virtual Machine Detected!" : {
+
+    },
+    "Waiting %d seconds" : {
+
+    },
+    "Waiting for Accessibility Permissions" : {
+
+    },
+    "Waiting until %@ to resume sending cached screen shots" : {
+
+    },
+    "warn when service is not running" : {
+
+    },
+    "Warning" : {
+
+    },
+    "web applications" : {
+
+    },
+    "Web Content" : {
+
+    },
+    "Web Proxy (HTTP)" : {
+
+    },
+    "Webpage." : {
+
+    },
+    "When using additional, permitted macOS third-party applications in exams, it often makes sense to allow secure download and upload of files from a web-based assessment system. %@ opens these files automatically with the according additional app after downloading. Examinees can then edit these template files in the additional app and save them with the same file name (cmd-S). When the assessment system contains an upload/choose file button, those files can be uploaded and submitted with the exam. Do you want to update your %@ settings accordingly?" : {
+
+    },
+    "White on Black" : {
+
+    },
+    "Wi-Fi" : {
+
+    },
+    "Wi-Fi: %@ (Signal: %ld dBm)" : {
+
+    },
+    "Wi-Fi: Connected (Signal: %ld dBm)" : {
+
+    },
+    "Wi-Fi: Not Connected" : {
+
+    },
+    "Win" : {
+
+    },
+    "Win: User agent for desktop mode" : {
+
+    },
+    "Win: User agent for touch/tablet mode" : {
+
+    },
+    "Wrong Admin Password" : {
+
+    },
+    "Wrong Institution URL" : {
+
+    },
+    "Wrong password entered!" : {
+
+    },
+    "Wrong password! Try again to enter the correct exam password:" : {
+
+    },
+    "Wrong password! Try again to enter the correct password used to encrypt these settings:" : {
+
+    },
+    "Wrong password! Try again to enter the current %@ administrator password:" : {
+
+    },
+    "Wrong Quit Password" : {
+
+    },
+    "Wrong quit/unlock password." : {
+
+    },
+    "Wrong SEB Server Fallback Password entered" : {
+
+    },
+    "You are not allowed to have dictation enabled while running %@. Restart %@ after switching dictation off in System Settings/Keyboard/Dictation." : {
+
+    },
+    "You are not allowed to have screen sharing active while running %@. Restart %@ after switching screen sharing off." : {
+
+    },
+    "You are not allowed to have Siri enabled while running %@. Restart %@ after switching Siri off in System Settings/Siri." : {
+
+    },
+    "You are not allowed to run %@ inside a virtual machine!" : {
+
+    },
+    "You are running %@ version %@ (build %@). Please download and install a required version." : {
+
+    },
+    "You can also force quit these processes, but this may lead to loss of data." : {
+
+    },
+    "You can also send all the listed applications a quit instruction, they can still ask about saving edited documents." : {
+
+    },
+    "You can only reconfigure by entering the current %@ administrator password:" : {
+
+    },
+    "You cannot enter a path to an %@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %@/developer." : {
+
+    },
+    "You didn't enter the correct current %@ administrator password." : {
+
+    },
+    "You didn't enter the correct exam password." : {
+
+    },
+    "You didn't enter the correct settings password." : {
+
+    },
+    "You edited settings. Do you want to apply them or continue using previous settings (current settings will be discarded)?" : {
+
+    },
+    "You edited settings. Do you want to apply them or continue using previous settings?" : {
+
+    },
+    "You either entered the wrong password or these settings were saved with an incompatible %@ version." : {
+
+    },
+    "Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator." : {
+
+    },
+    "Your screen will be recorded during this exam in accordance with the specifications and data privacy regulations of your exam provider. If you have any questions, please contact your exam provider.%@" : {
+
+    }
+  },
+  "version" : "1.2"
+}

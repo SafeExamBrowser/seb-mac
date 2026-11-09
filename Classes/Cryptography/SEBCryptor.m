@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 24.01.13.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -417,6 +417,30 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         jsonString = [NSString stringWithFormat:@"\"%@\"", object];
     } else if ((strcmp([object objCType], "c") == 0)) {
         jsonString = [NSString stringWithFormat:@"%@", ([object boolValue] == 0 ? @"false" : @"true")];
+    } else if (strcmp([object objCType], "d") == 0 || strcmp([object objCType], "f") == 0) {
+        // Floating point values must be serialized identically on all SEB platforms,
+        // as the Config Key is a hash over these exact JSON bytes. SEB for Windows
+        // (.NET Framework 4.8) serializes doubles with
+        // Double.ToString(NumberFormatInfo.InvariantInfo), i.e. the "G15" general
+        // format. "G15" uses up to 15 significant digits of *precision*; the
+        // *notation* (fixed-point vs. scientific) is chosen by the decimal exponent:
+        // fixed-point for an exponent in [-4, 15), otherwise scientific with an
+        // uppercase 'E' (e.g. 0.00001 -> "1E-05"). C's "%.15g" applies the same
+        // precision and the same fixed-vs-scientific threshold, so it matches "G15"
+        // after upper-casing the exponent marker -- with one exception: .NET
+        // Framework renders negative zero as "0" whereas printf renders "-0", so we
+        // normalise that. (NSNumber's -description instead emits the shortest
+        // round-tripping form, up to 17 digits, which diverges for values not exactly
+        // representable in <= 15 digits; see seb-win-refactoring issue #1495.)
+        // -stringWithFormat: is not localized, so the decimal separator is always ".".
+        double doubleValue = [object doubleValue];
+        if (doubleValue == 0) {
+            // Covers both +0.0 and -0.0; matches .NET Framework, which drops the sign.
+            jsonString = @"0";
+        } else {
+            jsonString = [NSString stringWithFormat:@"%.15g", doubleValue];
+            jsonString = [jsonString stringByReplacingOccurrencesOfString:@"e" withString:@"E"];
+        }
     } else {
         jsonString = [NSString stringWithFormat:@"%@", object];
     }

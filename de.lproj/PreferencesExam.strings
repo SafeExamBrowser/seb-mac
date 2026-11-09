@@ -124,7 +124,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "The Back to Start Button reloads the exam's Start URL"; ObjectID = "ujx-Tz-w75"; */
 "ujx-Tz-w75.ibShadowedToolTip" = "Die 'Zurück zum Start'-Taste öffnet erneut die Start-URL der Prüfung";
 
-/* Class = "NSBox"; title = "Session Cookies"; ObjectID = "Uuj-be-mvj"; */
+/* Class = "NSBox"; title = "Session Handling (Cookies)"; ObjectID = "Uuj-be-mvj"; */
 "Uuj-be-mvj.title" = "Session-Cookies";
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Config Key"; ObjectID = "Vag-ov-ItE"; */

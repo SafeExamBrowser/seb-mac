@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 21.08.17.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -171,9 +171,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowApplicationLog",
                    
-                   @NO,
-                   @"allowAudioCapture",
-                   
                    @YES,
                    @"audioControlEnabled",
                    
@@ -231,7 +228,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowFlashFullscreen",
                    
-                   [NSNumber numberWithLong:iOSBetaVersion26],
+                   [NSNumber numberWithLong:iOSBetaVersion27],
                    @"allowiOSBetaVersionNumber",
                    
                    [NSNumber numberWithLong:iOSVersion13],
@@ -284,6 +281,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowScreenCapture",
                    
                    @NO,
+                   @"allowScreenCaptureiOS",
+                   
+                   @NO,
                    @"allowScreenSharing",
                    
                    @NO,
@@ -303,12 +303,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"allowUserAppFolderInstall",
-                   
-                   @YES,
-                   @"allowUserSwitching",
-                   
-                   @NO,
-                   @"allowVideoCapture",
                    
                    @NO,
                    @"allowVirtualMachine",
@@ -358,20 +352,8 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"browserMediaCaptureScreen", //setting for WebRTC screen capture
                    
-                   [NSNumber numberWithLong:120000],
-                   @"browserMessagingPingTime",
-                   
-                   @"ws://localhost:8706",
-                   @"browserMessagingSocket",
-                   
                    @YES,
                    @"browserShowFileSystemElementPath",
-                   
-                   @NO,
-                   @"browserScreenKeyboard",
-                   
-                   @YES,
-                   @"browserURLSalt",
                    
                    @"",
                    @"browserUserAgent",
@@ -415,9 +397,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:browserWindowShowURLNever],
                    @"browserWindowShowURL",
                    
-                   @"",
-                   @"browserWindowTitleSuffix",
-                   
 #if TARGET_OS_OSX
                    [NSNumber numberWithLong:webViewSelectForceModernInForeignNewTabs],
 #else
@@ -453,10 +432,10 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"defaultTextZoomLevel",
                    
                    @YES,
-                   @"detectStoppedProcess",
+                   @"detectAccessibilityApps",
                    
-                   @NO,
-                   @"disableSessionChangeLockScreen",
+                   @YES,
+                   @"detectStoppedProcess",
                    
                    @YES,
                    @"displayAlwaysOn",
@@ -492,9 +471,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"enableCursorVerification",
                    
                    @NO,
-                   @"enableDrawingEditor",
-                   
-                   @NO,
                    @"enableFindPrinter",
                    
                    @NO,
@@ -506,14 +482,8 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"enableLogging",
                    
-                   @YES,
-                   @"enableMacOSAAC",
-                   
                    @NO,
                    @"enableMiddleMouse",
-                   
-                   @YES,
-                   @"enablePlugIns",
                    
                    @YES,
                    @"enablePrivateClipboard",
@@ -532,9 +502,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"enableScrollLock",
-                   
-                   @NO,
-                   @"enableTouchExit",
                    
                    @NO,
                    @"enableURLContentFilter",
@@ -632,15 +599,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"",
                    @"examSessionReconfigureConfigURL",
                    
-                   [NSNumber numberWithLong:2],
-                   @"exitKey1",
-                   
-                   [NSNumber numberWithLong:10],
-                   @"exitKey2",
-                   
-                   [NSNumber numberWithLong:5],
-                   @"exitKey3",
-                   
                    @"",
                    @"hashedAdminPassword",
                    
@@ -649,15 +607,15 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"hideBrowserWindowToolbar",
-                   
+
+                   @NO,
+                   @"hideWiFiControls",
+
                    @YES,
                    @"hookKeys",
                    
                    @YES,
                    @"forceAppFolderInstall",
-                   
-                   @YES,
-                   @"ignoreExitKeys",
                    
                    @NO,
                    @"ignoreQuitPassword",
@@ -764,9 +722,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:SEBLogLevelDebug],
                    @"logLevel",
                    
-                   @YES,
-                   @"lockOnMessageSocketClose",
-                   
+                   [NSNumber numberWithLong:lockdownModePolicyAutomatic],
+                   @"lockdownModePolicy",
+
                    @NO,
                    @"logSendingRequiresAdminPassword",
                    
@@ -779,7 +737,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"100%",
                    @"mainBrowserWindowWidth",
                    
-                   [NSNumber numberWithLong:SEBMinMacOS11],
+                   [NSNumber numberWithLong:SEBMinMacOS12],
                    @"minMacOSVersion",
                    
                    @YES,
@@ -857,9 +815,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"mobilePreventAutoLock",
                    
-                   @YES,
-                   @"monitorProcesses",
-                   
                    @NO,
                    @"newBrowserWindowAllowAddressBar",
                    
@@ -880,12 +835,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @"1000",
                    @"newBrowserWindowByLinkWidth",
-                   
-                   @NO,
-                   @"newBrowserWindowByScriptBlockForeign",
-                   
-                   [NSNumber numberWithLong:openInNewWindow],
-                   @"newBrowserWindowByScriptPolicy",
                    
                    @YES,
                    @"newBrowserWindowNavigation",
@@ -962,9 +911,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"removeBrowserProfile",
                    
-                   @NO,
-                   @"removeLocalStorage",
-                   
                    @YES,
                    @"restartExamPasswordProtected",
                    
@@ -979,7 +925,10 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"screenSharingMacEnforceBlocked",
-                   
+
+                   [NSArray array],
+                   @"sebAllowedVersions",
+
                    [NSNumber numberWithLong:sebConfigPurposeDefault],
                    @"sebConfigPurpose",
                    
@@ -1042,6 +991,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    [NSNumber numberWithLong:0],
                    @"screenProctoringImageQuantization",
+                   
+                   [NSNumber numberWithLong:ScreenProctoringAACCapturePolicyAllWindows],
+                   @"screenProctoringAACCapturePolicy",
                    
                    @NO,
                    @"screenProctoringIndicateHealthAndCaching",
@@ -1109,9 +1061,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"showTime",
                    
-                   @"",
-                   @"startResource",
-                   
                    SEBStartPage,
                    @"startURL",
                    
@@ -1129,9 +1078,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    [NSNumber numberWithLong:SEBDefaultDockHeight],
                    @"taskBarHeight",
-                   
-                   @NO,
-                   @"terminateProcesses",
                    
                    @NO,
                    @"touchOptimized",
@@ -1160,17 +1106,8 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"useTemporaryDownUploadDirectory",
                    
-                   @"",
-                   @"blacklistURLFilter",
-                   
-                   @"",
-                   @"whitelistURLFilter",
-                   
                    [NSArray array],
                    @"URLFilterRules",
-                   
-                   [NSNumber numberWithLong:SEBZoomModePage],
-                   @"zoomMode",
                    
                    @"",
                    @"zoomAPIKey",
@@ -1254,6 +1191,7 @@ static SEBSettings *sharedSEBSettings = nil;
               
               @"permittedProcesses" : @{
                   @"active" : @YES,
+                  @"allowAccessibility" : @NO,
                   @"allowedExecutables" : @"",
                   @"allowManualStart" : @YES,
                   @"allowNetworkAccess" : @NO,
@@ -1264,12 +1202,12 @@ static SEBSettings *sharedSEBSettings = nil;
                   @"executable" : @"",
                   @"iconInTaskbar" : @YES,
                   @"identifier" : @"",
-                  @"teamIdentifier" : @"",
                   @"originalName" : @"",
                   @"os" : @0,
                   @"path" : @"",
                   @"runInBackground" : @NO,
                   @"strongKill" : @NO,
+                  @"teamIdentifier" : @"",
                   @"title" : @"",
               },
               
@@ -1350,6 +1288,43 @@ static SEBSettings *sharedSEBSettings = nil;
                   @"pingInterval" : [NSNumber numberWithLong:SEBServerDefaultPingInterval]
               }
               
+    };
+}
+
+- (NSDictionary *)removedSEBSettings {
+    return @{@"rootSettings" : @[
+        @"allowAudioCapture",
+        @"allowSpellCheckDictionary",
+        @"allowUserSwitching",
+        @"allowVideoCapture",
+        @"allowWLAN",
+        @"blacklistURLFilter",
+        @"browserMessagingPingTime",
+        @"browserMessagingSocket",
+        @"browserScreenKeyboard",
+        @"browserURLSalt",
+        @"browserWindowTitleSuffix",
+        @"disableSessionChangeLockScreen",
+        @"enableDrawingEditor",
+        @"enableMacOSAAC",
+        @"enablePlugIns",
+        @"enableTouchExit",
+        @"exitKey1",
+        @"exitKey2",
+        @"exitKey3",
+        @"ignoreExitKeys",
+        @"lockOnMessageSocketClose",
+        @"mobileAllowAirPlayMediaPlayback",
+        @"mobileAllowGuidedAccess",
+        @"monitorProcesses",
+        @"newBrowserWindowByScriptBlockForeign",
+        @"newBrowserWindowByScriptPolicy",
+        @"removeLocalStorage",
+        @"startResource",
+        @"terminateProcesses",
+        @"whitelistURLFilter",
+        @"zoomMode",
+    ]
     };
 }
 

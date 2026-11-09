@@ -1,0 +1,5673 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    " (%d:%d Remaining)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " (%1$d:%2$d verbleibend)"
+          }
+        }
+      }
+    },
+    " (after quitting %@)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(nach Beenden von %@)"
+          }
+        }
+      }
+    },
+    " (Connected to Power Source)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(mit Stromquelle verbunden)"
+          }
+        }
+      }
+    },
+    " (from client settings)" : {
+      "comment" : "Suffix marking a process offered from the local client settings",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " (aus Client-Einstellungen)"
+          }
+        }
+      }
+    },
+    " %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Screen Proctoring Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoring-Server verwendet werden soll."
+          }
+        }
+      }
+    },
+    " 1" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1"
+          }
+        }
+      }
+    },
+    " and " : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "und"
+          }
+        }
+      }
+    },
+    " copy" : {
+      "comment" : "word indicating the duplicate of a file, same as in Finder ' copy'",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kopieren"
+          }
+        }
+      }
+    },
+    " settings don't allow to run on the macOS version installed on this device. Update to latest macOS version or at least macOS " : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " Einstellungen erlauben die Benutzung auf der auf diesem Gerät installierten macOS-Version nicht. Aktualisieren Sie auf die neuste macOS-Version oder mindestens macOS"
+          }
+        }
+      }
+    },
+    " settings require AAC Assessment Mode, which is not supported on the macOS version installed on this device. Please update to at least " : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " Einstellungen erfordern den AAC-Bewertungsmodus, der auf der auf diesem Gerät installierten macOS-Version nicht unterstützt wird. Bitte aktualisieren Sie mindestens auf "
+          }
+        }
+      }
+    },
+    ", but compressed using gzip." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ", aber mit gzip komprimiert."
+          }
+        }
+      }
+    },
+    "(This function doesn't log you out if you are logged in on a website)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)"
+          }
+        }
+      }
+    },
+    "(Unnamed process)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(Unbenannter Prozess)"
+          }
+        }
+      }
+    },
+    "%@ %@ Configurations Not Allowed!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ von %2$@-Konfigurationen nicht erlaubt!"
+          }
+        }
+      }
+    },
+    "%@ cannot read the macOS system database that lists apps with Accessibility permissions because the file system denied access (error %ld: %@ at /Library/Application Support/com.apple.TCC). The permissions of that system folder appear to have been changed from their macOS default (drwxr-xr-x, owner root, group wheel). An administrator should restore the default permissions (for example with “sudo chown root:wheel” and “sudo chmod 755” on that folder), then click Retry." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ kann die macOS-Systemdatenbank mit der Liste der Apps mit Bedienungshilfen-Berechtigungen nicht lesen, weil das Dateisystem den Zugriff verweigert hat (Fehler %2$ld: %3$@ unter /Library/Application Support/com.apple.TCC). Die Berechtigungen dieses Systemordners wurden offenbar gegenüber dem macOS-Standard geändert (drwxr-xr-x, Eigentümer root, Gruppe wheel). Ein Administrator sollte die Standardberechtigungen wiederherstellen (zum Beispiel mit „sudo chown root:wheel“ und „sudo chmod 755“ für diesen Ordner) und anschließend auf „Wiederholen“ klicken."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ cannot read the macOS system database that lists apps with Accessibility permissions because the file system denied access (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). The permissions of that system folder appear to have been changed from their macOS default (drwxr-xr-x, owner root, group wheel). An administrator should restore the default permissions (for example with “sudo chown root:wheel” and “sudo chmod 755” on that folder), then click Retry."
+          }
+        }
+      }
+    },
+    "%@ cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit %@. If the window isn't open and this alert is displayed anyways, restart your Mac." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ kann nicht gestartet werden, wenn das Fenster 'Programme sofort beenden' oder ein anderer System-Dialog im Vordergrund geöffnet ist. Dieses Fenster schliessen oder %2$@ beenden. Falls die Fehlermeldung weiterhin angezeigt wird, starten Sie Ihren Mac neu."
+          }
+        }
+      }
+    },
+    "%@ Dock" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Dock"
+          }
+        }
+      }
+    },
+    "%@ doesn't allow to use custom key bindings. Please delete or rename the file at the path %@ and restart %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ lässt die Verwendung von benutzerdefinierten Tastenverknüpfung nicht zu. Bitte löschen Sie die Datei unter dem Pfad %2$@ oder benennen Sie sie um und starten Sie %3$@ neu."
+          }
+        }
+      }
+    },
+    "%@ files is not allowed in current %@ settings. Report this to your exam provider." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ von Dateien ist nicht erlaubt in den aktuellen %2$@-Einstellungen. Melden Sie dies Ihrem Prüfungsveranstalter."
+          }
+        }
+      }
+    },
+    "%@ has to be placed in the %@ folder in order for all features to work correctly. Move the '%@' app to your %@ folder and make sure that you don't have any other versions of %@ installed on your system. %@ will quit now." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ muss im Verzeichnis '%2$@' installiert werden. Bewegen Sie die '%3$@' App in Ihr Verzeichnis %4$@ und stellen Sie sicher, dass Sie keine anderen Versionen von %5$@ auf Ihrem System installiert haben. %6$@ wird jetzt beendet."
+          }
+        }
+      }
+    },
+    "%@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung."
+          }
+        }
+      }
+    },
+    "%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ist so konfiguriert, dass nur eine zuvor heruntergeladene Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis."
+          }
+        }
+      }
+    },
+    "%@ is disabled!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ist deaktiviert!"
+          }
+        }
+      }
+    },
+    "%@ is disabled. Enable %@ and restart %@." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ist deaktiviert. Aktivieren Sie %2$@ und starten %3$@ neu."
+          }
+        }
+      }
+    },
+    "%@ is locked because a process, which isn't allowed to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind."
+          }
+        }
+      }
+    },
+    "%@ is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows." : {
+      "comment" : "Lockdown alert message text for switching the user",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind."
+          }
+        }
+      }
+    },
+    "%@ is Locked!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ist gesperrt!"
+          }
+        }
+      }
+    },
+    "%@ is required for this exam." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ist für diese Session erforderlich."
+          }
+        }
+      }
+    },
+    "%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy located in System Settings." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite versucht, eine Schriftart herunterzuladenl, die nicht auf dem Mac installiert ist. Erlauben Sie %2$@ den Zugriff über die Systemeinstellung \"Sicherheit & Datenschutz\" / Bedienungshilfen."
+          }
+        }
+      }
+    },
+    "%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. %@ is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security & Privacy / Accessibility." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ benötigt die Berechtigung für Barrierefreiheit, um den Titel des aktiven (vordersten) Fensters einer beliebigen Anwendung für Screen Proctoring zu lesen. %2$@ verwendet diese Zugriffsberechtigungen NUR während Screen Proctoring-Sitzungen. Erlauben Sie %3$@ den Zugriff unter Systemeinstellungen / Datenschutz und Sicherheit / Bedienungshilfen."
+          }
+        }
+      }
+    },
+    "%@ needs Location Services permission to display the current Wi-Fi network name. Grant Location Services access to %@ in System Settings / Privacy & Security / Location Services." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ benötigt die Berechtigung für Ortungsdienste, um den aktuellen Wi-Fi-Netzwerknamen anzuzeigen. Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste."
+          }
+        }
+      }
+    },
+    "%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.%@Grant Location Services access to %@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ benötigt die Berechtigung für Ortungsdienste, um Wi-Fi-Netzwerknamen anzuzeigen und das Wechseln von Netzwerken zu erlauben.%2$@Erlauben Sie %3$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste. Dieser Dialog wird automatisch geschlossen, sobald der Zugriff gewährt wurde."
+          }
+        }
+      }
+    },
+    "%@ Not Allowed!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ nicht erlaubt!"
+          }
+        }
+      }
+    },
+    "%@ Not in %@ Folder!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nicht im Verzeichnis '%2$@'!"
+          }
+        }
+      }
+    },
+    "%@ of %@ configurations is not allowed in current settings. Report this to your exam provider." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ von %2$@-Konfigurationen ist in den aktuellen Einstellungen nicht erlaubt. Melden Sie dies Ihrem Prüfungsveranstalter."
+          }
+        }
+      }
+    },
+    "%@ process was stopped for %ld:%.2ld (minutes:seconds)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@-Prozess war unterbrochen für %2$ld:%3$.2ld (Minuten:Sekunden)"
+          }
+        }
+      }
+    },
+    "%@ Process Was Stopped!" : {
+      "comment" : "Lockdown alert title text for SEB process was stopped",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@-Prozess wurde unterbrochen!"
+          }
+        }
+      }
+    },
+    "%@ Re-Configured" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ neu konfiguriert"
+          }
+        }
+      }
+    },
+    "%@ session was inactive for %ld:%.2ld(minutes:seconds)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "  %1$@ session was inactive for %2$ld:%3$.2ld (minutes:seconds)"
+          }
+        }
+      }
+    },
+    "%@ Version" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@-Version"
+          }
+        }
+      }
+    },
+    "%@ version %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@-Version %@"
+          }
+        }
+      }
+    },
+    "%@ version %@ (Build %@)" : {
+      "comment" : "App full/build version",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ Version %2$@ (Build %3$@)"
+          }
+        }
+      }
+    },
+    "%@ version %@ or higher" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@-Version %@ oder höher"
+          }
+        }
+      }
+    },
+    "%@ Version Not Allowed!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@-Version nicht erlaubt!"
+          }
+        }
+      }
+    },
+    "%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ war gesperrt (Prüfung unterbrochen) für %2$ld:%3$.2ld (Minuten:Sekunden)"
+          }
+        }
+      }
+    },
+    "%@ was locked by SEB Server. Please contact your exam support." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ wurde durch SEB Server gesperrt. Bitte wenden Sie sich an Ihren Prüfungs-Support."
+          }
+        }
+      }
+    },
+    "%@ was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ konnte nicht alle Prozesse sofort beenden. Möglicherweise werden Administrator-Rechte benötigt. Versuchen Sie die Aktivitätsanzeige-Applikation zu benutzen oder deinstallieren Sie Hilfsprozesse (welche teilweise vom Betriebssystem automatisch neu gestartet werden)."
+          }
+        }
+      }
+    },
+    "%@ will quit now, install the required apps and then restart this exam." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ wird jetzt beendet, installieren Sie die erforderlichen Applikationen und starten Sie dann diese Prüfung erneut."
+          }
+        }
+      }
+    },
+    "%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ wird die zuvor heruntergeladene Datei heraufladen. Wenn also eine Datei heruntergeladenen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden."
+          }
+        }
+      }
+    },
+    "%@, current window" : {
+      "comment" : "Accessibility label for the active window in the SEB Dock open windows menu",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, aktives Fenster"
+          }
+        }
+      }
+    },
+    "%@, or %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ oder %@"
+          }
+        }
+      }
+    },
+    "%1$ld of %2$ld" : {
+      "comment" : "Search results counter shown in the search field, e.g. '1 of 15'",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ld von %2$ld"
+          }
+        }
+      }
+    },
+    "10.7 (this %@: 10.13)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10.7 (dieser %@: 10.13)"
+          }
+        }
+      }
+    },
+    "10.8 (this %@: 10.13)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10.8 (dieser %@: 10.13)"
+          }
+        }
+      }
+    },
+    "10.9 (this %@: 10.13)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10.9 (dieser %@: 10.13)"
+          }
+        }
+      }
+    },
+    "10.10 (this %@: 10.13)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10.10 (dieser %@: 10.13)"
+          }
+        }
+      }
+    },
+    "10.11 (this %@: 10.13)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10.11 (dieser %@: 10.13)"
+          }
+        }
+      }
+    },
+    "10.12 (this %@: 10.13)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10.12 (dieser %@: 10.13)"
+          }
+        }
+      }
+    },
+    "10.13 High Sierra" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10.13 High Sierra"
+          }
+        }
+      }
+    },
+    "10.14 Mojave" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10.14 Mojave"
+          }
+        }
+      }
+    },
+    "10.15 Catalina" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10.15 Catalina"
+          }
+        }
+      }
+    },
+    "11 Big Sur" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "11 Big Sur"
+          }
+        }
+      }
+    },
+    "12 Monterey" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "12 Monterey"
+          }
+        }
+      }
+    },
+    "13 Ventura" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "13 Ventura"
+          }
+        }
+      }
+    },
+    "14 Sonoma" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "14 Sonoma"
+          }
+        }
+      }
+    },
+    "15 Sequoia" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "15 Sequoia"
+          }
+        }
+      }
+    },
+    "26 Tahoe" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "26 Tahoe"
+          }
+        }
+      }
+    },
+    "A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie %@ erneut."
+          }
+        }
+      }
+    },
+    "A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display. Um trotzdem ein externes Display zu benutzen, wählen Sie die Option unten an und geben Sie das Beenden/Entsperren-Passwort ein, welche üblicherweise der Prüfungsaufsicht bekannt sind."
+          }
+        }
+      }
+    },
+    "A setting contains a double quote followed by a comma, which is not allowed. Please remove it from the setting '%@' and try again." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eine Einstellung enthält ein doppeltes Anführungszeichen gefolgt von einem Komma, was nicht erlaubt ist. Bitte entfernen Sie es aus der Einstellung '%@' und versuchen Sie es erneut."
+          }
+        }
+      }
+    },
+    "AAC Assessment Mode Not Supported!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AAC-Bewertungsmodus nicht unterstützt!"
+          }
+        }
+      }
+    },
+    "Accessibility Permissions Required" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zugriffsrechte erforderlich für Bedienungshilfen"
+          }
+        }
+      }
+    },
+    "Activates %@ browser. Right click displays menu with open webpages." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiviert den %@-Browser. Rechtsklick zeigt Menü mit geöffneten Webseiten an."
+          }
+        }
+      }
+    },
+    "Add" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinzufügen"
+          }
+        }
+      }
+    },
+    "Add Preset Permitted Process" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voreingestellten erlaubten Prozess hinzufügen"
+          }
+        }
+      }
+    },
+    "Additional Applications Not Available" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zusätzliche Applikationen nicht verfügbar"
+          }
+        }
+      }
+    },
+    "administrator" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Administrator"
+          }
+        }
+      }
+    },
+    "All cached screenshots transmitted" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle zwischengespeicherten Bildschirmfotos übertragen"
+          }
+        }
+      }
+    },
+    "allow" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "erlauben"
+          }
+        }
+      }
+    },
+    "allow to use %@ only with service" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ darf nur mit Service laufen"
+          }
+        }
+      }
+    },
+    "allow to use %@ without service" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ darf ohne Service laufen"
+          }
+        }
+      }
+    },
+    "Allowed %@ Versions" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erlaubte %@-Versionen"
+          }
+        }
+      }
+    },
+    "Always" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Immer"
+          }
+        }
+      }
+    },
+    "Additional App Not Found" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zusätzliche Applikation nicht gefunden"
+          }
+        }
+      }
+    },
+    "An assessment session is already active." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eine Prüfungssession ist bereits aktiv."
+          }
+        }
+      }
+    },
+    "The additional application with the bundle identifier %@ required by the current settings isn't installed on this Mac. Ask your exam support how to proceed." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die von den aktuellen Einstellungen benötigte zusätzliche Applikation mit dem Bundle-Identifier %@ ist auf diesem Mac nicht installiert. Wenden Sie sich an Ihren Prüfungs-Support."
+          }
+        }
+      }
+    },
+    "Applications" : {
+      "comment" : "Title of 'Applications' preference pane",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Applikationen"
+          }
+        }
+      }
+    },
+    "Apply" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anwenden"
+          }
+        }
+      }
+    },
+    "Apply Anyways" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trotzdem anwenden"
+          }
+        }
+      }
+    },
+    "Apply Edited Settings?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bearbeitete Einstellungen anwenden?"
+          }
+        }
+      }
+    },
+    "Applying Settings Failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anwenden der Einstellungen fehlgeschlagen"
+          }
+        }
+      }
+    },
+    "Are you sure you want to quit %@?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sind Sie sicher, dass Sie %@ beenden wollen?"
+          }
+        }
+      }
+    },
+    "Are you sure you want to quit this session?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sind Sie sicher, dass Sie diese Session beenden wollen?"
+          }
+        }
+      }
+    },
+    "Are you sure you want to restart this session?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sind Sie sicher, dass Sie diese Session neu starten wollen?"
+          }
+        }
+      }
+    },
+    "Are you sure?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sind Sie sicher?"
+          }
+        }
+      }
+    },
+    "Assessment Mode was interrupted with error: " : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der AAC-Bewertungsmodus wurde mit einem Fehler unterbrochen: "
+          }
+        }
+      }
+    },
+    "Authentication Required" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authentifizierung notwendig"
+          }
+        }
+      }
+    },
+    "Authorize" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autorisieren"
+          }
+        }
+      }
+    },
+    "Auto Proxy Discovery" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatische Proxy-Entdeckung"
+          }
+        }
+      }
+    },
+    "Automatic" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatisch"
+          }
+        }
+      }
+    },
+    "Automatic Proxy Configuration" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autom. Proxy-Konfiguration"
+          }
+        }
+      }
+    },
+    "Back to Start" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zurück zum Start"
+          }
+        }
+      }
+    },
+    "Battery Level %.f%%%@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Batteriestand %1$.f%%%2$@"
+          }
+        }
+      }
+    },
+    "Battery Status" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Batteriestatus"
+          }
+        }
+      }
+    },
+    "Before receiving title" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bevor Titel empfangen"
+          }
+        }
+      }
+    },
+    "Before running %@, you had the Touch Bar mode 'App Controls' set. %@ cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Settings / Keyboard / 'Touch Bar shows'. %@ will open this System Settings tab for you." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vor dem Starten von %1$@ hat die Touch Bar 'App-Steuerungen' angezeigt. %2$@ kann diese Einstellung nicht automatisch wiederherstellen. Sie müssen entweder Ihren Mac neu starten oder die Einstellung manuell in den Systemeinstellungen / Tastatur / 'Touch Bar zeigt' auswählen. %3$@ kann diesen Tab in den Systemeinstellungen für Sie öffnen."
+          }
+        }
+      }
+    },
+    "Black on White" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schwarz auf Weiss"
+          }
+        }
+      }
+    },
+    "block" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "blockieren"
+          }
+        }
+      }
+    },
+    "Browser" : {
+      "comment" : "Title of 'Browser' preference pane",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Browser"
+          }
+        }
+      }
+    },
+    "Browser Window" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Browserfenster"
+          }
+        }
+      }
+    },
+    "Bundle ID: %@, executable: %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bundle-ID: %1$@, Executable: %2$@"
+          }
+        }
+      }
+    },
+    "by attempting to upload same file downloaded before" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "versuchen, die zuvor heruntergeladene Datei auszuwählen"
+          }
+        }
+      }
+    },
+    "by only allowing to upload the same file downloaded before" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nur zuvor heruntergeladene Datei zulassen"
+          }
+        }
+      }
+    },
+    "CA anchor" : {
+      "comment" : "Certificate embed type: a CA trust anchor",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CA-Anker"
+          }
+        }
+      }
+    },
+    "CA Certificate" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CA-Zertifikat"
+          }
+        }
+      }
+    },
+    "camera" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kamera"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
+          }
+        }
+      }
+    },
+    "Cannot access server because of error: " : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zugriff auf den Server fehlgeschlagen wegen Fehler: "
+          }
+        }
+      }
+    },
+    "Cannot Configure Client" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Client kann nicht konfiguriert werden"
+          }
+        }
+      }
+    },
+    "Cannot Decrypt Settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konfiguration kann nicht entschlüsselt werden"
+          }
+        }
+      }
+    },
+    "Cannot Display Open File Dialog" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dialog zum Öffnen von Dateien kann nicht angezeigt werden"
+          }
+        }
+      }
+    },
+    "Cannot Establish Server Connection" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kann Serververbindung nicht aufbauen"
+          }
+        }
+      }
+    },
+    "Cannot Get Exam Config" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prüfungskonfiguration kann nicht geladen werden"
+          }
+        }
+      }
+    },
+    "Cannot Get Exam List" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liste der Prüfungen kann nicht geladen werden"
+          }
+        }
+      }
+    },
+    "Cannot Get Server API" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server API kann nicht geladen werden"
+          }
+        }
+      }
+    },
+    "Cannot Open Exam" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prüfung kann nicht geöffnet werden"
+          }
+        }
+      }
+    },
+    "Cannot Open Settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kann Einstellungen nicht öffnen"
+          }
+        }
+      }
+    },
+    "Cannot Reconfigure Client" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Client kann nicht umkonfiguriert werden"
+          }
+        }
+      }
+    },
+    "Cannot Remove Preset Prohibited Process" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voreingestellter verbotener Prozess kann nicht entfernt werden"
+          }
+        }
+      }
+    },
+    "Cannot Restore Touch Bar Mode" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Touch Bar Modus kann nicht wiederhergestellt werden"
+          }
+        }
+      }
+    },
+    "Cannot Start Exam" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prüfung kann nicht gestartet werden"
+          }
+        }
+      }
+    },
+    "Center" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zentrieren"
+          }
+        }
+      }
+    },
+    "Check your server connection configuration." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Konfiguration der Serververbindung muss überprüft werden."
+          }
+        }
+      }
+    },
+    "Checking server health" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serverstatus wird überprüft"
+          }
+        }
+      }
+    },
+    "Choose" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auswählen"
+          }
+        }
+      }
+    },
+    "Choose File Dialog Blocked by Settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dateiauswahldialog durch Einstellungen blockiert"
+          }
+        }
+      }
+    },
+    "Classic WebView is deprecated and no longer fully supported by macOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das klassische WebView ist veraltet und wird von macOS nicht mehr vollständig unterstützt! Die verwendete %@-Prüfungssystem-Integration/Einstellungen müssen aktualisiert werden, um das moderne WebView zu unterstützen."
+          }
+        }
+      }
+    },
+    "Clear" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Löschen"
+          }
+        }
+      }
+    },
+    "Clear Ignored URL List" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorierte URLs löschen"
+          }
+        }
+      }
+    },
+    "Close Force Quit Window" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fenster 'Programme sofort beenden' schliessen"
+          }
+        }
+      }
+    },
+    "Close Warning" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warnung schliessen"
+          }
+        }
+      }
+    },
+    "Closing lockdown windows" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lockdown-Fenster werden geschlossen"
+          }
+        }
+      }
+    },
+    "Closing Session" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Session wird beendet"
+          }
+        }
+      }
+    },
+    "Code contributions © 2015 - 2016 Janison" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Codebeiträge © 2015 - 2016 Janison"
+          }
+        }
+      }
+    },
+    "Config Too Large for QR Code" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konfiguration zu umfangreich für QR-Code"
+          }
+        }
+      }
+    },
+    "Config URL" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konfigurations-URL"
+          }
+        }
+      }
+    },
+    "Configuration" : {
+      "comment" : "Title of 'Configuration' preference pane",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konfiguration"
+          }
+        }
+      }
+    },
+    "Configure Client" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Client konfigurieren"
+          }
+        }
+      }
+    },
+    "Configuring Client" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Client konfigurieren"
+          }
+        }
+      }
+    },
+    "Connected (network name unavailable)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbunden (Netzwerkname nicht verfügbar)"
+          }
+        }
+      }
+    },
+    "Connecting to SEB Server" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mit SEB Server verbinden"
+          }
+        }
+      }
+    },
+    "Connecting…" : {
+      "comment" : "'Connecting…' header in 'Connecting to SEB Server' table view.\nShown while connecting to the server to fetch its certificate",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbinde…"
+          }
+        }
+      }
+    },
+    "Connection to SEB Server Failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbindung zu SEB Server fehlgeschlagen"
+          }
+        }
+      }
+    },
+    "Connection to SEB Server Failed: Fallback Option" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbindung zu SEB Server fehlgeschlagen: Fallback-Option"
+          }
+        }
+      }
+    },
+    "Contact your exam administrator" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontaktieren Sie Ihren Prüfungs-Administrator"
+          }
+        }
+      }
+    },
+    "Contact your server administrator" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontaktieren Sie Ihren Server-Administrator"
+          }
+        }
+      }
+    },
+    "Contact your server/exam administrator (Server error: " : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontaktieren Sie Ihren Server-/Prüfungs-Administrator (Server-Fehler: "
+          }
+        }
+      }
+    },
+    "Continue" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiter"
+          }
+        }
+      }
+    },
+    "Contributors: (see below)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Externe Beiträge: (siehe unten)"
+          }
+        }
+      }
+    },
+    "Correct password entered" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Korrektes Passwort eingegeben"
+          }
+        }
+      }
+    },
+    "Could Not Access Data of Additional Apps" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Zugriff auf Daten zusätzlicher Applikationen möglich"
+          }
+        }
+      }
+    },
+    "Could not connect to the server." : {
+      "comment" : "Error when the connection to the entered server failed",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbindung zum Server nicht möglich."
+          }
+        }
+      }
+    },
+    "Could not determine a correct hostname. You can enter the domain URL of your institution manually." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es konnte kein korrekter Hostname ermittelt werden. Sie können die Domain-URL Ihrer Institution manuell eingeben."
+          }
+        }
+      }
+    },
+    "Could not save downloaded data, probably a wrong download directory was used in %@ settings." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die heruntergeladenen Daten konnten nicht gespeichert werden, wahrscheinlich wurde in den %@-Einstellungen ein falsches Download-Verzeichnis verwendet."
+          }
+        }
+      }
+    },
+    "Could Not Start Assessment Mode" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prüfungsmodus konnte nicht gestartet werden"
+          }
+        }
+      }
+    },
+    "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert."
+          }
+        }
+      }
+    },
+    "Couldn't terminate process: %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prozess konnte nicht beendet werden: %@"
+          }
+        }
+      }
+    },
+    "Current settings have unsaved changes. If you don't save those first, you will loose them." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese."
+          }
+        }
+      }
+    },
+    "Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird."
+          }
+        }
+      }
+    },
+    "Current settings require access to the directory %@ for saving downloads." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuelle Einstellungen erfordern Zugriff auf das Verzeichnis %@ zum Speichern von Downloads."
+          }
+        }
+      }
+    },
+    "Current settings require access to the directory %@ for saving log files." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuelle Einstellungen erfordern Zugriff auf das Verzeichnis %@ zum Speichern von Logdateien."
+          }
+        }
+      }
+    },
+    "Custom Key Binding Detected" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benutzerdefinierte Tastenverknüpfung erkannt"
+          }
+        }
+      }
+    },
+    "Custom Scheme" : {
+      "comment" : "Label for custom (URL protocol) scheme property of an iPadOS/iOS permitted process/Additional App",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benutzerdefiniertes Schema"
+          }
+        }
+      }
+    },
+    "Debug" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Debug"
+          }
+        }
+      }
+    },
+    "Debug Certificate" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Debug-Zertifikat"
+          }
+        }
+      }
+    },
+    "decoding error: " : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dekodierungsfehler: "
+          }
+        }
+      }
+    },
+    "Decrypting exam settings was canceled" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entschlüsseln der Prüfungseinstellungen wurde abgebrochen"
+          }
+        }
+      }
+    },
+    "Decrypting settings was canceled" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entschlüsseln der Einstellungen wurde abgebrochen"
+          }
+        }
+      }
+    },
+    "Detecting dictation was disabled!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detektieren der Diktat-Funktion wurde ausgeschaltet!"
+          }
+        }
+      }
+    },
+    "Detecting processes was completely disabled!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prozessüberwachung wurde komplett ausgeschaltet!"
+          }
+        }
+      }
+    },
+    "Detecting screen sharing was disabled!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detektieren der Bildschirmfreigabe wurde ausgeschaltet!"
+          }
+        }
+      }
+    },
+    "Detecting Siri was disabled!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detektieren von Siri wurde ausgeschaltet!"
+          }
+        }
+      }
+    },
+    "Detecting specific processes was disabled!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detektieren von einzelnen Prozessen wurde ausgeschaltet!"
+          }
+        }
+      }
+    },
+    "Detecting the processes listed above was disabled!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detektieren der oben aufgelisteten Prozesse wurde ausgeschaltet!"
+          }
+        }
+      }
+    },
+    "Device name: %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gerätename: %@"
+          }
+        }
+      }
+    },
+    "Dictation activity detected. Enter the quit/unlock password, which usually exam supervision/support knows." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diktat-Funktion wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind."
+          }
+        }
+      }
+    },
+    "Dictation Detected!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diktat-Funktion wurde aktiviert!"
+          }
+        }
+      }
+    },
+    "Dictation is still active" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diktat-Funktion ist immer noch aktiv."
+          }
+        }
+      }
+    },
+    "Dictation Locked %@!" : {
+      "comment" : "Lockdown alert title text for Siri",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ gesperrt wegen verbotener Diktat-Funktion!"
+          }
+        }
+      }
+    },
+    "Dictation was activated" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diktat-Funktion wurde aktiviert"
+          }
+        }
+      }
+    },
+    "Disable" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deaktivieren"
+          }
+        }
+      }
+    },
+    "Disconnecting from SEB Server" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbindung mit SEB Server trennen"
+          }
+        }
+      }
+    },
+    "Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wollen Sie wirklich alle laufenden verbotenen Prozesse sofort beenden? Programme, die kein automatisches Speichern unterstützen, könnten ungesicherte Dokumentenänderungen verlieren."
+          }
+        }
+      }
+    },
+    "Do you really want to reload the current web page?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wollen Sie die Seite wirklich neu laden?"
+          }
+        }
+      }
+    },
+    "Do you want to continue editing the saved settings file?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wollen Sie die gespeicherten Einstellungen weiter bearbeiten?"
+          }
+        }
+      }
+    },
+    "Don't Apply" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht Anwenden"
+          }
+        }
+      }
+    },
+    "Don't Save" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht Speichern"
+          }
+        }
+      }
+    },
+    "Down/Uploads" : {
+      "comment" : "Title of 'Down/Uploads' preference pane",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Down/Uploads"
+          }
+        }
+      }
+    },
+    "Download %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ herunterladen"
+          }
+        }
+      }
+    },
+    "Download Failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download fehlgeschlagen"
+          }
+        }
+      }
+    },
+    "Download Finished" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download beendet"
+          }
+        }
+      }
+    },
+    "Downloading" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download"
+          }
+        }
+      }
+    },
+    "Downloading and Opening" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download und Öffnen"
+          }
+        }
+      }
+    },
+    "Downloading Settings Failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Herunterladen der Einstellungen fehlgeschlagen"
+          }
+        }
+      }
+    },
+    "Due to Zoom licensing issues, Zoom live proctoring is only available for SEB Alliance members. Please see https://safeexambrowser.org/alliance." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufgrund von Zoom-Lizenzierungsfragen ist Zoom Live Proctoring nur für SEB Alliance-Mitglieder verfügbar. Bitte besuchen Sie https://safeexambrowser.org/alliance."
+          }
+        }
+      }
+    },
+    "Edit File" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datei bearbeiten"
+          }
+        }
+      }
+    },
+    "Edit Saved Settings?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abgespeicherte Einstellungen bearbeiten?"
+          }
+        }
+      }
+    },
+    "Edited settings have unsaved changes." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bearbeitete Einstellungen haben ungesicherte Änderungen."
+          }
+        }
+      }
+    },
+    "Embed Server Certificate" : {
+      "comment" : "Title of the fetch-server-certificate sheet window",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server-Zertifikat einbetten"
+          }
+        }
+      }
+    },
+    "Enable" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivieren"
+          }
+        }
+      }
+    },
+    "Enter administrator password:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Administrator-Passwort eingeben:"
+          }
+        }
+      }
+    },
+    "Enter Exam Password:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prüfungspasswort eingeben:"
+          }
+        }
+      }
+    },
+    "Enter password for \"%@\"" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort für \"%@\" eingeben"
+          }
+        }
+      }
+    },
+    "Enter password used to encrypt these settings:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zum Verschlüsseln dieser Einstellungen benutztes Passwort eingeben:"
+          }
+        }
+      }
+    },
+    "Enter quit password:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beenden-Passwort eingeben:"
+          }
+        }
+      }
+    },
+    "Enter quit/unlock password:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beenden/Entsperren-Passwort eingeben:"
+          }
+        }
+      }
+    },
+    "Enter SEB Server fallback password:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SEB Server Fallback-Passwort eingeben:"
+          }
+        }
+      }
+    },
+    "Enter the %@ administrator password used in client settings:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geben Sie das %@ Administrator-Passwort aus den Client-Einstellungen ein:"
+          }
+        }
+      }
+    },
+    "Enter the %@ administrator password used in these settings:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In diesen Einstellungen verwendetes %@ Administrator-Passwort eingeben:"
+          }
+        }
+      }
+    },
+    "Entering the current %@ administrator password was canceled" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eingabe des aktuellen %@ Administrator-Passworts wurde abgebrochen"
+          }
+        }
+      }
+    },
+    "Error" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler"
+          }
+        }
+      }
+    },
+    "Error Decrypting Settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler beim Entschlüsseln der Einstellungen"
+          }
+        }
+      }
+    },
+    "Exam" : {
+      "comment" : "Title of 'Exam' preference pane",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prüfung"
+          }
+        }
+      }
+    },
+    "Exam List is Empty" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leere Prüfungsliste"
+          }
+        }
+      }
+    },
+    "Exporting Identity Failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exportieren des Identitätszertifikats ist fehlgeschlagen"
+          }
+        }
+      }
+    },
+    "Failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehlgeschlagen"
+          }
+        }
+      }
+    },
+    "Failed to Save Downloaded File" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download konnte nicht gespeichert werden"
+          }
+        }
+      }
+    },
+    "Failed, retrying..." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehlgeschlagen, erneut versuchen..."
+          }
+        }
+      }
+    },
+    "Fallback" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fallback"
+          }
+        }
+      }
+    },
+    "Fetch" : {
+      "comment" : "Button that fetches the certificate chain from the entered server",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrufen"
+          }
+        }
+      }
+    },
+    "Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." : {
+      "comment" : "Explanation at the top of the fetch-server-certificate sheet (Network / Certificates settings)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein von einem HTTPS-Server präsentiertes Zertifikat abrufen und in die Einstellungen einbetten. Überprüfen Sie den SHA-256-Fingerabdruck über einen unabhängigen Kanal, bevor Sie es einbetten."
+          }
+        }
+      }
+    },
+    "Fetching a server certificate by URL is available on macOS 12 (Monterey) and later." : {
+      "comment" : "Alert message shown when Fetch from Server is used on macOS 11 or older",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Abrufen eines Server-Zertifikats über eine URL ist ab macOS 12 (Monterey) verfügbar."
+          }
+        }
+      }
+    },
+    "Fetching identities" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Identitäten werden geladen …"
+          }
+        }
+      }
+    },
+    "File" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datei"
+          }
+        }
+      }
+    },
+    "File Automatically Chosen" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datei automatisch ausgewählt"
+          }
+        }
+      }
+    },
+    "File to Upload Not Found!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datei zum Heraufladen nicht gefunden!"
+          }
+        }
+      }
+    },
+    "Finalizing Screen Proctoring" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screen Proctoring abschliessen"
+          }
+        }
+      }
+    },
+    "For this exam session, screen capturing is required. You need to authorize Screen Recording for %@ in System Settings / Security & Privacy%@. Then restart %@ and your exam." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für diese Prüfungssession wird Bildschirmaufzeichnung benötigt. Sie müssen Bildschirmaufnahme für %1$@ in den Systemeinstellungen unter 'Sicherheit & Datenschutz' erlauben%2$@. Dann starten Sie %3$@ und die Prüfung erneut."
+          }
+        }
+      }
+    },
+    "For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die aktuelle Session erfordert Zugriff auf %1$@%2$@ für %3$@. Auf diesem Gerät ist Zugriff auf %4$@%5$@ gesperrt. Fragen Sie Ihren IT-Support nach einem Gerät ohne diese Einschränkungen."
+          }
+        }
+      }
+    },
+    "For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die aktuelle Session erfordert Zugriff auf %1$@%2$@ für %3$@. Sie müssen %6$@Zugriff auf %4$@%5$@ erlauben, bevor Sie die Session %7$@ starten können."
+          }
+        }
+      }
+    },
+    "For using permitted macOS third-party applications, AAC Assessment Mode must be enabled, file and share dialogs blocked and macOS 12 or newer enforced. Do you want to update your %@ settings accordingly?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um zugelassene macOS- Drittprogramme zu verwenden, muss der AAC-Bewertungsmodus aktiviert sein, Datei- und Share Sheets müssen blockiert werden und macOS 12 oder neuer muss erzwungen werden. Möchten Sie Ihre %@-Einstellungen entsprechend aktualisieren?"
+          }
+        }
+      }
+    },
+    "Force Classic" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klassisches erzwingen"
+          }
+        }
+      }
+    },
+    "Force Close" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schliessen erzwingen"
+          }
+        }
+      }
+    },
+    "Force Modern" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modern bevorzugen"
+          }
+        }
+      }
+    },
+    "Force Modern in New Tab+Different Host" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modern in neuen Fenstern+anderem Server bevorzugen"
+          }
+        }
+      }
+    },
+    "Force Quit All Processes" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prozesse sofort beenden"
+          }
+        }
+      }
+    },
+    "Force Quitting Processes Failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sofort beenden fehlgeschlagen"
+          }
+        }
+      }
+    },
+    "FTP Proxy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FTP-Proxy"
+          }
+        }
+      }
+    },
+    "Full Disk Access Not Working" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full Disk Access funktioniert nicht"
+          }
+        }
+      }
+    },
+    "Full Disk Access still isn't in effect for %@, so it cannot read the macOS system database that lists apps with Accessibility permissions (error %ld: %@ at /Library/Application Support/com.apple.TCC). Make sure Full Disk Access is enabled for %@ in System Settings / Privacy & Security / Full Disk Access. If it is already enabled, the grant may not apply to this copy of %@ (for example if it was updated in place or launched from a quarantined location) — remove %@ from the list, reinstall it by dragging it into the Applications folder, and add it again. Then click Retry." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full Disk Access ist für %1$@ immer noch nicht wirksam, daher kann die macOS-Systemdatenbank mit der Liste der Apps mit Bedienungshilfen-Berechtigungen nicht gelesen werden (Fehler %2$ld: %3$@ unter /Library/Application Support/com.apple.TCC). Stellen Sie sicher, dass Full Disk Access für %4$@ in den Systemeinstellungen / Datenschutz & Sicherheit / Full Disk Access aktiviert ist. Falls es bereits aktiviert ist, gilt die Berechtigung möglicherweise nicht für diese Kopie von %5$@ (zum Beispiel wenn sie an Ort und Stelle aktualisiert oder aus einem Quarantäne-Speicherort gestartet wurde) — entfernen Sie %6$@ aus der Liste, installieren Sie es durch Ziehen in den Programme-Ordner neu und fügen Sie es erneut hinzu. Klicken Sie anschließend auf „Wiederholen“."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Full Disk Access still isn't in effect for %1$@, so it cannot read the macOS system database that lists apps with Accessibility permissions (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). Make sure Full Disk Access is enabled for %4$@ in System Settings / Privacy & Security / Full Disk Access. If it is already enabled, the grant may not apply to this copy of %5$@ (for example if it was updated in place or launched from a quarantined location) — remove %6$@ from the list, reinstall it by dragging it into the Applications folder, and add it again. Then click Retry."
+          }
+        }
+      }
+    },
+    "Full user name: %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vollständiger Benutzername: %@"
+          }
+        }
+      }
+    },
+    "General" : {
+      "comment" : "Title of 'General' preference pane",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allgemein"
+          }
+        }
+      }
+    },
+    "get generally blocked" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "werden generell blockiert"
+          }
+        }
+      }
+    },
+    "Getting Exam Config..." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lade Prüfungskonfiguration..."
+          }
+        }
+      }
+    },
+    "Good server health, waiting until %@ to resume sending cached screen shots" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gute Verbindungsqualität, warten auf Wiederaufnahme der Übertragung um %@"
+          }
+        }
+      }
+    },
+    "Grant access in System Settings / Privacy & Security / Files & Folders / %@." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zugriff gewähren in Systemeinstellungen / Datenschutz und Sicherheit / Dateien und Ordner / %@."
+          }
+        }
+      }
+    },
+    "Grant access to Folder" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zugriff auf Verzeichnis gewähren"
+          }
+        }
+      }
+    },
+    "Grant Full Disk Access" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Festplattenvollzugriff gewähren"
+          }
+        }
+      }
+    },
+    "Holding Command Key Not Allowed!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Befehlstaste drücken nicht erlaubt!"
+          }
+        }
+      }
+    },
+    "Holding the Command key down while restarting %@ is not allowed, release it to continue." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drücken der Befehlstaste (cmd) während des Neustarts von %@ ist nicht erlaubt. Zum Weiterfahren Taste loslassen."
+          }
+        }
+      }
+    },
+    "Holding the Command key down while starting %@ is not allowed. Restart %@ without holding any keys." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drücken der Befehlstaste (cmd) während des Aufstartens von %1$@ ist nicht erlaubt. Starten Sie %2$@ neu, ohne irgendwelche Tasten gedrückt zu halten."
+          }
+        }
+      }
+    },
+    "Identity" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Identität"
+          }
+        }
+      }
+    },
+    "If SEB Server doesn't respond for a while, you can forcibly close the connection" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn SEB Server eine Zeit lang nicht antwortet, können Sie die Verbindung zwangsweise schliessen"
+          }
+        }
+      }
+    },
+    "If you don't enter the correct %@ administrator password, then you cannot open preferences." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ohne Eingabe des korrekten %@ Administrator-Passwortes können die Einstellungen nicht geöffnet werden."
+          }
+        }
+      }
+    },
+    "If you don't enter the correct quit password, then you cannot quit." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn Sie das korrekte Beenden-Passwort nicht eingeben, können Sie die App nicht beenden."
+          }
+        }
+      }
+    },
+    "If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ohne Eingabe des korrekten SEB Server Fallback-Passwortes kann der Fallback nicht ausgeführt werden."
+          }
+        }
+      }
+    },
+    "If you don't enter the right administrator password used in these settings you cannot open them." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten Administrator-Passworts kann diese nicht geöffnet werden."
+          }
+        }
+      }
+    },
+    "If you don't grant access to %@, you cannot use such webpages. Last time %@ was running, the webpage with the title '%@' (%@) tried to download a font." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn Sie %1$@ diese Erlaubnis nicht gewähren, dann können Sie solche Webseiten nicht benutzen. Beim letzten Mal als %2$@ lief, hat die Webseite mit dem Titel '%3$@' (%4$@) versucht, eine Schriftart herunter zu laden."
+          }
+        }
+      }
+    },
+    "If your institution does not support Automatic %@ Client Configuration, follow instructions of your exam administrator." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falls Ihre Institution die automatische %@-Client-Konfiguration nicht unterstützt, befolgen Sie die Anweisungen Ihres Prüfungs-Administrators."
+          }
+        }
+      }
+    },
+    "Ignore" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorieren"
+          }
+        }
+      }
+    },
+    "in System Preferences " : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in den Systemeinstellungen "
+          }
+        }
+      }
+    },
+    "Info" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Info"
+          }
+        }
+      }
+    },
+    "iOS" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS"
+          }
+        }
+      }
+    },
+    "iOS >18" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS >18"
+          }
+        }
+      }
+    },
+    "iOS User agent" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS User Agent"
+          }
+        }
+      }
+    },
+    "iPadOS" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPadOS"
+          }
+        }
+      }
+    },
+    "It's not allowed to open this URL! You can create a new filter rule based on the following patterns:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es ist nicht erlaubt, diese URL zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:"
+          }
+        }
+      }
+    },
+    "Join" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbinden"
+          }
+        }
+      }
+    },
+    "Known Networks" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bekannte Netzwerke"
+          }
+        }
+      }
+    },
+    "Left" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Links"
+          }
+        }
+      }
+    },
+    "Load Error" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbindungsfehler"
+          }
+        }
+      }
+    },
+    "Loaded data doesn't contain valid %@ settings." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geladene Daten beinhalten keine gültigen %@-Einstellungen."
+          }
+        }
+      }
+    },
+    "Loaded settings are empty and cannot be used." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geladene Konfigurationsdatei ist leer und kann nicht benutzt werden."
+          }
+        }
+      }
+    },
+    "Loading New %@ Settings Not Allowed!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laden von neuen %@-Einstellungen nicht erlaubt!"
+          }
+        }
+      }
+    },
+    "Loading settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen werden geladen"
+          }
+        }
+      }
+    },
+    "Loading Settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen werden geladen"
+          }
+        }
+      }
+    },
+    "Local %@ Settings Have Been Reset" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lokale %@-Client-Einstellungen wurden zurückgesetzt"
+          }
+        }
+      }
+    },
+    "Local Client Settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lokale Client-Einstellungen"
+          }
+        }
+      }
+    },
+    "Local client settings have the option 'Allow to open Settings window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von %@ verhindert. Sind Sie sicher, dass Sie dies anwenden wollen? Ansonsten können Sie diese Option zurücksetzen."
+          }
+        }
+      }
+    },
+    "Local hostname: %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lokaler Host-Name: %@"
+          }
+        }
+      }
+    },
+    "Local preferences were created by an incompatible %@ version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure %@ correctly." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die lokalen Einstellungen wurden entweder von einer inkompatiblen %1$@-Version erstellt, beschädigt oder manipuliert. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um %2$@ wieder korrekt zu konfigurieren."
+          }
+        }
+      }
+    },
+    "Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing %@." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für die Anzeige von Wi-Fi-Netzwerknamen ist der Zugriff auf die Ortungsdienste erforderlich. Gewähren Sie den Zugriff nach dem Beenden von %@ unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste."
+          }
+        }
+      }
+    },
+    "Location Services Required for Wi-Fi" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ortungsdienste für Wi-Fi erforderlich"
+          }
+        }
+      }
+    },
+    "Log in to" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einloggen"
+          }
+        }
+      }
+    },
+    "macOS" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS"
+          }
+        }
+      }
+    },
+    "Main Browser Window" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haupt-Browserfenster"
+          }
+        }
+      }
+    },
+    "manually with file requester" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "manuell mit Dateidialog"
+          }
+        }
+      }
+    },
+    "microphone" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikrofon"
+          }
+        }
+      }
+    },
+    "Missing Connection Settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehlende Verbindungseinstellungen"
+          }
+        }
+      }
+    },
+    "Moodle" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moodle"
+          }
+        }
+      }
+    },
+    "More information at https://safeexambrowser.org" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr Information auf https://safeexambrowser.org"
+          }
+        }
+      }
+    },
+    "Network" : {
+      "comment" : "Title of 'Network' preference pane",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Netzwerk"
+          }
+        }
+      }
+    },
+    "Never" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie"
+          }
+        }
+      }
+    },
+    "New settings have been saved, they will also be used when you start %@ next time again. Do you want to start working with %@ or quit for now?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn %1$@ das nächste Mal gestartet wird. Wollen Sie jetzt mit %2$@ arbeiten oder beenden?"
+          }
+        }
+      }
+    },
+    "New settings have been saved, they will be used when you start %@ next time again. Do you want to continue working with %@ or quit for now?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn %1$@ das nächste Mal gestartet wird. Wollen Sie jetzt mit %2$@ arbeiten oder beenden?"
+          }
+        }
+      }
+    },
+    "No %@ Configuration Found" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine %@-Konfiguration gefunden!"
+          }
+        }
+      }
+    },
+    "No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An der angegebenen URL wurden keine %1$@ Einstellungen gefunden. Benutzen Sie einen korrekten Link, um %2$@ zu konfigurieren oder eine Prüfung zu starten"
+          }
+        }
+      }
+    },
+    "No built-in display available, although required in settings!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein eingebautes Display verfügbar, obwohl dies in den Einstellungen verlangt wird!"
+          }
+        }
+      }
+    },
+    "No Built-In Display Available!" : {
+      "comment" : "Lockdown alert title text for no required built-in display available",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein eingebautes Display verfügbar!"
+          }
+        }
+      }
+    },
+    "No configuration data." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Konfigurationsdaten."
+          }
+        }
+      }
+    },
+    "No Encryption Credentials Chosen" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Verschlüsselung gewählt"
+          }
+        }
+      }
+    },
+    "No Hostname Found" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Hostname gefunden"
+          }
+        }
+      }
+    },
+    "No networks found" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Netzwerke gefunden"
+          }
+        }
+      }
+    },
+    "No Preset Processes Available" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine voreingestellten Prozesse verfügbar"
+          }
+        }
+      }
+    },
+    "No SEB Server Fallback Password entered" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein SEB Server Fallback-Passwort eingegeben"
+          }
+        }
+      }
+    },
+    "None" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine"
+          }
+        }
+      }
+    },
+    "None - Black" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine - schwarzer Hintergrund"
+          }
+        }
+      }
+    },
+    "None - White" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine - weisser Hintergrund"
+          }
+        }
+      }
+    },
+    "Not Connected" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht verbunden"
+          }
+        }
+      }
+    },
+    "Not Connected to Wi-Fi or VPN" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht mit WLAN oder VPN verbunden"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "one of the %@ versions %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eine der %@-Versionen %@"
+          }
+        }
+      }
+    },
+    "one of the %@ versions %@ or higher" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eine der %@-Versionen %@ oder höher"
+          }
+        }
+      }
+    },
+    "Only on load error" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur bei Verbindungsfehlern"
+          }
+        }
+      }
+    },
+    "Open edX" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open edX"
+          }
+        }
+      }
+    },
+    "open in new window" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in neuem Fenster öffnen"
+          }
+        }
+      }
+    },
+    "open in same window" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "im selben Fenster öffnen"
+          }
+        }
+      }
+    },
+    "Open System Settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Systemeinstellungen öffnen"
+          }
+        }
+      }
+    },
+    "Open webpages" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Offene Webseiten"
+          }
+        }
+      }
+    },
+    "Open/save panels for file selection are disabled in current %@ settings, contact your exam provider." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffnen-/Sichern-Dialoge zur Dateiauswahl sind in den aktuellen %@-Einstellungen deaktiviert, wenden Sie sich an Ihren Prüfungsanbieter."
+          }
+        }
+      }
+    },
+    "Opening" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffnen"
+          }
+        }
+      }
+    },
+    "Opening %@ Config" : {
+      "comment" : "Title of a temporary browser window for opening a SEB link",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@-Konfiguration wird geöffnet"
+          }
+        }
+      }
+    },
+    "Opening Exam..." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prüfung öffnen..."
+          }
+        }
+      }
+    },
+    "Opening New Settings Failed!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffnen neuer Einstellungen fehlgeschlagen!"
+          }
+        }
+      }
+    },
+    "Opening Preferences Disabled" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffnen der Einstellungen deaktiviert"
+          }
+        }
+      }
+    },
+    "Opening Settings Failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffnen der Einstellungen fehlgeschlagen!"
+          }
+        }
+      }
+    },
+    "Opening Universal Link" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Universal Link wird geöffnet"
+          }
+        }
+      }
+    },
+    "Opening Universal Link Failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffnen eines Universal Links ist fehlgeschlagen!"
+          }
+        }
+      }
+    },
+    "OS version %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Betriebssystemversion: %@"
+          }
+        }
+      }
+    },
+    "Other Networks" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Andere Netzwerke"
+          }
+        }
+      }
+    },
+    "Override" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorieren"
+          }
+        }
+      }
+    },
+    "Overriding required built-in display was enabled!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Internen Bildschirm erzwingen wurde deaktiviert!"
+          }
+        }
+      }
+    },
+    "Parsing Settings Failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einlesen der Konfiguration ist fehlgeschlagen"
+          }
+        }
+      }
+    },
+    "Password" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort"
+          }
+        }
+      }
+    },
+    "Paste from saved clipboard" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einfügen aus gesicherter Zwischenablage"
+          }
+        }
+      }
+    },
+    "Path" : {
+      "comment" : "Label for path property of a Windows permitted process",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pfad"
+          }
+        }
+      }
+    },
+    "Permissions Required for %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zugriffsrechte erforderlich für %@ "
+          }
+        }
+      }
+    },
+    "Permissions Required for Screen Capture" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zugriffsrechte erforderlich für Bildschirmaufzeichnung "
+          }
+        }
+      }
+    },
+    "Please confirm the %@ password first." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitte %@ Passwort zuerst bestätigen"
+          }
+        }
+      }
+    },
+    "Please contact your exam support." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitte wenden Sie sich an Ihren Prüfungs-Support."
+          }
+        }
+      }
+    },
+    "Please enter a valid server URL or host name." : {
+      "comment" : "Error when the entered server URL / host is not valid",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitte geben Sie eine gültige Server-URL oder einen gültigen Hostnamen ein."
+          }
+        }
+      }
+    },
+    "Please enter correct confirm password" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitte gleiches Passwort erneut eingeben"
+          }
+        }
+      }
+    },
+    "Preferences shortcut menu" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen Kontext-Menü"
+          }
+        }
+      }
+    },
+    "Previously interrupted exam was re-opened!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zuvor unterbrochene Prüfungssession wurde erneut gestartet!"
+          }
+        }
+      }
+    },
+    "Proctoring Error Locked %@!" : {
+      "comment" : "Lockdown alert title text for proctoring failure",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ gesperrt wegen Fehler bei Fernüberwachung!"
+          }
+        }
+      }
+    },
+    "Proctoring failed with error '%@'. Enter the quit/unlock password, which usually exam supervision/support knows." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fernüberwachung fehlgeschlagen mit Fehler '%@'. Geben Sie das Beenden/Entsperren-Passwort ein, welches üblicherweise der Prüfungsaufsicht bekannt ist."
+          }
+        }
+      }
+    },
+    "Proctoring failed: " : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fernüberwachung fehlgeschlagen:"
+          }
+        }
+      }
+    },
+    "Prohibited Process Locked %@!" : {
+      "comment" : "Lockdown alert title text for prohibited process",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ gesperrt wegen verbotenem Prozess!"
+          }
+        }
+      }
+    },
+    "Prohibited processes (check overridden) still running" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbotene Prozesse (Überprüfung deaktiviert) laufen noch"
+          }
+        }
+      }
+    },
+    "Prohibited Processes Are Running" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbotene Prozesse laufen"
+          }
+        }
+      }
+    },
+    "Prohibited processes detected" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbotene Prozesse wurden detektiert!"
+          }
+        }
+      }
+    },
+    "Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Damian Büchel, Andreas Hefti, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs."
+          }
+        }
+      }
+    },
+    "Project concept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Damian Büchel, Andreas Hefti, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs."
+          }
+        }
+      }
+    },
+    "QR Code" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR-Code"
+          }
+        }
+      }
+    },
+    "quit" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "beenden"
+          }
+        }
+      }
+    },
+    "Quit" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beenden"
+          }
+        }
+      }
+    },
+    "Quit %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ beenden"
+          }
+        }
+      }
+    },
+    "Quit All Applications" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Programme beenden"
+          }
+        }
+      }
+    },
+    "Quit Session" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Session beenden"
+          }
+        }
+      }
+    },
+    "Raise Hand" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hand heben"
+          }
+        }
+      }
+    },
+    "Re-opening an exam which was locked before" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erneutes Starten einer zuvor unterbrochenen Prüfungssession"
+          }
+        }
+      }
+    },
+    "Re-Opening Locked Exam!" : {
+      "comment" : "Lockdown alert title text for re-opening a locked exam",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet"
+          }
+        }
+      }
+    },
+    "Reading Settings Failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lesen der Einstellungen ist fehlgeschlagen"
+          }
+        }
+      }
+    },
+    "Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für höhere Sicherheit wird empfohlen, ein System einzusetzen, welches den Config Key oder Browser Exam Key überprüfen kann."
+          }
+        }
+      }
+    },
+    "Reload" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neu laden"
+          }
+        }
+      }
+    },
+    "Reload Current Page" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuelle Seite neu laden"
+          }
+        }
+      }
+    },
+    "remote proctoring" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fernüberwachung"
+          }
+        }
+      }
+    },
+    "Remote Proctoring" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fernüberwachung"
+          }
+        }
+      }
+    },
+    "Remote Proctoring Not Available" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fernüberwachung nicht verfügbar"
+          }
+        }
+      }
+    },
+    "Remote Proctoring Session" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Session mit Fernüberwachung"
+          }
+        }
+      }
+    },
+    "Remove" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entfernen"
+          }
+        }
+      }
+    },
+    "Repeating Error: Invalid Token" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wiederholter Fehler: Ungültiges Token"
+          }
+        }
+      }
+    },
+    "Request failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Request fehlgeschlagen"
+          }
+        }
+      }
+    },
+    "Request failed, retrying..." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Request fehlgeschlagen, erneut versuchen…"
+          }
+        }
+      }
+    },
+    "Required built-in display is still not available!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verlangtes eingebautes Display immer noch nicht verfügbar!"
+          }
+        }
+      }
+    },
+    "Requires macOS 12 or Later" : {
+      "comment" : "Alert title shown when Fetch from Server is used on macOS 11 or older",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erfordert macOS 12 oder neuer"
+          }
+        }
+      }
+    },
+    "Reset" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zurücksetzen"
+          }
+        }
+      }
+    },
+    "Resources" : {
+      "comment" : "Title of 'Resources' preference pane",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ressourcen"
+          }
+        }
+      }
+    },
+    "Restart" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neustart"
+          }
+        }
+      }
+    },
+    "Restart Session" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Session neu starten"
+          }
+        }
+      }
+    },
+    "Retry" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wiederholen"
+          }
+        }
+      }
+    },
+    "return to %@ and re" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "zu %@ zurückkehren und "
+          }
+        }
+      }
+    },
+    "Revert to Client Settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zurücksetzen auf Client-Einstellungen"
+          }
+        }
+      }
+    },
+    "Right" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rechts"
+          }
+        }
+      }
+    },
+    "root" : {
+      "comment" : "Badge for a self-signed root CA certificate",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Root"
+          }
+        }
+      }
+    },
+    "Running on Current macOS Version Not Allowed!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benutzung auf aktueller macOS-Version nicht erlaubt!"
+          }
+        }
+      }
+    },
+    "Save Changes" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Änderungen speichern"
+          }
+        }
+      }
+    },
+    "Save settings to display its Browser Exam Key" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen speichern, um deren Browser Exam Key anzuzeigen"
+          }
+        }
+      }
+    },
+    "Save settings to display its Config Key" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen speichern, um deren Config Key anzuzeigen"
+          }
+        }
+      }
+    },
+    "Save Unencrypted" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unverschlüsselt speichern"
+          }
+        }
+      }
+    },
+    "Saved file '%@'" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datei '%@' gespeichert"
+          }
+        }
+      }
+    },
+    "Saving Settings Failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichern der Einstellungen fehlgeschlagen"
+          }
+        }
+      }
+    },
+    "Screen Proctoring Active" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screen Proctoring Aktiv"
+          }
+        }
+      }
+    },
+    "Screen Proctoring Connection Failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screen Proctoring-Verbindung fehlgeschlagen"
+          }
+        }
+      }
+    },
+    "Screen Proctoring Inactive" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screen Proctoring Inaktiv"
+          }
+        }
+      }
+    },
+    "Screen Proctoring Session" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screen Proctoring Session"
+          }
+        }
+      }
+    },
+    "Screen Sharing Detected!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bildschirmfreigabe detektiert!"
+          }
+        }
+      }
+    },
+    "Screen sharing detected. Enter the quit/unlock password, which usually exam supervision/support knows." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein Netzwerkzugriff auf die Bildschirmfreigabe wurde detektiert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind."
+          }
+        }
+      }
+    },
+    "Screen sharing is still active" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bildschirmfreigabe ist immer noch aktiv"
+          }
+        }
+      }
+    },
+    "Screen Sharing Locked %@!" : {
+      "comment" : "Lockdown alert title text for screen sharing",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ gesperrt wegen Bildschirmfreigabe!"
+          }
+        }
+      }
+    },
+    "Screen sharing was activated" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bildschirmfreigabe wurde aktiviert"
+          }
+        }
+      }
+    },
+    "Searching for %@ Configuration Canceled" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suche für %@-Konfiguration abgebrochen"
+          }
+        }
+      }
+    },
+    "Searching for a valid %@ config file …" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suche eine %@-Konfigurationsdatei …"
+          }
+        }
+      }
+    },
+    "Searching for a valid %@ config file was canceled." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suche nach einer %@-Konfigurationsdatei wurde abgebrochen."
+          }
+        }
+      }
+    },
+    "Searching local network for Automatic %@ Client Configuration requires a Wi-Fi or VPN connection. You can enter the domain URL of your institution manually too." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die automatische %@-Client-Konfiguration benötigt eine WLAN- oder VPN-Verbindung. Sie können die Domain-URL Ihrer Institution auch manuell eingeben."
+          }
+        }
+      }
+    },
+    "Secure exam session was started, URL: " : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sichere Prüfungssession wurde gestartet, URL:"
+          }
+        }
+      }
+    },
+    "Secure session was started" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sichere Session wurde gestartet"
+          }
+        }
+      }
+    },
+    "Secure Web Proxy (HTTPS)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sicherer Web-Proxy (HTTPS)"
+          }
+        }
+      }
+    },
+    "Security" : {
+      "comment" : "Title of 'Security' preference pane",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sicherheit"
+          }
+        }
+      }
+    },
+    "Security Warning" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sicherheitswarnung"
+          }
+        }
+      }
+    },
+    "Select" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auswählen"
+          }
+        }
+      }
+    },
+    "Select Exam" : {
+      "comment" : "'Select Exam' header in 'Connecting to SEB Server' table view.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prüfung auswählen"
+          }
+        }
+      }
+    },
+    "Select the certificate(s) to embed and choose their type:" : {
+      "comment" : "Heading above the list of fetched certificates",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wählen Sie die einzubettenden Zertifikate und deren Typ:"
+          }
+        }
+      }
+    },
+    "Select the permitted processes you want to add to your %@ exam settings. The list includes the built-in preset processes and the permitted processes from your local client settings (marked accordingly). They will be added as active processes." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wählen Sie die erlaubten Prozesse aus, die Sie zu Ihren %@-Prüfungseinstellungen hinzufügen möchten. Die Liste enthält die integrierten voreingestellten Prozesse sowie die erlaubten Prozesse aus Ihren lokalen Client-Einstellungen (entsprechend gekennzeichnet). Sie werden als aktive Prozesse hinzugefügt."
+          }
+        }
+      }
+    },
+    "Select the preset permitted processes you want to add to your %@ settings. They will be added as active processes." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wählen Sie die voreingestellten erlaubten Prozesse aus, die Sie zu Ihren %@-Einstellungen hinzufügen möchten. Sie werden als aktive Prozesse hinzugefügt."
+          }
+        }
+      }
+    },
+    "self-signed" : {
+      "comment" : "Badge for a self-signed (non-CA) server certificate",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "selbstsigniert"
+          }
+        }
+      }
+    },
+    "Sending cached screen shots, server health %d out of 10" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Übertragung läuft, Verbindungsqualität %d von 10"
+          }
+        }
+      }
+    },
+    "Server health %d out of 10" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbindungsqualität %d von 10"
+          }
+        }
+      }
+    },
+    "Server health %d out of 10, deferring sending screen shots" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbindungsqualität %d von 10, Übertragung erfolgt verzögert"
+          }
+        }
+      }
+    },
+    "Server health %d out of 10, waiting until %@ to resume sending cached screen shots" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbindungsqualität %1$d von 10, warten auf Wiederaufnahme der Übertragung um %2$@"
+          }
+        }
+      }
+    },
+    "Server URL or host (e.g. exam.example.org)" : {
+      "comment" : "Placeholder in the server URL field of the fetch-server-certificate sheet",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server-URL oder Host (z. B. exam.example.org)"
+          }
+        }
+      }
+    },
+    "settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen"
+          }
+        }
+      }
+    },
+    "Settings for Configuring Client" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen zum Umkonfigurieren eines Clients"
+          }
+        }
+      }
+    },
+    "Settings for Starting Exam" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen zum Starten einer Prüfung"
+          }
+        }
+      }
+    },
+    "Settings have been saved, use this file to configure a %@ client permanently." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen wurden gespeichert, benutzen Sie diese Konfigurationsdatei, um einen %@-Prüfungsrechner permanent zu konfigurieren."
+          }
+        }
+      }
+    },
+    "Settings have been saved, use this file to start an exam with %@." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konfiguration wurde gespeichert, benutzen Sie diese Datei um eine Prüfung mit %@ zu starten."
+          }
+        }
+      }
+    },
+    "Share as Configuration" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Als Konfiguration teilen"
+          }
+        }
+      }
+    },
+    "Show QR code for %@ Verificator" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR-Code für %@ Verificator anzeigen"
+          }
+        }
+      }
+    },
+    "Siri activity detected. Enter the quit/unlock password, which usually exam supervision/support knows." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siri wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind."
+          }
+        }
+      }
+    },
+    "Siri Detected!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siri wurde aktiviert!"
+          }
+        }
+      }
+    },
+    "Siri is still active" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siri ist immer noch aktiv"
+          }
+        }
+      }
+    },
+    "Siri Locked %@!" : {
+      "comment" : "Lockdown alert title text for Siri",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ gesperrt wegen Siri!"
+          }
+        }
+      }
+    },
+    "Siri was activated" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siri wurde aktiviert"
+          }
+        }
+      }
+    },
+    "Skip" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Überspringen"
+          }
+        }
+      }
+    },
+    "SOCKS Proxy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SOCKS-Proxy"
+          }
+        }
+      }
+    },
+    "Specify one or more %@ version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: \"Win.3.9.min\" allows %@ for Windows 3.9 or newer." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geben Sie eine oder mehrere %@-Version(en) an, die zur Verwendung dieser Konfiguration erforderlich sind – eine pro Zeile. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS ist Win, Mac oder iOS; optionale Teile in eckigen Klammern). Beispiel: \"Win.3.9.min\" erlaubt %@ für Windows 3.9 oder neuer."
+          }
+        }
+      }
+    },
+    "SSL Certificate" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SSL-Zertifikat"
+          }
+        }
+      }
+    },
+    "Standard user agent" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard User Agent"
+          }
+        }
+      }
+    },
+    "Start SEB" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SEB starten"
+          }
+        }
+      }
+    },
+    "Starting Exam" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prüfung starten"
+          }
+        }
+      }
+    },
+    "Streaming Proxy (RTSP)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streaming-Proxy (RTSP)"
+          }
+        }
+      }
+    },
+    "Switched back after user switch / login window" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wechsel zurück nach Benutzerwechsel / Anmeldefenster"
+          }
+        }
+      }
+    },
+    "System Default" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Systemeinstellung"
+          }
+        }
+      }
+    },
+    "System Preferences" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Systemeinstellungen"
+          }
+        }
+      }
+    },
+    "The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der %@-Prozess wurde unterbrochen, was auf eine Manipulation hindeuten könnte. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind."
+          }
+        }
+      }
+    },
+    "The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die folgenden gestarteten Applikationen müssen vor dem Starten von SEB beendet werden. Sie können die Applikationen manuell beenden und zu SEB Verificator zurückkehren, um SEB zu starten."
+          }
+        }
+      }
+    },
+    "The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to %@ to continue to the exam." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die untenstehenden Programme/Prozesse müssen beendet werden, bevor die Prüfung gestartet werden kann. Sie können Programme selber beenden oder Hilfsprozesse deaktivieren/deinstallieren und danach zu %@ zurück kehren, um mit der Prüfung weiterzufahren."
+          }
+        }
+      }
+    },
+    "The configuration will be saved unencrypted" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Konfigurationsdatei wird unverschlüsselt gespeichert"
+          }
+        }
+      }
+    },
+    "The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die aktuelle Session wird mittels eines Live-Video- und Audiostreams fernüberwacht, welcher an einen individuell konfigurierten (Proctoring-)Server gesendet wird. Fragen Sie Ihren Prüfungsverantwortlichen nach dessen Datenschutzbestimmungen. %1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Proctoring-Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoring-Dienst oder Server verwendet werden soll."
+          }
+        }
+      }
+    },
+    "the exam page" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "die Prüfungsseite"
+          }
+        }
+      }
+    },
+    "The file dialog will not be displayed, because Open and Save Panels are blocked (see Applications pane)." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Dateidialog wird nicht angezeigt, weil Öffnen- und Sichern-Dialoge blockiert sind (siehe Bereich Applikationen)."
+          }
+        }
+      }
+    },
+    "The identity certificate might be corrupted or the associated private key was imported to the Keychain as 'non-exportable'. If the identity was embedded in a config file, open it here in Preferences. Then the private key will be added to the Keychain as 'exportable'." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Identitätszertifikat könnte beschädigt sein oder der dazugehörige private Schlüssel wurde als 'nicht-exportierbar' in den Schlüsselbund importiert. Falls das Identitätszertifikat in einer Konfigurationsdatei eingebettet war, öffnen Sie diese hier im Einstellungen-Fenster. Dann wird der private Schlüssel als 'exportierbar' zum Schlüsselbund hinzugefügt."
+          }
+        }
+      }
+    },
+    "The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat ist nicht auf diesem Gerät installiert. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert."
+          }
+        }
+      }
+    },
+    "The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Liste mit Filterregeln für zu ignorierende URLs hat nur im Filterregeln-Lernen-Modus eine Wirkung, für ignorierte URLs/Ressourcen wird dauerhaft keine Warnung angezeigt. Blockiert werden diese URLs sowieso, weil alle nicht explizit erlaubten URLs vom Filter blockiert werden. Wollen Sie die Liste nun löschen?"
+          }
+        }
+      }
+    },
+    "The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently." : {
+      "comment" : "Warning shown when a fetched certificate chain fails normal system trust validation",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die präsentierte Zertifikatskette besteht die normale Vertrauensprüfung NICHT. Dies kann auf ein Abfangen der Verbindung hindeuten – betten Sie das Zertifikat nur ein, wenn Sie den Fingerabdruck unabhängig überprüfen können."
+          }
+        }
+      }
+    },
+    "The server did not present any certificates." : {
+      "comment" : "Error when a fetched TLS connection returned no certificates",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Server hat keine Zertifikate präsentiert."
+          }
+        }
+      }
+    },
+    "The server didn't return any %@ settings data." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Server hat keine %@ Einstellungsdaten zurückgegeben."
+          }
+        }
+      }
+    },
+    "The server returned an error (HTTP status code %ld)." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Server hat einen Fehler zurückgegeben (HTTP-Statuscode %ld)."
+          }
+        }
+      }
+    },
+    "The server returned an error: %ld %@" : {
+      "comment" : "Shown when a page load fails with an HTTP error status code",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Server hat einen Fehler zurückgegeben: %1$ld %2$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The server returned an error: %1$ld %2$@"
+          }
+        }
+      }
+    },
+    "The user name or password for %@ was incorrect. Please try again." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Benutzername oder das Passwort für %@ war falsch. Bitte versuchen Sie es erneut."
+          }
+        }
+      }
+    },
+    "The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again." : {
+      "comment" : "Shown when the web content process keeps terminating",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Webseite musste mehrmals neu geladen werden, weil ihr Inhalt nicht mehr reagierte. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "the webpage" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "die Webseite"
+          }
+        }
+      }
+    },
+    "Then restart %@/the exam." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dannach starten Sie %@/die Prüfung neu."
+          }
+        }
+      }
+    },
+    "There are currently no additional preset permitted processes which could be added to your %@ settings." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es sind momentan keine weiteren voreingestellten erlaubten Prozesse vorhanden, die zu Ihren %@-Einstellungen hinzugefügt werden könnten."
+          }
+        }
+      }
+    },
+    "These settings are corrupted and cannot be used (failing key: %@)." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Einstellungen sind beschädigt und können nicht benutzt werden (fehlerhafte Einstellung: %@)."
+          }
+        }
+      }
+    },
+    "These settings are corrupted and cannot be used." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Einstellungen sind beschädigt und können nicht benutzt werden."
+          }
+        }
+      }
+    },
+    "These settings cannot be used. They may have been created by an incompatible version of %@ or are corrupted." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Einstellungen können nicht benutzt werden. Sie wurden entweder mit einer inkompatiblen %@-Version erstellt oder sind beschädigt"
+          }
+        }
+      }
+    },
+    "These settings have the option 'Allow to open Settings window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert. Sind Sie sicher, dass Sie das anwenden wollen? Ansonsten können Sie diese Option während der aktuellen Session ignorieren."
+          }
+        }
+      }
+    },
+    "This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Konfiguration passt nicht in einen QR-Code, vielleicht wurde sie mit einer älteren %@-Version/auf einer anderen Plattform erstellt oder enthält umfangreiche Daten wie viele verbotene Prozesse, eingebettete Zertifikate oder viele URL-Filterregeln. Sie könnten versuchen, die Konfiguration manuell von Grund auf neu zu erstellen, indem Sie die Standardeinstellungen verwenden und nur die notwendigen Einstellungen ändern."
+          }
+        }
+      }
+    },
+    "This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es ist nicht erlaubt, diese eingebettete Ressource zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:"
+          }
+        }
+      }
+    },
+    "This exam session requires the following additional applications to be available:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für diese Prüfungssession müssen die folgenden zusätzlichen Applikationen zur Verfügung stehen:"
+          }
+        }
+      }
+    },
+    "This exam session requires using additional applications. You have to allow access to their data, as %@ has to remove the saved state of previously open document windows in these apps (%@ is not accessing any of your data created in these apps). %@ will quit now, restart the exam and grant access to the data of additional apps next time." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für diese Prüfungssession werden zusätzliche Applikationen benötigt. Sie müssen den Zugriff auf deren Daten erlauben, da %1$@ den gespeicherten Status der zuvor geöffneten Dokumentfenster in diesen Applikationen entfernen muss (%2$@ greift nicht auf Ihre in diesen Applikationen erstellten Daten zu). %3$@ wird sich jetzt beenden, starten Sie die Prüfung erneut und erlauben Sie beim nächsten Mal den Zugriff auf die Daten der zusätzlichen Applikationen."
+          }
+        }
+      }
+    },
+    "This exam was interrupted before and not finished properly. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet. Beenden/Entsperren-Passwort aus den Einstellungen der aktuellen Session eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind."
+          }
+        }
+      }
+    },
+    "This is a preset prohibited process, which cannot be removed. %@ automatically adds it to any configuration. You can deactivate this preset process or change its properties." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dies ist ein voreingestellter verbotener Prozess, welcher nicht entfernt werden kann. %@ fügt diesen automatisch zu jeder Konfiguration hinzu. Sie können diesen voreingestellten Prozess deaktivieren oder seine Parameter anpassen."
+          }
+        }
+      }
+    },
+    "This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat."
+          }
+        }
+      }
+    },
+    "This setting allows to switch to any application on the exam client computer. Use this option only for open book exams (without lock down) or for debugging." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Einstellung erlaubt es, auf jede beliebige Applikation auf dem Prüfungsrechner zu wechseln. Sie sollte nur für Open Book Prüfungen (ohne Kioskmodus) oder Debugging benutzt werden."
+          }
+        }
+      }
+    },
+    "This version of %@ is not allowed for this exam." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Version von %@ ist für diese Session nicht erlaubt."
+          }
+        }
+      }
+    },
+    "TLS/SSL pin" : {
+      "comment" : "Certificate embed type: a TLS/SSL public-key pin",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TLS/SSL-Pin"
+          }
+        }
+      }
+    },
+    "To avoid that %@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %@ is still running." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um zu verhindern, dass %1$@ eine Prüfungssession blockiert, muss immer ein Beenden/Entsperren-Link nach Abgabe der Prüfung oder die Beenden-Taste benutzt werden. Versuchen Sie nie, Ihren Mac neu zu starten oder abzuschalten, während %2$@ noch läuft."
+          }
+        }
+      }
+    },
+    "To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um zu verhindern, dass %@ wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben und 'Zugang zu meinem Mac' in Systemeinstellungen/iCloud ausgeschaltet werden. Netzwerk-Administratoren können auch die für das VNC-Protokoll benutzten Ports blockieren."
+          }
+        }
+      }
+    },
+    "To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Settings/Sharing. You can also ask your network administrators to block ports used for the VNC protocol." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um zu verhindern, dass %@ wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben ausgeschaltet werden. Netzwerk-Administratoren können auch die für das VNC-Protokoll benutzten Ports blockieren."
+          }
+        }
+      }
+    },
+    "To detect apps with Accessibility permissions, %@ requires Full Disk Access. %@ is not reading any other data than the macOS system list of applications with Accessibility permissions. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um Apps mit Bedienungshilfen-Berechtigungen zu erkennen, benötigt %1$@ Festplattenvollzugriff. %2$@ liest keine anderen Daten als die macOS-Systemliste der Applikationen mit Bedienungshilfen-Berechtigungen. Bitte aktivieren Sie diesen unter Systemeinstellungen / Datenschutz und Sicherheit / Festplattenvollzugriff und klicken Sie dann auf 'Wiederholen'."
+          }
+        }
+      }
+    },
+    "Toggle Proctoring View" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fernüberwachungs-Fenster anzeigen/ausblenden"
+          }
+        }
+      }
+    },
+    "Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Modus Touch-optimiert funktioniert nicht, wenn der Kiosk-Modus 'Neuen Desktop erstellen' eingestellt ist, bitte Kiosk-Modus in den Sicherheits-Einstellungen auf 'Windows Explorer deaktivieren' ändern."
+          }
+        }
+      }
+    },
+    "Touch Optimized Mode Warning" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warnung Modus Touch-optimiert"
+          }
+        }
+      }
+    },
+    "Transmitting screen shot %d of %d" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Übertrage Bildschirmfoto %1$d von %2$d"
+          }
+        }
+      }
+    },
+    "Transmitting screen shot failed with error: %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Übertragung ist fehlgeschlagen: %@"
+          }
+        }
+      }
+    },
+    "Unconfirmed Password" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unbestätigtes Passwort"
+          }
+        }
+      }
+    },
+    "Unsaved Changes" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ungesicherte Änderungen"
+          }
+        }
+      }
+    },
+    "Untitled" : {
+      "comment" : "Title of a new opened browser window; Untitled\nuntitled filename",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unbenannt"
+          }
+        }
+      }
+    },
+    "Update Settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen aktualisieren"
+          }
+        }
+      }
+    },
+    "Update Settings for Download/Opening/Upload Files" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen für Download/Öffnen/Upload von Dateien aktualisieren"
+          }
+        }
+      }
+    },
+    "Update Settings for Multi App Mode" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen für den Multi-App-Modus aktualisieren"
+          }
+        }
+      }
+    },
+    "Uploading" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upload"
+          }
+        }
+      }
+    },
+    "URL Blocked!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blockierte URL!"
+          }
+        }
+      }
+    },
+    "URLSession was invalidated" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URLSession nicht mehr gültig"
+          }
+        }
+      }
+    },
+    "Use Start URL" : {
+      "comment" : "Link that fills the URL field with the exam's start URL host",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start-URL verwenden"
+          }
+        }
+      }
+    },
+    "Used third-party frameworks:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benutzte Dritthersteller-Bibliotheken:"
+          }
+        }
+      }
+    },
+    "User Interface" : {
+      "comment" : "Title of 'Appearance' preference pane",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benutzeroberfläche"
+          }
+        }
+      }
+    },
+    "User name: %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benutzername: %@"
+          }
+        }
+      }
+    },
+    "User switch / switch to login window detected" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benutzerwechsel / Anmeldefenster detektiert"
+          }
+        }
+      }
+    },
+    "User Switch Locked %@!" : {
+      "comment" : "Lockdown alert title text for switching the user",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ gesperrt wegen Benutzerwechsel!"
+          }
+        }
+      }
+    },
+    "Verbose" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alles"
+          }
+        }
+      }
+    },
+    "Version" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
+          }
+        }
+      }
+    },
+    "Virtual Machine Detected!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Virtuelle Maschine erkannt!"
+          }
+        }
+      }
+    },
+    "Waiting %d seconds" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warte %d Sekunden"
+          }
+        }
+      }
+    },
+    "Waiting for Accessibility Permissions" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warte auf Zugriffsrechte für Bedienungshilfen"
+          }
+        }
+      }
+    },
+    "Waiting until %@ to resume sending cached screen shots" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warte auf die Wiederaufnahme der Übertragung um %@"
+          }
+        }
+      }
+    },
+    "warn when service is not running" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warnen, wenn der Service nicht läuft"
+          }
+        }
+      }
+    },
+    "Warning" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warnung"
+          }
+        }
+      }
+    },
+    "web applications" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Web-Applikationen"
+          }
+        }
+      }
+    },
+    "Web Content" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Webinhalt"
+          }
+        }
+      }
+    },
+    "Web Proxy (HTTP)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Web-Proxy (HTTP)"
+          }
+        }
+      }
+    },
+    "Webpage." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Webseite."
+          }
+        }
+      }
+    },
+    "When using additional, permitted macOS third-party applications in exams, it often makes sense to allow secure download and upload of files from a web-based assessment system. %@ opens these files automatically with the according additional app after downloading. Examinees can then edit these template files in the additional app and save them with the same file name (cmd-S). When the assessment system contains an upload/choose file button, those files can be uploaded and submitted with the exam. Do you want to update your %@ settings accordingly?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bei der Verwendung von zusätzlichen, erlaubten macOS-Drittapplikationen in Prüfungen ist es oft sinnvoll, den sicheren Download und Upload von Dateien aus einem webbasierten Prüfungssystem zu erlauben. %1$@ öffnet diese Dateien nach dem Herunterladen automatisch mit der entsprechenden Drittapplikation. Prüfungsteilnehmer können diese Musterdateien dann in der Drittapplikation bearbeiten und unter demselben Dateinamen speichern (cmd-S). Wenn das Prüfungssystem eine Schaltfläche zum Auswählen/ Upload von Dateien enthält, können diese Dateien hochgeladen und mit der Prüfung eingereicht werden. Möchten Sie Ihre %2$@-Einstellungen entsprechend aktualisieren?"
+          }
+        }
+      }
+    },
+    "White on Black" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiss auf Schwarz"
+          }
+        }
+      }
+    },
+    "Wi-Fi" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wi-Fi"
+          }
+        }
+      }
+    },
+    "Wi-Fi: %@ (Signal: %ld dBm)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wi-Fi: %1$@ (Signal: %2$ld dBm)"
+          }
+        }
+      }
+    },
+    "Wi-Fi: Connected (Signal: %ld dBm)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wi-Fi: Verbunden (Signal: %ld dBm)"
+          }
+        }
+      }
+    },
+    "Wi-Fi: Not Connected" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wi-Fi: Nicht verbunden"
+          }
+        }
+      }
+    },
+    "Win" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Win"
+          }
+        }
+      }
+    },
+    "Win: User agent for desktop mode" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Win: User Agent für Desktop-Modus"
+          }
+        }
+      }
+    },
+    "Win: User agent for touch/tablet mode" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Win: User Agent für Touch-/Tablet-Modus"
+          }
+        }
+      }
+    },
+    "Wrong Admin Password" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falsches Administrator-Passwort"
+          }
+        }
+      }
+    },
+    "Wrong Institution URL" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falsche Institutions-URL"
+          }
+        }
+      }
+    },
+    "Wrong password entered!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falsches Passwort eingegeben!"
+          }
+        }
+      }
+    },
+    "Wrong password! Try again to enter the correct exam password:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falsches Passwort! Bitte das korrekte Prüfungspasswort eingeben:"
+          }
+        }
+      }
+    },
+    "Wrong password! Try again to enter the correct password used to encrypt these settings:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falsches Passwort! Bitte das korrekte zur Verschlüsselung dieser Einstellungen benutzte Passwort eingeben:"
+          }
+        }
+      }
+    },
+    "Wrong password! Try again to enter the current %@ administrator password:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falsches Passwort! Bitte das korrekte %@ Administrator-Passwort erneut eingeben:"
+          }
+        }
+      }
+    },
+    "Wrong Quit Password" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falsches Beenden/Entsperren-Passwort"
+          }
+        }
+      }
+    },
+    "Wrong quit/unlock password." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falsches Beenden/Entsperren-Passwort"
+          }
+        }
+      }
+    },
+    "Wrong SEB Server Fallback Password entered" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falsches SEB Server Fallback-Passwort eingegeben"
+          }
+        }
+      }
+    },
+    "You are not allowed to have dictation enabled while running %@. Restart %@ after switching dictation off in System Settings/Keyboard/Dictation." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es ist nicht erlaubt, die Diktat-Funktion zu benutzen, während %1$@ läuft. Starten Sie %2$@ neu, nachdem Sie die Diktat-Funktion in den Systemeinstellungen/Tastatur/Diktat deaktiviert haben."
+          }
+        }
+      }
+    },
+    "You are not allowed to have screen sharing active while running %@. Restart %@ after switching screen sharing off." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es ist nicht erlaubt, die Bildschirmfreigabe zu benutzen, während %1$@ läuft. Starten Sie %2$@ neu, nachdem Sie die Bildschirmfreigabe abgeschaltet haben."
+          }
+        }
+      }
+    },
+    "You are not allowed to have Siri enabled while running %@. Restart %@ after switching Siri off in System Settings/Siri." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es ist nicht erlaubt, Siri zu benutzen, während %1$@ läuft. Starten Sie %2$@ neu, nachdem Sie Siri deaktiviert haben."
+          }
+        }
+      }
+    },
+    "You are not allowed to run %@ inside a virtual machine!" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es ist nicht erlaubt, %@ innerhalb einer virtuellen Maschine zu betreiben!"
+          }
+        }
+      }
+    },
+    "You are running %@ version %@ (build %@). Please download and install a required version." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie verwenden %@ Version %@ (Build %@). Bitte laden Sie eine erforderliche Version herunter und installieren Sie sie."
+          }
+        }
+      }
+    },
+    "You can also force quit these processes, but this may lead to loss of data." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie können diese Prozesse auch sofort beenden, aber das kann zu Datenverlust führen."
+          }
+        }
+      }
+    },
+    "You can also send all the listed applications a quit instruction, they can still ask about saving edited documents." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie können auch allen aufgeführten Programmen ein Beenden-Kommando senden, diese können dann noch bearbeitete Dokumente speichern."
+          }
+        }
+      }
+    },
+    "You can only reconfigure by entering the current %@ administrator password:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das aktuelle %@ Administrator-Passwort muss zum Umkonfigurieren eingegeben werden:"
+          }
+        }
+      }
+    },
+    "You cannot enter a path to an %@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %@/developer." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie können hier keinen Pfad zu einer %1$@-Konfigurationsdatei eingeben, sondern nur eine Domänen-URL Ihrer Einrichtung (Hostname mit Domäne und optional Subdomänen). Administratoren erhalten weitere Informationen zur automatischen Client-Konfiguration unter %2$@/developer."
+          }
+        }
+      }
+    },
+    "You didn't enter the correct current %@ administrator password." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das korrekte aktuelle %@ Administrator-Passwort wurde nicht eingegeben."
+          }
+        }
+      }
+    },
+    "You didn't enter the correct exam password." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie haben nicht das korrekte Prüfungspasswort eingegeben."
+          }
+        }
+      }
+    },
+    "You didn't enter the correct settings password." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie haben nicht das korrekte Prüfungspasswort für diese Einstellungen eingegeben."
+          }
+        }
+      }
+    },
+    "You edited settings. Do you want to apply them or continue using previous settings (current settings will be discarded)?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie haben die Einstellungen bearbeitet. Wollen Sie diese anwenden oder mit den vorherigen Einstellungen weiterfahren (bearbeitete Einstellungen werden verworfen)?"
+          }
+        }
+      }
+    },
+    "You edited settings. Do you want to apply them or continue using previous settings?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie haben die Einstellungen bearbeitet. Wollen Sie diese anwenden oder mit den vorherigen Einstellungen weiterfahren?"
+          }
+        }
+      }
+    },
+    "You either entered the wrong password or these settings were saved with an incompatible %@ version." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wurde mit einer inkompatiblen %@-Version erstellt."
+          }
+        }
+      }
+    },
+    "Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ihre Institution unterstützt die automatische %@-Client-Konfiguration möglicherweise nicht. Befolgen Sie die Anweisungen Ihres Prüfungs-Administrators."
+          }
+        }
+      }
+    },
+    "Your screen will be recorded during this exam in accordance with the specifications and data privacy regulations of your exam provider. If you have any questions, please contact your exam provider.%@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ihr Bildschirm wird während dieser Prüfung gemäss den Vorgaben und Datenschutzrichtlinien Ihres Prüfungsanbieters aufgezeichnet. Für Fragen hierzu wenden Sie sich bitte an Ihren Prüfungsanbieter."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.2"
+}

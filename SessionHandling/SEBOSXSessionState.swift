@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel Schneider on 21.11.23.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -12,7 +12,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -39,16 +39,18 @@ import Foundation
     @objc public var sebServerExamStartURL: URL?
     
     @objc lazy public var startURL: URL? = {
-        var currentStartURL: URL?
-        if sebServerExamStartURL != nil {
-            currentStartURL = sebServerExamStartURL
-        } else {
-            currentStartURL = URL(string: UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_startURL"))
-            if currentStartURL == nil {
-                currentStartURL = URL(string: SEBStartPage)
-            }
+        if let sebServerExamStartURL {
+            return sebServerExamStartURL
         }
-        return currentStartURL
+        // secureStringForKey: is bridged as an implicitly unwrapped optional (String!),
+        // so it can be nil when the key isn't set (e.g. no settings loaded yet); guard
+        // against it instead of force-unwrapping into URL(string:).
+        if let startURLString = UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_startURL"),
+           !startURLString.isEmpty,
+           let currentStartURL = URL(string: startURLString) {
+            return currentStartURL
+        }
+        return URL(string: SEBStartPage)
     }()
 }
 

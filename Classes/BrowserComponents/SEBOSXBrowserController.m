@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 06/10/14.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider,
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -85,7 +85,7 @@
 {
     DDLogInfo(@"WebView: %@ requests to be closed.", webViewToClose);
     
-    if (webViewToClose == _mainWebView && !_sebController.restarting) {
+    if (webViewToClose.isMainBrowserWebView && !_sebController.restarting) {
         DDLogError(@"Web application requests the main browser window to be closed, which is not allowed in SEB and will be ignored!");
     } else {
         if (webViewToClose) {
@@ -161,6 +161,41 @@
 }
 
 // Open a new WebView and show its window
+// A browser window is born by AppKit on the menu-bar display and only afterwards relocated to SEB's
+// main screen, which on a multi-display setup produces a brief flash of the window on the wrong
+// display. To avoid that, hide the window (alpha 0) right before it is first shown and reveal it only
+// once it has been positioned (mirrors the modal alert fade-in). Only needed with more than one
+// display; with a single display there's no relocation, so we keep the window visible throughout.
+// Returns YES if the window was hidden and the caller must later call -fadeInBrowserWindow:.
+- (BOOL) hideBrowserWindowForFadeInIfNeeded:(SEBBrowserWindow *)browserWindow
+{
+    if (NSScreen.screens.count <= 1) {
+        return NO;
+    }
+    browserWindow.alphaValue = 0.0;
+    browserWindow.pendingFadeIn = YES;
+    return YES;
+}
+
+// Reveals a browser window hidden by -hideBrowserWindowForFadeInIfNeeded:. The window is normally
+// revealed by -[SEBBrowserWindowController adjustWindowForScreen:moveBack:] as soon as it has settled
+// on the allowed main screen — this correctly handles windows that AppKit/WebKit first place on the
+// menu-bar display and then move back (e.g. a target=_blank window, whose window WebKit orders front
+// only AFTER we return from -createWebViewWith…, i.e. after any immediate reveal would have run).
+// This method only provides a FALLBACK reveal, after a short delay, for windows that are born on the
+// correct screen and therefore never trigger a screen change: without it such a window would stay
+// invisible. If a reveal already happened (pendingFadeIn cleared), this is a no-op.
+- (void) fadeInBrowserWindow:(SEBBrowserWindow *)browserWindow
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (browserWindow.pendingFadeIn) {
+            browserWindow.pendingFadeIn = NO;
+            [browserWindow setCalculatedFrameOnScreen:browserWindow.screen];
+            browserWindow.alphaValue = 1.0;
+        }
+    });
+}
+
 - (SEBAbstractWebView *) openAndShowWebViewWithURL:(nullable NSURL *)url
                                      configuration:(WKWebViewConfiguration *)configuration
                                              title:(NSString *)title
@@ -170,7 +205,7 @@
     SEBBrowserWindow *newBrowserWindow = [self openBrowserWindowWithURL:url configuration:configuration title:title overrideSpellCheck:overrideSpellCheck mainWebView:mainBrowserWindow];
     SEBAbstractWebView *newWindowWebView = newBrowserWindow.webView;
     newBrowserWindow.browserControllerDelegate = newWindowWebView;
-    
+
     if ([NSUserDefaults standardUserDefaults].allowWindowCapture == NO) {
         [newBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     }
@@ -180,9 +215,18 @@
     [self setLevelForBrowserWindow:newBrowserWindow elevateLevels:elevateWindowLevels];
     self.activeBrowserWindow = newBrowserWindow;
     self.activeBrowserWindowTitle = NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled");
+    // Deliberately do NOT hide/fade the main browser window: at initial launch it takes several
+    // relocation passes to settle on the configured screen (longer than the fallback reveal delay,
+    // and before the disallowed display is flagged inactive / the main screen is computed), so hiding
+    // it would either flash anyway or add fragility to the critical startup path. Its brief initial
+    // relocation is the long-standing behavior. Additional / link / temporary / alert windows still fade.
+    BOOL fadeIn = !mainBrowserWindow && [self hideBrowserWindowForFadeInIfNeeded:newBrowserWindow];
     [newBrowserWindow setCalculatedFrameOnScreen:newBrowserWindow.screen mainBrowserWindow:mainBrowserWindow temporaryWindow:temporaryWindow];
     [newBrowserWindow.windowController showWindow:self];
     [newBrowserWindow makeKeyAndOrderFront:self];
+    if (fadeIn) {
+        [self fadeInBrowserWindow:newBrowserWindow];
+    }
     [self transferCookiesToWKWebViewWithCompletionHandler:^{
         [newWindowWebView loadURL:url];
     }];
@@ -263,7 +307,14 @@
 - (void) webViewShow:(SEBAbstractWebView *)sender
 {
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
+    // Hide/reveal around the show to avoid the window flashing on the menu-bar display before it is
+    // relocated to SEB's main screen (see -hideBrowserWindowForFadeInIfNeeded:).
+    SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)sender.window;
+    BOOL fadeIn = [self hideBrowserWindowForFadeInIfNeeded:browserWindow];
     [browserWindowDocument showWindows];
+    if (fadeIn) {
+        [self fadeInBrowserWindow:browserWindow];
+    }
     DDLogInfo(@"Now showing new document browser window for: %@",sender);
 }
 
@@ -377,8 +428,13 @@
 - (void) adjustMainBrowserWindow
 {
     if (self.mainBrowserWindow.isVisible) {
-        [self.mainBrowserWindow setCalculatedFrame];
-        [self.mainBrowserWindow makeKeyAndOrderFront:self];
+        // Only bring the window forward if its frame actually changed. Otherwise a spurious
+        // screen-parameter change (macOS can deliver these repeatedly even when nothing really
+        // changed) would keep pulling the main window in front of auxiliary windows the student
+        // is using (e.g. a PDF opened in a separate window).
+        if ([self.mainBrowserWindow setCalculatedFrame]) {
+            [self.mainBrowserWindow makeKeyAndOrderFront:self];
+        }
     }
 }
 
@@ -386,17 +442,30 @@
 // Change window level of all open browser windows
 - (void) moveAllBrowserWindowsToScreen:(NSScreen *)screen
 {
+    BOOL anyWindowMoved = NO;
     NSArray *openWindowDocuments = [[NSDocumentController sharedDocumentController] documents];
     SEBBrowserWindowDocument *openWindowDocument;
     for (openWindowDocument in openWindowDocuments) {
         SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)openWindowDocument.mainWindowController.window;
-        if (browserWindow.screen != screen) {
-            [browserWindow setCalculatedFrameOnScreen:screen];
+        // Compare the window's current and target screen by display ID, not by NSScreen pointer:
+        // macOS recreates NSScreen objects on every screen reconfiguration, so a pointer comparison
+        // always reports a change and would needlessly recalculate (and resize) every window on each
+        // NSApplicationDidChangeScreenParametersNotification, even when the window is already on the
+        // correct display.
+        if (![browserWindow.screen.displayID isEqual:screen.displayID]) {
+            if ([browserWindow setCalculatedFrameOnScreen:screen]) {
+                anyWindowMoved = YES;
+            }
         }
     }
-    
-    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    [self.mainBrowserWindow makeKeyAndOrderFront:self];
+
+    // Only re-activate SEB and bring the main browser window forward if a window was actually
+    // relocated. Doing this unconditionally on every (possibly spurious) screen-parameter change
+    // would keep stealing focus and pulling the main window in front of auxiliary windows.
+    if (anyWindowMoved) {
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        [self.mainBrowserWindow makeKeyAndOrderFront:self];
+    }
 }
 
 

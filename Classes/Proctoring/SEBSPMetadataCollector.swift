@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 27.05.24.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -12,7 +12,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -57,7 +57,7 @@ struct Metadata: Codable {
 
 public class SEBSPMetadataCollector {
     
-    private var delegate: ScreenProctoringDelegate?
+    private weak var delegate: ScreenProctoringDelegate?
     private var settings: MetadataSettings
     private var localEventMonitor: Any?
     private var globalEventMonitor: Any?
@@ -67,6 +67,10 @@ public class SEBSPMetadataCollector {
         self.delegate = delegate
         self.settings = settings
         dynamicLogLevel = MyGlobals.ddLogLevel()
+    }
+
+    deinit {
+        stopMonitoringEvents()
     }
     
     public func collectMetaData(triggerMetadata: String) -> String? {
@@ -116,7 +120,8 @@ public class SEBSPMetadataCollector {
     public func monitorEvents() {
         if localEventMonitor == nil || globalEventMonitor == nil {
 #if os(macOS)
-            let eventHandler = { (event: NSEvent) in
+            let eventHandler = { [weak self] (event: NSEvent) in
+                guard let self else { return }
                 var eventTypeString = ""
                 let location = NSEvent.mouseLocation
                 let locationString = " (at \(Int(location.x)), \(Int(location.y)))"
@@ -190,6 +195,8 @@ public class SEBSPMetadataCollector {
                     eventTypeString = "Touch bar touched"
                 case .changeMode:
                     eventTypeString = "Mode of a pencil on an iPad connected as screen changed"
+                case .mouseCancelled:
+                    eventTypeString = "Mouse cancelled"
                 @unknown default:
                     eventTypeString = "Unknown event type (\(event.type))"
                 }

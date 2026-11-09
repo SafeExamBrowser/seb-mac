@@ -37,6 +37,13 @@
                           @"ignoreInAAC" : @NO,
                       },
                       @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"aText",
+                          @"identifier" : @"com.trankynam.aText",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"AutoFill",
                           @"identifier" : @"com.apple.AutoFillPanelService",
                           @"strongKill" : @YES,
@@ -45,6 +52,13 @@
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
                           @"executable" : @"Brave Browser Helper",
                           @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"Input customization with text triggers",
+                          @"executable" : @"BetterTouchTool",
+                          @"identifier" : @"com.hegenberg.BetterTouchTool*",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"executable" : @"Camtasia*",
@@ -68,15 +82,39 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"executable" : @"Chrome Remote Desktop Host",
+                          @"identifier" : @"com.google.ChromeRemoteDesktop",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
                           @"executable" : @"Chromium Helper",
                           @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"ConnectWise Control Client",
+                          @"identifier" : @"com.connectwise.control*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"AI writing assistant with text injection",
+                          @"executable" : @"Cotypist",
+                          @"identifier" : @"app.cotypist.Cotypist",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"executable" : @"DataDetectorsViewService",
                           @"identifier" : @"com.apple.DataDetectorsViewService",
                           @"ignoreInAAC" : @NO,
                           @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"API docs browser with snippet expander",
+                          @"executable" : @"Dash",
+                          @"identifier" : @"com.kapeli.dashdoc",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"executable" : @"Discord",
@@ -87,12 +125,32 @@
                           @"identifier" : @"com.dosdude1.Discord-Lite",
                       },
                       @{
+                          @"description": @"DWService Agent",
+                          @"executable" : @"DWAgent",
+                          @"identifier" : @"com.dwservice.dwagent",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"Element (Riot)",
                           @"identifier" : @"im.riot.app",
                       },
                       @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"espanso",
+                          @"identifier" : @"com.federicoterzi.espanso",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"FaceTime",
                           @"identifier" : @"com.apple.FaceTime",
+                      },
+                      @{
+                          @"description" : @"Script launcher with text injection",
+                          @"executable" : @"FastScripts",
+                          @"identifier" : @"com.red-sweater.fastscripts3",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"description" : @"Firefox: This stops video conferencing and screen sharing, without having to quit the browser. Users have to restore their open tabs afterwards though.",
@@ -114,6 +172,25 @@
                           @"identifier" : @"com.electron.guilded",
                       },
                       @{
+                          @"description" : @"Lua-based automation with text injection",
+                          @"executable" : @"Hammerspoon",
+                          @"identifier" : @"org.hammerspoon.Hammerspoon",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Speech to text into any text field",
+                          @"executable" : @"Handy",
+                          @"identifier" : @"com.pais.handy",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"executable" : @"ISL Light",
+                          @"identifier" : @"com.islonline.ISLLight*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"iTerm2",
                           @"identifier" : @"com.googlecode.iterm2",
                           @"ignoreInAAC" : @NO,
@@ -123,10 +200,57 @@
                           @"identifier" : @"com.logmein.join.me",
                       },
                       @{
+                          @"executable" : @"Jump Desktop",
+                          @"identifier" : @"com.p5sys.jump.mac.viewer",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"Jump Desktop Connect",
+                          @"identifier" : @"com.p5sys.jump.mac.connect",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"Keyboard customizer with text output rules",
+                          @"executable" : @"Karabiner-Elements",
+                          @"identifier" : @"org.pqrs.Karabiner*",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Text on key combination",
+                          @"executable" : @"Keysmith",
+                          @"identifier" : @"app.keysmith.Keysmith",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Macro automation with text injection",
+                          @"executable" : @"Keyboard Maestro",
+                          @"identifier" : @"com.stairways.keyboardmaestro.editor",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Keyboard Maestro background engine",
+                          @"executable" : @"Keyboard Maestro Engine",
+                          @"identifier" : @"com.stairways.keyboardmaestro.engine",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"Keyboard Viewer (Assistive Control)",
                           @"identifier" : KeyboardViewerBundleID,
                           @"strongKill" : @YES,
                           @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"executable" : @"LogMeIn",
+                          @"identifier" : @"com.logmein.LogMeIn*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"Loom",
+                          @"identifier" : @"com.loom.desktop",
                       },
                       @{
                           @"executable" : @"Messages",
@@ -150,13 +274,103 @@
                           @"identifier" : @"com.microsoft.Lync",
                       },
                       @{
+                          @"executable" : @"Microsoft Remote Desktop",
+                          @"identifier" : @"com.microsoft.rdc.macos",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"Moonlight",
+                          @"identifier" : @"com.moonlight-stream.Moonlight",
+                      },
+                      @{
                           @"executable" : @"MSTeams",
                           @"identifier" : @"com.microsoft.teams2",
+                      },
+                      @{
+                          @"executable" : @"NoMachine",
+                          @"identifier" : @"com.nomachine.nxplayer",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"OBS",
+                          @"identifier" : @"com.obsproject.obs-studio",
                       },
                       @{
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
                           @"executable" : @"Opera Helper",
                           @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"Parallels Access",
+                          @"identifier" : @"com.parallels.access*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"Raycast",
+                          @"identifier" : @"com.raycast.macos",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"executable" : @"Parsec",
+                          @"identifier" : @"com.parsec.Parsec",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"Poof",
+                          @"identifier" : @"com.brnbw.Poof",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"executable" : @"Parsec",
+                          @"identifier" : @"com.parsecgaming.parsec",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"Clipboard manager with text expansion",
+                          @"executable" : @"Pastebot",
+                          @"identifier" : @"com.tapbots.Pastebot2Mac",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"PhraseExpress",
+                          @"identifier" : @"com.bartelsmedia.PhraseExpressOSX",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Text selection actions/insertion",
+                          @"executable" : @"PopClip",
+                          @"identifier" : @"com.pilotmoon.popclip",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"executable" : @"RemotePC",
+                          @"identifier" : @"com.remotepc.RemotePCDesktop",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"Remote Utilities*",
+                          @"identifier" : @"com.remoteutilities.*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"RustDesk",
+                          @"identifier" : @"com.carriez.rustdesk",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"Rocket Typist",
+                          @"identifier" : @"com.witt-software.Rocket-Typist*",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
@@ -165,8 +379,17 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"executable" : @"Screen Sharing",
+                          @"identifier" : @"com.apple.ScreenSharing",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"Screenconnect",
                           @"identifier" : @"com.elsitech.screenconnect.client",
+                      },
+                      @{
+                          @"executable" : @"Screens*",
+                          @"identifier" : @"com.edovia.screens*",
                       },
                       @{
                           @"executable" : @"Skype",
@@ -181,8 +404,30 @@
                           @"identifier" : @"com.tinyspeck.slackmacgap",
                       },
                       @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"Snippety",
+                          @"identifier" : @"pl.wojciechkulik.Snippety",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"SolsticeClient",
                           @"identifier" : @"com.mersive.solstice.client",
+                      },
+                      @{
+                          @"executable" : @"Splashtop*",
+                          @"identifier" : @"com.splashtop.*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"Supremo",
+                          @"identifier" : @"com.nanosystems.Supremo*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"sunshine",
+                          @"description" : @"Sunshine game streaming server.",
+                          @"strongKill" : @YES,
                       },
                       @{
                           @"executable" : @"Swiftcord",
@@ -191,6 +436,13 @@
                       @{
                           @"executable" : @"Teams",
                           @"identifier" : @"com.microsoft.teams",
+                      },
+                      @{
+                          @"description" : @"Code snippet expander",
+                          @"executable" : @"TeaCode",
+                          @"identifier" : @"com.apptorium.TeaCode*",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"executable" : @"TeamViewer",
@@ -205,8 +457,48 @@
                           @"identifier" : @"ru.keepcoder.Telegram",
                       },
                       @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"TextExpander",
+                          @"identifier" : @"com.smileonmymac.textexpander",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Text cleaning/transformation",
+                          @"executable" : @"TextSoap",
+                          @"identifier" : @"com.unmarked.textsoap",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"Terminal",
                           @"identifier" : @"com.apple.Terminal",
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"executable" : @"ToDesk",
+                          @"identifier" : @"com.youqu.todesk*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"Typexp",
+                          @"identifier" : @"com.creativeapplicationsnet.textexp",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"Typinator",
+                          @"identifier" : @"com.macility.typinator2",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"TypeIt4Me",
+                          @"identifier" : @"com.typeit4me.TypeIt4MeMenu",
+                          @"strongKill" : @YES,
                           @"ignoreInAAC" : @NO,
                       },
                       @{
@@ -224,12 +516,24 @@
                           @"identifier" : @"org.videolan.vlc",
                       },
                       @{
+                          @"executable" : @"VNC Viewer",
+                          @"identifier" : @"com.realvnc.vncviewer",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"vncserver",
                           @"description" : @"The user will have to deactivate/uninstall RealVNC server to use SEB.",
                       },
                       @{
                           @"executable" : @"Voxa",
                           @"identifier" : @"lol.peril.voxa",
+                      },
+                      @{
+                          @"description" : @"AI typing assistant",
+                          @"executable" : @"WunderType",
+                          @"identifier" : @"com.wunderpen.app",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"executable" : @"webexmta",
@@ -241,9 +545,17 @@
                       },
 
                       // SEB for Windows
-                      
+
                       @{
                           @"currentUser" : @YES,
+                          @"description" : @"Ammyy Admin Remote Utility",
+                          @"executable" : @"AA.exe",
+                          @"originalName" : @"AA.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description" : @"Ammyy Admin Remote Utility",
                           @"executable" : @"AA_v3.exe",
                           @"originalName" : @"AA_v3.exe",
                           @"os" : @1,
@@ -253,6 +565,18 @@
                           @"executable" : @"AeroAdmin.exe",
                           @"originalName" : @"AeroAdmin.exe",
                           @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"AnyDesk.exe",
+                          @"originalName" : @"AnyDesk.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"description": @"Barrier Screen Share Client",
+                          @"executable": @"barrier.exe",
+                          @"originalName": @"barrier.exe",
+                          @"os": @1,
                       },
                       @{
                           @"currentUser" : @YES,
@@ -316,6 +640,12 @@
                        },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"ConnectWiseControl.Client.exe",
+                          @"originalName" : @"ConnectWiseControl.Client.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"Discord.exe",
                           @"originalName" : @"Discord.exe",
                           @"os" : @1,
@@ -330,6 +660,13 @@
                           @"currentUser" : @YES,
                           @"executable" : @"DiscordCanary.exe",
                           @"originalName" : @"DiscordCanary.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"DWService Agent",
+                          @"executable" : @"dwagent.exe",
+                          @"originalName" : @"dwagent.exe",
                           @"os" : @1,
                       },
                       @{
@@ -358,6 +695,13 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"description": @"GoToAssist Client Engine",
+                          @"executable": @"g2ax_user.exe",
+                          @"originalName": @"g2ax_user.exe",
+                          @"os": @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"GotoMeetingWinStore.exe",
                           @"originalName" : @"GotoMeetingWinStore.exe",
                           @"os" : @1,
@@ -366,6 +710,18 @@
                           @"currentUser" : @YES,
                           @"executable" : @"Guilded.exe",
                           @"originalName" : @"Guilded.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"ISLAlwaysOn.exe",
+                          @"originalName" : @"ISLAlwaysOn.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"ISLLight.exe",
+                          @"originalName" : @"ISLLight.exe",
                           @"os" : @1,
                       },
                       @{
@@ -382,6 +738,18 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"LogMeIn.exe",
+                          @"originalName" : @"LogMeIn.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"Loom.exe",
+                          @"originalName" : @"Loom.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"Microsoft.Media.player.exe",
                           @"originalName" : @"Microsoft.Media.player.exe",
                           @"os" : @1,
@@ -394,8 +762,52 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"Moonlight.exe",
+                          @"originalName" : @"Moonlight.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"MouseWithoutBorders.exe",
+                          @"originalName" : @"MouseWithoutBorders.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"MouseWithoutBordersHelper.exe",
+                          @"originalName" : @"MouseWithoutBordersHelper.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"Windows Remote Desktop Client",
+                          @"executable": @"mstsc.exe",
+                          @"originalName": @"mstsc.exe",
+                          @"os": @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"MS-teams.exe",
-                          @"originalName" : @"MS-teams.exe",
+                          @"originalName" : @"MS-Teams.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"NinjaRMM Management Agent",
+                          @"executable": @"NinjaRMMAgent.exe",
+                          @"originalName": @"NinjaRMMAgent.exe",
+                          @"os": @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"nxclient.exe",
+                          @"originalName" : @"nxclient.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"nxplayer.exe",
+                          @"originalName" : @"nxplayer.exe",
                           @"os" : @1,
                       },
                       @{
@@ -412,6 +824,18 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"parsecd.exe",
+                          @"originalName" : @"parsecd.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"PCMonitorSrv.exe",
+                          @"originalName" : @"PCMonitorSrv.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"pcmontask.exe",
                           @"originalName" : @"pcmontask.exe",
                           @"os" : @1,
@@ -420,6 +844,31 @@
                           @"currentUser" : @YES,
                           @"executable" : @"ptoneclk.exe",
                           @"originalName" : @"ptoneclk.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"Windows Quick Assist",
+                          @"executable": @"quickassist.exe",
+                          @"originalName": @"quickassist.exe",
+                          @"os": @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"Radmin.exe",
+                          @"originalName" : @"Radmin.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"remote_assistance_host.exe",
+                          @"originalName" : @"remote_assistance_host.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"remote_assistance_host.exe",
+                          @"originalName" : @"remoting_native_messaging_host.exe",
                           @"os" : @1,
                       },
                       @{
@@ -436,6 +885,12 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"rfusclient.exe",
+                          @"originalName" : @"rfusclient.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"RPCService.exe",
                           @"originalName" : @"RPCService.exe",
                           @"os" : @1,
@@ -445,6 +900,37 @@
                           @"executable" : @"RPCSuite.exe",
                           @"originalName" : @"RPCSuite.exe",
                           @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"rserver3.exe",
+                          @"originalName" : @"rserver3.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"rustdesk.exe",
+                          @"originalName" : @"rustdesk.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"rutserv.exe",
+                          @"originalName" : @"rutserv.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable": @"ScreenConnect.Client.exe",
+                          @"originalName": @"ScreenConnect.Client.exe",
+                          @"os": @1
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"ScreenConnect Windows Service",
+                          @"executable": @"ScreenConnect.Service.exe",
+                          @"originalName": @"ScreenConnect.Service.exe",
+                          @"os": @1
                       },
                       @{
                           @"currentUser" : @YES,
@@ -478,12 +964,19 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"SplashtopStreamer.exe",
+                          @"originalName" : @"SplashtopStreamer.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"spotify.exe",
                           @"originalName" : @"spotify.exe",
                           @"os" : @1,
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"description": @"Splashtop Streamer",
                           @"executable" : @"SRServer.exe",
                           @"originalName" : @"SRServer.exe",
                           @"os" : @1,
@@ -493,6 +986,34 @@
                           @"executable" : @"strwinclt.exe",
                           @"originalName" : @"strwinclt.exe",
                           @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"Supremo Remote Desktop",
+                          @"executable" : @"Supremo.exe",
+                          @"originalName" : @"Supremo.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"Supremo Remote Desktop Helper Service",
+                          @"executable" : @"SupremoHelper.exe",
+                          @"originalName" : @"SupremoHelper.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"Supremo Remote Desktop Service",
+                          @"executable" : @"SupremoService.exe",
+                          @"originalName" : @"SupremoService.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"Synergy Client",
+                          @"executable": @"synergyc.exe",
+                          @"originalName": @"synergyc.exe",
+                          @"os": @1,
                       },
                       @{
                           @"currentUser" : @YES,
@@ -508,8 +1029,73 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"TeamViewer_Desktop.exe",
+                          @"originalName" : @"TeamViewer_Desktop.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"TeamViewer_Service.exe",
+                          @"originalName" : @"TeamViewer_Service.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"Telegram.exe",
                           @"originalName" : @"Telegram.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"ToDesk.exe",
+                          @"originalName" : @"ToDesk.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"tv_w32.exe",
+                          @"originalName" : @"tv_w32.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"tv_x64.exe",
+                          @"originalName" : @"tv_x64.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"TightVNC Server",
+                          @"executable" : @"tvnserver.exe",
+                          @"originalName" : @"tvnserver.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"TightVNC Viewer",
+                          @"executable" : @"tvnviewer.exe",
+                          @"originalName" : @"tvnviewer.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"UltraViewer remote control (main application)",
+                          @"executable" : @"UltraViewer_Desktop.exe",
+                          @"originalName" : @"UltraViewer_Desktop.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"UltraViewer remote control (background service)",
+                          @"executable" : @"UltraViewer_Service.exe",
+                          @"originalName" : @"UltraViewer_Service.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"UltraVNC Server",
+                          @"executable" : @"winvnc.exe",
+                          @"originalName" : @"winvnc.exe",
                           @"os" : @1,
                       },
                       @{
@@ -550,9 +1136,24 @@
                       },
 
                   ], // prohibitedProcesses end
+
+              @"permittedProcesses" :
+                  @[
+                      @{
+                          @"active" : @NO,
+                          @"allowNetworkAccess" : @YES,
+                          @"description" : @"Cisco AnyConnect might be necessary for some VPN environments and has to be connected before starting SEB. Please verify whether this preset works with the current version.",
+                          @"executable" : @"AnyConnect",
+                          @"iconInTaskbar" : @NO,
+                          @"identifier" : @"com.cisco.anyconnect",
+                          @"runInBackground" : @YES,
+                          @"teamIdentifier" : @"DE8Y96K9QP",
+                          @"title" : @"Cisco AnyConnect VPN",
+                      },
+                  ], // permittedProcesses end
               
           }, // rootSettings end
-      
+
     }; // defaultSettings end
 }
 
@@ -563,11 +1164,11 @@
     return
     @{@"rootSettings" :
           @{
-    
+
               @"allowPreferencesWindow" : @NO
-              
+
           }, // rootSettings end
-      
+
     }; // defaultExamSettings end
 }
 

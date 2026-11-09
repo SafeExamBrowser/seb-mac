@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 15.02.13.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //  
@@ -24,7 +24,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -34,6 +34,17 @@
 // Preferences Security Pane
 
 #import "PrefsSecurityViewController.h"
+
+static NSString * const allowedSEBVersionsKey = @"org_safeexambrowser_SEB_sebAllowedVersions";
+
+@interface PrefsSecurityViewController () <NSTableViewDataSource, NSTableViewDelegate>
+{
+    // Programmatically created "Allowed SEB Versions" controls.
+    NSTableView *allowedSEBVersionsTableView;
+    NSMutableArray<NSString *> *allowedSEBVersions;
+    BOOL allowedSEBVersionsSectionBuilt;
+}
+@end
 
 @implementation PrefsSecurityViewController
 
@@ -58,14 +69,16 @@
     // Add default values (NSNumbers!) to the max displays combo box
     [maxNumberDisplays addItemsWithObjectValues:@[@1, @2, @3]];
 
-    [minMacOSVersionMajor addItemsWithObjectValues:@[@10, @11, @12, @13, @14, @15, @26]];
+    [minMacOSVersionMajor addItemsWithObjectValues:@[@10, @11, @12, @13, @14, @15, @26, @27]];
     [minMacOSVersionMinor addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15]];
     [minMacOSVersionPatch addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
 
-    [miniOSVersionMajor addItemsWithObjectValues:@[@12, @13, @14, @15, @16, @17, @18, @26]];
+    [miniOSVersionMajor addItemsWithObjectValues:@[@12, @13, @14, @15, @16, @17, @18, @26, @27]];
     [miniOSVersionMinor addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
     [miniOSVersionPatch addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
-    [allowediOSBetaVersion addItemsWithObjectValues:@[@0, [NSNumber numberWithInt:iOSBetaVersion26]]];
+    [allowediOSBetaVersion addItemsWithObjectValues:@[@0, [NSNumber numberWithInt:iOSBetaVersion27]]];
+
+    [self buildAllowedSEBVersionsSectionIfNeeded];
 }
 
 
@@ -73,6 +86,8 @@
 - (void)willBeDisplayed
 {
     [self setLogDirectory];
+    [self setEnableEnableAAC:self];
+    [self loadAllowedSEBVersions];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
@@ -115,20 +130,30 @@
 
 // Action to set the enabled property of dependent buttons
 // This is necessary because bindings don't work with private user defaults
-- (IBAction)setEnableEnableAAC:(NSButton *)sender
+- (IBAction)setEnableEnableAAC:(id)sender
 {
-    BOOL AACDisabled = !sender.state;
-    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    lockdownModePolicy policy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_lockdownModePolicy"];
+    BOOL AACDisabled = (policy == lockdownModePolicyEnforceClassic);
+    BOOL enforceAAC = (policy == lockdownModePolicyEnforceAAC);
+
     aacDnsPrePinningButton.enabled = !AACDisabled;
-    allowScreenCaptureButton.enabled = AACDisabled;
-    allowWindowCaptureButton.enabled = AACDisabled;
-    blockScreenShotsButton.enabled = AACDisabled;
-    allowScreenSharingButton.enabled =AACDisabled;
-    screenSharingMacEnforceButton.enabled = AACDisabled;
-    enableAppSwitcherButton.enabled = AACDisabled;
+    allowScreenCaptureButton.enabled = !enforceAAC;
+    allowWindowCaptureButton.enabled = !enforceAAC;
+    blockScreenShotsButton.enabled = !enforceAAC;
+    allowScreenSharingButton.enabled = !enforceAAC;
+    screenSharingMacEnforceButton.enabled = !enforceAAC;
+    enableAppSwitcherButton.enabled = !enforceAAC;
     allowSiriButton.enabled = AACDisabled;
     allowDictationButton.enabled = AACDisabled;
-    allowDisplayMirroringButton.enabled = AACDisabled;
+    allowDisplayMirroringButton.enabled = !enforceAAC;
+
+    // The screen proctoring AAC capture policy only applies when screen proctoring
+    // is enabled and AAC can actually run (i.e. not in enforced classic kiosk mode).
+    BOOL enableScreenProctoring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"];
+    BOOL screenProctoringCapturePolicyEnabled = enableScreenProctoring && !AACDisabled;
+    screenProctoringAACCapturePolicyButton.enabled = screenProctoringCapturePolicyEnabled;
+    screenProctoringAACCapturePolicyLabel.enabled = screenProctoringCapturePolicyEnabled;
 }
 
 
@@ -274,6 +299,222 @@
 
 - (IBAction)setEnablePrintScreen:(NSButton *)sender {
     allowiOSScreenCaptureButton.state = sender.state;
+}
+
+
+#pragma mark - Allowed SEB Versions
+
+// Builds the "Allowed SEB Versions" section (title, description, editable table
+// and add/remove buttons) and appends it to the Security pane's main stack view.
+// The section is built once; guard against awakeFromNib being called repeatedly.
+- (void)buildAllowedSEBVersionsSectionIfNeeded
+{
+    if (allowedSEBVersionsSectionBuilt || securitySettingsStackView == nil) {
+        return;
+    }
+    allowedSEBVersionsSectionBuilt = YES;
+
+    NSTextField *titleLabel = [NSTextField labelWithString:[NSString stringWithFormat:NSLocalizedString(@"Allowed %@ Versions", @""), SEBShortAppName]];
+    titleLabel.font = [NSFont boldSystemFontOfSize:[NSFont systemFontSize]];
+
+    NSTextField *descriptionLabel = [NSTextField wrappingLabelWithString:[NSString stringWithFormat:NSLocalizedString(@"Specify one or more %@ version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: \"Win.3.9.min\" allows %@ for Windows 3.9 or newer.", @""), SEBShortAppName, SEBShortAppName]];
+    descriptionLabel.font = [NSFont systemFontOfSize:[NSFont smallSystemFontSize]];
+    descriptionLabel.textColor = [NSColor secondaryLabelColor];
+    descriptionLabel.selectable = NO;
+    descriptionLabel.preferredMaxLayoutWidth = 460;
+
+    // Cell-based, single-column, editable table view.
+    allowedSEBVersionsTableView = [[NSTableView alloc] initWithFrame:NSZeroRect];
+    NSTableColumn *column = [[NSTableColumn alloc] initWithIdentifier:@"version"];
+    column.editable = YES;
+    column.title = [NSString stringWithFormat:NSLocalizedString(@"%@ Version", @""), SEBShortAppName];
+    [allowedSEBVersionsTableView addTableColumn:column];
+    allowedSEBVersionsTableView.headerView = nil;
+    allowedSEBVersionsTableView.usesAlternatingRowBackgroundColors = YES;
+    allowedSEBVersionsTableView.columnAutoresizingStyle = NSTableViewUniformColumnAutoresizingStyle;
+    allowedSEBVersionsTableView.allowsMultipleSelection = YES;
+    allowedSEBVersionsTableView.rowHeight = 19;
+    allowedSEBVersionsTableView.dataSource = self;
+    allowedSEBVersionsTableView.delegate = self;
+
+    NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:NSZeroRect];
+    scrollView.documentView = allowedSEBVersionsTableView;
+    scrollView.hasVerticalScroller = YES;
+    scrollView.borderType = NSBezelBorder;
+    scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    // Nudge the content down slightly so the first row isn't drawn flush against the top
+    // bezel (otherwise it looks shifted up by ~2 pt).
+    scrollView.automaticallyAdjustsContentInsets = NO;
+    scrollView.contentInsets = NSEdgeInsetsMake(2, 0, 0, 0);
+    // Size the visible area to a whole number of rows so the bottom row is never cropped
+    // with default macOS 26 metrics. Derived from the actual row height + intercell spacing
+    // (plus the content insets) so it stays correct if those change.
+    NSInteger visibleRows = 3;
+    CGFloat rowUnit = allowedSEBVersionsTableView.rowHeight + allowedSEBVersionsTableView.intercellSpacing.height;
+    NSSize contentSize = NSMakeSize(460, rowUnit * visibleRows + scrollView.contentInsets.top + scrollView.contentInsets.bottom);
+    NSSize frameSize = [NSScrollView frameSizeForContentSize:contentSize
+                                     horizontalScrollerClass:Nil
+                                       verticalScrollerClass:Nil
+                                                  borderType:scrollView.borderType
+                                                 controlSize:NSControlSizeRegular
+                                               scrollerStyle:NSScrollerStyleOverlay];
+    [scrollView.heightAnchor constraintEqualToConstant:frameSize.height].active = YES;
+    [scrollView.widthAnchor constraintEqualToConstant:460].active = YES;
+
+    // Add/remove buttons matching the Network / Filter tab: two shadowless-square
+    // NSButtons (22 x 21) with the standard +/- template images, overlapping by 1 pt
+    // so their borders merge into a shared middle edge (like there).
+    NSButton *addButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameAddTemplate] target:self action:@selector(addAllowedSEBVersion:)];
+    NSButton *removeButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameRemoveTemplate] target:self action:@selector(removeAllowedSEBVersion:)];
+    addButton.toolTip = NSLocalizedString(@"Add", @"");
+    removeButton.toolTip = NSLocalizedString(@"Remove", @"");
+    for (NSButton *button in @[addButton, removeButton]) {
+        button.bezelStyle = NSBezelStyleShadowlessSquare;
+        button.imagePosition = NSImageOnly;
+        button.translatesAutoresizingMaskIntoConstraints = NO;
+        [button.widthAnchor constraintEqualToConstant:22].active = YES;
+        [button.heightAnchor constraintEqualToConstant:21].active = YES;
+    }
+
+    // Overlap the two buttons by 1 pt so their 1 pt borders coincide and they share
+    // the middle edge (matches the Network tab). The size constraints are required,
+    // so the enclosing vertical stack can't stretch them.
+    NSStackView *addRemoveRow = [NSStackView stackViewWithViews:@[addButton, removeButton]];
+    addRemoveRow.orientation = NSUserInterfaceLayoutOrientationHorizontal;
+    addRemoveRow.spacing = -1;
+    addRemoveRow.translatesAutoresizingMaskIntoConstraints = NO;
+
+    NSStackView *section = [[NSStackView alloc] initWithFrame:NSZeroRect];
+    section.orientation = NSUserInterfaceLayoutOrientationVertical;
+    section.alignment = NSLayoutAttributeLeading;
+    section.spacing = 6;
+    section.translatesAutoresizingMaskIntoConstraints = NO;
+    [section addArrangedSubview:titleLabel];
+    [section addArrangedSubview:descriptionLabel];
+    [section addArrangedSubview:scrollView];
+    [section addArrangedSubview:addRemoveRow];
+
+    [securitySettingsStackView addArrangedSubview:section];
+}
+
+
+- (void)addAllowedSEBVersion:(id)sender
+{
+    if (allowedSEBVersions == nil) {
+        allowedSEBVersions = [NSMutableArray array];
+    }
+    [allowedSEBVersions addObject:@""];
+    [allowedSEBVersionsTableView reloadData];
+    [self saveAllowedSEBVersions];
+    NSInteger row = allowedSEBVersions.count - 1;
+    [allowedSEBVersionsTableView editColumn:0 row:row withEvent:nil select:YES];
+}
+
+
+- (void)removeAllowedSEBVersion:(id)sender
+{
+    NSIndexSet *selectedRows = allowedSEBVersionsTableView.selectedRowIndexes;
+    if (selectedRows.count == 0) {
+        return;
+    }
+    // Discard any in-progress cell editing first: otherwise ending the edit while
+    // removing commits/queries a row index that no longer exists once the model
+    // shrinks (which would crash with an out-of-bounds array access).
+    [allowedSEBVersionsTableView abortEditing];
+    [allowedSEBVersionsTableView.window makeFirstResponder:allowedSEBVersionsTableView];
+    // Only remove indexes that are actually within bounds of the model.
+    NSMutableIndexSet *rowsToRemove = [selectedRows mutableCopy];
+    [rowsToRemove removeIndexesInRange:NSMakeRange(allowedSEBVersions.count, NSUIntegerMax - allowedSEBVersions.count)];
+    if (rowsToRemove.count == 0) {
+        return;
+    }
+    [allowedSEBVersions removeObjectsAtIndexes:rowsToRemove];
+    [allowedSEBVersionsTableView reloadData];
+    [self saveAllowedSEBVersions];
+}
+
+
+- (void)loadAllowedSEBVersions
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSArray<NSString *> *storedVersions = [preferences secureStringArrayForKey:allowedSEBVersionsKey];
+    allowedSEBVersions = storedVersions ? [storedVersions mutableCopy] : [NSMutableArray array];
+    [allowedSEBVersionsTableView reloadData];
+}
+
+
+- (void)saveAllowedSEBVersions
+{
+    // Persist only non-empty, trimmed entries so an accidentally added blank row (or
+    // a row left empty) is never stored into the settings array.
+    NSMutableArray<NSString *> *versionsToStore = [NSMutableArray arrayWithCapacity:allowedSEBVersions.count];
+    for (NSString *version in allowedSEBVersions) {
+        NSString *trimmed = [version stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (trimmed.length > 0) {
+            [versionsToStore addObject:trimmed];
+        }
+    }
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setSecureObject:[versionsToStore copy] forKey:allowedSEBVersionsKey];
+}
+
+
+#pragma mark - NSTableViewDataSource
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+    return allowedSEBVersions.count;
+}
+
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    // Guard against a stale field-editor callback referencing a removed row.
+    if (row < 0 || row >= (NSInteger)allowedSEBVersions.count) {
+        return @"";
+    }
+    return allowedSEBVersions[row];
+}
+
+
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    if (row < 0 || row >= (NSInteger)allowedSEBVersions.count) {
+        return;
+    }
+    NSString *value = [object isKindOfClass:[NSString class]] ? (NSString *)object : [object description];
+    value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    allowedSEBVersions[row] = value ?: @"";
+    [self saveAllowedSEBVersions];
+    // Empty rows are removed once editing ends (see controlTextDidEndEditing:).
+}
+
+
+// Removes any empty (or whitespace-only) entries from the model and table. Called after
+// editing ends so a blank row never lingers — whether the edit was confirmed empty with
+// Enter, cancelled with Escape, or ended by clicking away / closing the window. Deferred
+// to the next run loop so the table isn't mutated from within the field editor callback.
+- (void)removeEmptyAllowedSEBVersionRows
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSIndexSet *emptyRows = [self->allowedSEBVersions indexesOfObjectsPassingTest:^BOOL(NSString *version, NSUInteger idx, BOOL *stop) {
+            return [version stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0;
+        }];
+        if (emptyRows.count == 0) {
+            return;
+        }
+        [self->allowedSEBVersions removeObjectsAtIndexes:emptyRows];
+        [self->allowedSEBVersionsTableView reloadData];
+        [self saveAllowedSEBVersions];
+    });
+}
+
+
+#pragma mark - NSTableViewDelegate
+
+- (void)controlTextDidEndEditing:(NSNotification *)notification
+{
+    [self removeEmptyAllowedSEBVersionRows];
 }
 
 

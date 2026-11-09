@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 17.01.12.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //  
@@ -24,7 +24,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -47,6 +47,61 @@ WindowRef FrontWindow(void);
 void DisposeWindow (
                     WindowRef window
                     );
+
+
+// NSSearchFieldCell subclass that draws a Safari-style "N of M" results counter
+// inside the search field, left of the cancel button, as part of the cell's own
+// drawing.
+static const CGFloat SEBResultsCountLeftPadding = 6.0;
+static const CGFloat SEBResultsCountRightPadding = 4.0;
+
+@interface SEBSearchFieldCell : NSSearchFieldCell
+@property (nonatomic, copy) NSString *resultsCountString;
+@end
+
+@implementation SEBSearchFieldCell
+
+- (NSDictionary *)resultsCountAttributes
+{
+    return @{ NSFontAttributeName: [NSFont systemFontOfSize:[NSFont smallSystemFontSize]],
+              NSForegroundColorAttributeName: [NSColor secondaryLabelColor] };
+}
+
+- (CGFloat)resultsCountWidth
+{
+    if (self.resultsCountString.length == 0) {
+        return 0;
+    }
+    NSSize size = [self.resultsCountString sizeWithAttributes:[self resultsCountAttributes]];
+    return ceil(size.width) + SEBResultsCountLeftPadding + SEBResultsCountRightPadding;
+}
+
+// Reserve space on the trailing side so the typed text never runs under the counter.
+- (NSRect)searchTextRectForBounds:(NSRect)rect
+{
+    NSRect textRect = [super searchTextRectForBounds:rect];
+    textRect.size.width = MAX(0, textRect.size.width - [self resultsCountWidth]);
+    return textRect;
+}
+
+- (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+{
+    [super drawInteriorWithFrame:cellFrame inView:controlView];
+    if (self.resultsCountString.length == 0) {
+        return;
+    }
+    NSDictionary *attributes = [self resultsCountAttributes];
+    NSSize textSize = [self.resultsCountString sizeWithAttributes:attributes];
+    NSRect cancelRect = [self cancelButtonRectForBounds:cellFrame];
+    CGFloat rightEdge = (!NSIsEmptyRect(cancelRect) && cancelRect.size.width > 0) ?
+        (NSMinX(cancelRect) - SEBResultsCountRightPadding) :
+        (NSMaxX(cellFrame) - SEBResultsCountRightPadding);
+    CGFloat x = rightEdge - textSize.width;
+    CGFloat y = NSMidY(cellFrame) - textSize.height / 2.0;
+    [self.resultsCountString drawAtPoint:NSMakePoint(x, y) withAttributes:attributes];
+}
+
+@end
 
 
 @implementation SEBBrowserWindowController
@@ -330,11 +385,14 @@ void DisposeWindow (
 
         
         if (movingWindowBack) {
-            NSRect recalculatedFrame = NSMakeRect(newFrame.origin.x, newFrame.origin.y, self.window.frame.size.width, newFrame.size.height);
-            [self.window setFrame:recalculatedFrame display:YES animate:YES];
+            // Recalculate the full frame on the allowed screen so the window keeps its configured
+            // size and positioning (mainBrowserWindow* or newBrowserWindowByLink*), instead of
+            // being forced to the screen's left edge. This is done without animation so a window
+            // that briefly landed on a disallowed screen isn't seen sliding across from it.
+            [self.browserWindow setCalculatedFrameOnScreen:newScreen];
             DDLogDebug(@"Moved browser window back to previous screen, frame: %@",
-                       (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(recalculatedFrame)));
-            
+                       (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(self.window.frame)));
+
         } else {
             NSRect oldWindowFrame = self.window.frame;
             NSRect newWindowFrame = oldWindowFrame;
@@ -356,7 +414,7 @@ void DisposeWindow (
             DDLogDebug(@"Adjusted window frame for new screen to: %@",
                        (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(newWindowFrame)));
         }
-        
+
         // If this is the main browser window, check if it's still on the same screen as when the dock was opened
         if (!movingWindowBack && self.window == self.browserController.mainBrowserWindow) {
             // Post a notification that the main screen changed
@@ -364,7 +422,16 @@ void DisposeWindow (
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"mainScreenChanged" object:self];
         }
-        
+
+        // Reveal a window that was hidden for the multi-display fade-in now that it has settled on an
+        // allowed screen (it was moved back from / never ended up on a disallowed display). This is the
+        // primary reveal path; the delayed fallback in -[SEBOSXBrowserController fadeInBrowserWindow:]
+        // only covers windows born on the correct screen that never change screen.
+        if (self.browserWindow.pendingFadeIn && newScreen && !newScreen.inactive) {
+            self.browserWindow.pendingFadeIn = NO;
+            self.browserWindow.alphaValue = 1.0;
+        }
+
     } else {
         DDLogDebug(@"%s: No mouse buttons pressed, don't adjust window", __FUNCTION__);
     }
@@ -475,6 +542,27 @@ void DisposeWindow (
 {
     self.textSearchPreviousNext.hidden = !matchFound;
     self.textSearchDone.hidden = (!matchFound || self.searchText.length == 0) && !self.browserWindow.toolbarWasHidden;
+    if (!matchFound) {
+        [self setSearchResultsCountString:@""];
+    }
+}
+
+// Sets the "N of M" string drawn inside the search field (empty hides it).
+- (void) setSearchResultsCountString:(NSString *)countString
+{
+    if ([self.textSearchField.cell isKindOfClass:[SEBSearchFieldCell class]]) {
+        ((SEBSearchFieldCell *)self.textSearchField.cell).resultsCountString = countString;
+        [self.textSearchField setNeedsDisplay:YES];
+    }
+}
+
+- (void) searchTextResultCurrent:(NSInteger)currentResult total:(NSInteger)totalResults
+{
+    if (totalResults > 0 && currentResult > 0) {
+        [self setSearchResultsCountString:[NSString stringWithFormat:NSLocalizedString(@"%1$ld of %2$ld", @"Search results counter shown in the search field, e.g. '1 of 15'"), (long)currentResult, (long)totalResults]];
+    } else {
+        [self setSearchResultsCountString:@""];
+    }
 }
 
 - (IBAction) textSearchDone:(id)sender
@@ -486,6 +574,7 @@ void DisposeWindow (
     }
     self.textSearchPreviousNext.hidden = YES;
     self.textSearchDone.hidden = YES;
+    [self setSearchResultsCountString:@""];
     [self.browserWindow conditionallyDisplayToolbar];
     [self.browserWindow makeFirstResponder:self.browserWindow];
 }

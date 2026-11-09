@@ -1,7 +1,4 @@
 /* No comment provided by engineer. */
-"" = "";
-
-/* No comment provided by engineer. */
 " (%d:%d Remaining)" = " (%1$d:%2$d Remaining)";
 
 /* No comment provided by engineer. */
@@ -50,6 +47,9 @@
 "%@ Is Locked!" = "%@ Is Locked!";
 
 /* No comment provided by engineer. */
+"%@ is required for this exam." = "%@ is required for this exam.";
+
+/* No comment provided by engineer. */
 "%@ needs to be used differently depending on your role." = "%@ needs to be used differently depending on your role.";
 
 /* No comment provided by engineer. */
@@ -61,8 +61,17 @@
 /* No comment provided by engineer. */
 "%@ Re-Configured" = "%@ Re-Configured";
 
+/* No comment provided by engineer. */
+"%@ version %@" = "%1$@ version %2$@";
+
 /* App full/build version */
 "%@ version %@ (Build %@)" = "%1$@ version %2$@ (Build %3$@)";
+
+/* No comment provided by engineer. */
+"%@ version %@ or higher" = "%1$@ version %2$@ or higher";
+
+/* No comment provided by engineer. */
+"%@ Version Not Allowed!" = "%@ Version Not Allowed!";
 
 /* No comment provided by engineer. */
 "%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "%1$@ was locked (exam interrupted) for %2$ld:%3$.2ld (minutes:seconds)";
@@ -72,6 +81,12 @@
 
 /* No comment provided by engineer. */
 "%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." = "%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.";
+
+/* No comment provided by engineer. */
+"%@, or %@" = "%1$@, or %2$@";
+
+/* Search results counter shown in the search field, e.g. '1 of 15' */
+"%1$ld of %2$ld" = "%1$ld of %2$ld";
 
 /* No comment provided by engineer. */
 "10.7 (this %@: 10.13)" = "10.7 (this %@: 10.13)";
@@ -119,6 +134,9 @@
 "26 Tahoe" = "26 Tahoe";
 
 /* No comment provided by engineer. */
+"A setting contains a double quote followed by a comma, which is not allowed. Please remove it from the setting '%@' and try again." = "A setting contains a double quote followed by a comma, which is not allowed. Please remove it from the setting '%@' and try again.";
+
+/* No comment provided by engineer. */
 "About %@" = "About %@";
 
 /* No comment provided by engineer. */
@@ -126,6 +144,9 @@
 
 /* No comment provided by engineer. */
 "Activate Scroll Lock" = "Activate Scroll Lock";
+
+/* No comment provided by engineer. */
+"Adding a certificate by entering a server URL requires iOS 15 or newer. On earlier versions, embed TLS/SSL and CA certificates using a SEB desktop version." = "Adding a certificate by entering a server URL requires iOS 15 or newer. On earlier versions, embed TLS/SSL and CA certificates using a SEB desktop version.";
 
 /* No comment provided by engineer. */
 "Admin Password" = "Admin Password";
@@ -149,6 +170,9 @@
 "Always" = "Always";
 
 /* No comment provided by engineer. */
+"An assessment session is already active." = "An assessment session is already active.";
+
+/* No comment provided by engineer. */
 "An identity needs a unique name." = "An identity needs a unique name.";
 
 /* No comment provided by engineer. */
@@ -159,6 +183,9 @@
 
 /* No comment provided by engineer. */
 "Apply Settings" = "Apply Settings";
+
+/* No comment provided by engineer. */
+"Applying Settings Failed" = "Applying Settings Failed";
 
 /* No comment provided by engineer. */
 "Are you sure you want to quit this session?" = "Are you sure you want to quit this session?";
@@ -219,6 +246,9 @@
 
 /* No comment provided by engineer. */
 "CA" = "CA";
+
+/* Certificate embed type: a CA trust anchor */
+"CA anchor" = "CA anchor";
 
 /* No comment provided by engineer. */
 "CA Certificate" = "CA Certificate";
@@ -293,9 +323,6 @@
 "Checking server health" = "Checking server health";
 
 /* No comment provided by engineer. */
-"Choose" = "Choose";
-
-/* No comment provided by engineer. */
 "Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used %@ assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. Contact the vendor of your assessment solution or your exam provider." = "Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used %@ assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. Contact the vendor of your assessment solution or your exam provider.";
 
 /* No comment provided by engineer. */
@@ -334,7 +361,8 @@
 /* No comment provided by engineer. */
 "Confirm Removing Identity" = "Confirm Removing Identity";
 
-/* 'Connecting…' header in 'Connecting to SEB Server' table view. */
+/* 'Connecting…' header in 'Connecting to SEB Server' table view.
+Shown while connecting to the server to fetch its certificate */
 "Connecting…" = "Connecting…";
 
 /* No comment provided by engineer. */
@@ -358,6 +386,9 @@
 /* No comment provided by engineer. */
 "Correct password entered" = "Correct password entered";
 
+/* Error when the connection to the entered server failed */
+"Could not connect to the server." = "Could not connect to the server.";
+
 /* No comment provided by engineer. */
 "Could not determine a correct hostname. You can enter the domain URL of your institution manually." = "Could not determine a correct hostname. You can enter the domain URL of your institution manually.";
 
@@ -366,6 +397,15 @@
 
 /* No comment provided by engineer. */
 "Could not save downloaded data, probably a wrong download directory was used in %@ settings." = "Could not save downloaded data, probably a wrong download directory was used in %@ settings.";
+
+/* No comment provided by engineer. */
+"Could not Start Assessment Mode" = "Could not Start Assessment Mode";
+
+/* No comment provided by engineer. */
+"Could Not Start Assessment Mode" = "Could Not Start Assessment Mode";
+
+/* No comment provided by engineer. */
+"Could not start Assessment Mode with error: %@" = "Could not start Assessment Mode with error: %@";
 
 /* No comment provided by engineer. */
 "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution.";
@@ -479,6 +519,9 @@
 "Downloading and Opening" = "Downloading and Opening";
 
 /* No comment provided by engineer. */
+"Downloading Settings Failed" = "Downloading Settings Failed";
+
+/* No comment provided by engineer. */
 "Edit %@ configuration files" = "Edit %@ configuration files";
 
 /* No comment provided by engineer. */
@@ -492,6 +535,9 @@
 
 /* No comment provided by engineer. */
 "Embed" = "Embed";
+
+/* Title of the fetch-server-certificate sheet window */
+"Embed Server Certificate" = "Embed Server Certificate";
 
 /* No comment provided by engineer. */
 "Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page)." = "Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page).";
@@ -567,6 +613,9 @@
 
 /* No comment provided by engineer. */
 "Fallback" = "Fallback";
+
+/* Explanation at the top of the fetch-server-certificate sheet (Network / Certificates settings) */
+"Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." = "Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding.";
 
 /* No comment provided by engineer. */
 "Fetching identities" = "Fetching identities";
@@ -797,13 +846,10 @@
 "No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." = "No %1$@ settings have been found at the specified URL. Use a correct link to configure %2$@ or start an exam.";
 
 /* No comment provided by engineer. */
-"No Assessment Mode Available" = "No Assessment Mode Available";
-
-/* No comment provided by engineer. */
 "No Camera Available" = "No Camera Available";
 
 /* No comment provided by engineer. */
-"No Encryption Credentials Chosen" = "No Encryption Credentials Chosen";
+"No configuration data." = "No configuration data.";
 
 /* No comment provided by engineer. */
 "No Hostname Found" = "No Hostname Found";
@@ -831,6 +877,12 @@
 
 /* No comment provided by engineer. */
 "OK" = "OK";
+
+/* No comment provided by engineer. */
+"one of the %@ versions %@" = "one of the %1$@ versions %2$@";
+
+/* No comment provided by engineer. */
+"one of the %@ versions %@ or higher" = "one of the %1$@ versions %2$@ or higher";
 
 /* No comment provided by engineer. */
 "Only on load error" = "Only on load error";
@@ -892,6 +944,9 @@
 /* No comment provided by engineer. */
 "Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send %@ logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information." = "Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send %@ logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.";
 
+/* Error when the entered server URL / host is not valid */
+"Please enter a valid server URL or host name." = "Please enter a valid server URL or host name.";
+
 /* No comment provided by engineer. */
 "Please Select Your Role" = "Please Select Your Role";
 
@@ -906,6 +961,9 @@
 
 /* No comment provided by engineer. */
 "Quit" = "Quit";
+
+/* No comment provided by engineer. */
+"Quit %@" = "Quit %@";
 
 /* No comment provided by engineer. */
 "Quit Session" = "Quit Session";
@@ -927,9 +985,6 @@
 
 /* No comment provided by engineer. */
 "Received Config from MDM Server" = "Received Config from MDM Server";
-
-/* No comment provided by engineer. */
-"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." = "Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.";
 
 /* No comment provided by engineer. */
 "regex" = "regex";
@@ -974,6 +1029,9 @@
 "Request failed, retrying..." = "Request failed, retrying...";
 
 /* No comment provided by engineer. */
+"Requires iOS 15 or Newer" = "Requires iOS 15 or Newer";
+
+/* No comment provided by engineer. */
 "Reset Settings" = "Reset Settings";
 
 /* No comment provided by engineer. */
@@ -1000,6 +1058,9 @@
 /* No comment provided by engineer. */
 "Right" = "Right";
 
+/* Badge for a self-signed root CA certificate */
+"root" = "root";
+
 /* No comment provided by engineer. */
 "Running on Current iOS Version Not Allowed" = "Running on Current iOS Version Not Allowed";
 
@@ -1007,10 +1068,10 @@
 "Running on New iOS Version Not Allowed" = "Running on New iOS Version Not Allowed";
 
 /* No comment provided by engineer. */
-"Save unencrypted" = "Save unencrypted";
+"Saved file '%@'" = "Saved file '%@'";
 
 /* No comment provided by engineer. */
-"Saved file '%@'" = "Saved file '%@'";
+"Saving Settings Failed" = "Saving Settings Failed";
 
 /* No comment provided by engineer. */
 "Scan %@ configuration QR code" = "Scan %@ configuration QR code";
@@ -1032,6 +1093,9 @@
 
 /* No comment provided by engineer. */
 "Screen Proctoring Active" = "Screen Proctoring Active";
+
+/* No comment provided by engineer. */
+"Screen Proctoring Connection Failed" = "Screen Proctoring Connection Failed";
 
 /* No comment provided by engineer. */
 "Screen Proctoring Inactive" = "Screen Proctoring Inactive";
@@ -1080,6 +1144,12 @@
 
 /* 'Select Exam' header in 'Connecting to SEB Server' table view. */
 "Select Exam" = "Select Exam";
+
+/* Heading above the list of fetched certificates */
+"Select the certificate(s) to embed and choose their type:" = "Select the certificate(s) to embed and choose their type:";
+
+/* Badge for a self-signed (non-CA) server certificate */
+"self-signed" = "self-signed";
 
 /* No comment provided by engineer. */
 "Send" = "Send";
@@ -1142,7 +1212,7 @@
 "Showing" = "Showing";
 
 /* No comment provided by engineer. */
-"Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again" = "Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again";
+"Shows or hides menu which lists browser tabs (starting with the exam tab) and %@ commands. You have to hide the side menu to access the browser view again" = "Shows or hides menu which lists browser tabs (starting with the exam tab) and %@ commands. You have to hide the side menu to access the browser view again";
 
 /* No comment provided by engineer. */
 "side menu" = "side menu";
@@ -1193,9 +1263,6 @@
 "System Default" = "System Default";
 
 /* No comment provided by engineer. */
-"The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      }," = "The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      },";
-
-/* No comment provided by engineer. */
 "The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use." = "The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ server, your exam provider decides which proctoring server to use.";
 
 /* No comment provided by engineer. */
@@ -1219,14 +1286,32 @@
 /* No comment provided by engineer. */
 "The overlay proctoring view is initially displayed in the lower right corner and can be swiped to other display corners." = "The overlay proctoring view is initially displayed in the lower right corner and can be swiped to other display corners.";
 
+/* Warning shown when a fetched certificate chain fails normal system trust validation */
+"The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently." = "The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently.";
+
 /* No comment provided by engineer. */
 "The private key and certificate contained in the selected identity could not be exported. Try another identity." = "The private key and certificate contained in the selected identity could not be exported. Try another identity.";
 
 /* No comment provided by engineer. */
 "The screen is being captured/shared. The exam cannot be started." = "The screen is being captured/shared. The exam cannot be started.";
 
+/* Error when a fetched TLS connection returned no certificates */
+"The server did not present any certificates." = "The server did not present any certificates.";
+
+/* No comment provided by engineer. */
+"The server didn't return any %@ settings data." = "The server didn't return any %@ settings data.";
+
+/* No comment provided by engineer. */
+"The server returned an error (HTTP status code %ld)." = "The server returned an error (HTTP status code %ld).";
+
+/* Shown when a page load fails with an HTTP error status code */
+"The server returned an error: %ld %@" = "The server returned an error: %1$ld %2$@";
+
 /* No comment provided by engineer. */
 "The user name or password for %@ was incorrect. Please try again." = "The user name or password for %@ was incorrect. Please try again.";
+
+/* Shown when the web content process keeps terminating */
+"The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again." = "The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again.";
 
 /* No comment provided by engineer. */
 "the webpage" = "the webpage";
@@ -1251,6 +1336,12 @@
 
 /* No comment provided by engineer. */
 "This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board." = "This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board.";
+
+/* No comment provided by engineer. */
+"This version of %@ is not allowed for this exam." = "This version of %@ is not allowed for this exam.";
+
+/* Certificate embed type: a TLS/SSL public-key pin */
+"TLS/SSL pin" = "TLS/SSL pin";
 
 /* No comment provided by engineer. */
 "To scan a QR code, enable the camera in settings" = "To scan a QR code, enable the camera in settings";
@@ -1283,6 +1374,9 @@
 "Untitled Page" = "Untitled Page";
 
 /* No comment provided by engineer. */
+"Update %@" = "Update %@";
+
+/* No comment provided by engineer. */
 "Uploading" = "Uploading";
 
 /* No comment provided by engineer. */
@@ -1290,6 +1384,9 @@
 
 /* No comment provided by engineer. */
 "URLSession was invalidated" = "URLSession was invalidated";
+
+/* Link that fills the URL field with the exam's start URL host */
+"Use Start URL" = "Use Start URL";
 
 /* No comment provided by engineer. */
 "Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities." = "Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities.";
@@ -1368,6 +1465,9 @@
 
 /* No comment provided by engineer. */
 "Wrong SEB Server Fallback Password entered" = "Wrong SEB Server Fallback Password entered";
+
+/* No comment provided by engineer. */
+"You are running %@ version %@ (build %@). Please update to a required version." = "You are running %1$@ version %2$@ (build %3$@). Please update to a required version.";
 
 /* No comment provided by engineer. */
 "You can only edit settings after entering the %@ administrator password:" = "You can only edit settings after entering the %@ administrator password:";

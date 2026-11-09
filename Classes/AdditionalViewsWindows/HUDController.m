@@ -33,6 +33,7 @@
 //
 
 #import "HUDController.h"
+#import "NSWindow+SEBWindow.h"
 
 @implementation HUDController
 
@@ -130,7 +131,8 @@
     [_progressIndicatorHUD center];
     
     _progressIndicatorHUD.becomesKeyOnlyIfNeeded = YES;
-    [_progressIndicatorHUD setLevel:NSModalPanelWindowLevel];
+    // Use newSetLevel: to bypass unreliable swizzle after AAC transition
+    [_progressIndicatorHUD newSetLevel:NSMainMenuWindowLevel+6];
     [_progressIndicatorHUD orderFront:self];
     [_progressIndicatorHUD invalidateShadow];
 }

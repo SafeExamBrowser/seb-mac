@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 29.04.10.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider,
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -58,7 +58,9 @@
 #import "SEBDockItem.h"
 #import "SEBDockItemTime.h"
 #import "SEBDockItemBattery.h"
+#import "SEBDockItemWiFi.h"
 #import "SEBBatteryController.h"
+#import "SEBWiFiController.h"
 
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBSystemManager.h"
@@ -89,13 +91,14 @@ NS_ASSUME_NONNULL_BEGIN
 @class ServerController;
 @class SEBServerOSXViewController;
 @class SEBBatteryController;
+@class SEBWiFiController;
 @class SEBScreenProctoringController;
 @class TransmittingCachedScreenShotsViewController;
 @class SEBZoomController;
 
 static NSString __unused *accessibilityTitleString = @" and Accessibility";
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate, ScreenProctoringDelegate, SPSControllerUIDelegate, QRCodeOverlayControllerDelegate>
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate, ScreenProctoringDelegate, SPSControllerUIDelegate, QRCodeOverlayControllerDelegate, SEBDockItemWiFiDelegate>
 {
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
@@ -122,6 +125,7 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
     
     IBOutlet SEBDockItemTime *sebDockItemTime;
     IBOutlet SEBDockItemBattery *sebDockItemBattery;
+    SEBDockItemWiFi *sebDockItemWiFi;
 
 	IOPMAssertionID assertionID1;
 	IOPMAssertionID assertionID2;
@@ -134,6 +138,7 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
     DDFileLogger *_myLogger;
     BOOL _forceAppFolder;
     BOOL enforceMinMacOSVersion;
+    BOOL enforceAACUnsupportedMacOS;
     pid_t sebPID;
     BOOL allowScreenCapture;
     BOOL allowScreenSharing;
@@ -211,6 +216,7 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
 @property(strong, nonatomic) IBOutlet SEBSystemManager *systemManager;
 @property(strong, nonatomic) SEBFileManager *sebFileManager;
 @property(strong, nonatomic) SEBBatteryController *batteryController;
+@property(strong, nonatomic) SEBWiFiController *wifiController;
 @property(strong, nonatomic) SEBDockController *_Nullable dockController;
 @property(strong, nonatomic) SEBOSXBrowserController *browserController;
 @property(strong, nonatomic) IBOutlet SEBOSXLockedViewController *sebLockedViewController;
@@ -286,6 +292,8 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
 @property(readwrite) BOOL isAACEnabled;
 @property(readwrite) BOOL overrideAAC;
 @property(readwrite) BOOL wasAACEnabled;
+@property(readwrite) BOOL checkingPermissionsAfterAACEnd;
+@property(readwrite) BOOL restartingAACForReconfigure;
 
 @property(readwrite) BOOL SIGSTOPDetected;
 @property(readonly) BOOL noRequiredBuiltInScreenAvailable;
@@ -329,6 +337,7 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
 @property(strong, nonatomic) NSMutableArray *systemProcessPIDs;
 @property(strong, nonatomic) NSMutableArray *runningProhibitedProcesses;
 @property(strong, nonatomic) NSMutableSet *terminatedProcessesExecutableURLs;
+@property(strong, nonatomic) NSMutableDictionary<NSString *, NSDate *> *loggedStartedAppTimestamps;
 
 @property(strong, nonatomic) SEBDockItemButton *dockButtonReload;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonBattery;
