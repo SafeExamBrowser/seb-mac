@@ -99,7 +99,11 @@ import CocoaLumberjackSwift
             qrCodeOverlayPanel?.makeKeyAndOrderFront(self)
             qrCodeOverlayPanel?.invalidateShadow()
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            // Use a timer in the common run loop modes, not DispatchQueue.main.asyncAfter: if this is
+            // called from inside a main-queue block that then runs a modal loop, a main-queue block
+            // can't run until that modal has ended and the QR code would stay invisible meanwhile.
+            // Timers in the common modes also fire inside the modal run loop.
+            let revealTimer = Timer(timeInterval: 0.15, repeats: false) { _ in
                 if let userInfo = self.hideNotificationUserInfoDictionary {
                     self.hideNotificationUserInfoDictionary = nil
                     self.showQRCodeErrorNotification(userInfo: userInfo)
@@ -108,6 +112,7 @@ import CocoaLumberjackSwift
                     self.displayingCode = false
                 }
             }
+            RunLoop.main.add(revealTimer, forMode: .common)
             return true
         } else {
             DDLogDebug("QRCodeOverlayController.displayingCode: true, not showing new QRCode")
