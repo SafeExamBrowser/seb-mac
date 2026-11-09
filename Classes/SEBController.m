@@ -6374,7 +6374,18 @@ static const void *SEBCoveringWindowPinnedFrameKey = &SEBCoveringWindowPinnedFra
         // during startup. Order them front without taking key status. The lockdown/modal alert
         // covers host the dismiss UI and still become key/front.
         if (coveringWindowKind == coveringWindowBackground) {
-            [window orderFront:self];
+            // Background covers share their window level with SEB's browser windows when switching
+            // to third-party apps is allowed (NSNormalWindowLevel). Ordering them front would then
+            // put them on top of an already visible browser window, which happens when the covers
+            // are replaced after the main browser window was opened (e.g. -adjustScreenLocking:
+            // after reconfiguring from the Settings window), leaving only black screens. So order
+            // them below SEB's backmost visible window at that level, if there is one.
+            NSWindow *backmostWindow = [self backmostVisibleNonCoveringWindowAtLevel:((NSWindow *)window).level];
+            if (backmostWindow) {
+                [window orderWindow:NSWindowBelow relativeTo:backmostWindow.windowNumber];
+            } else {
+                [window orderFront:self];
+            }
         } else {
             [window makeKeyAndOrderFront:self];
         }
@@ -6385,6 +6396,23 @@ static const void *SEBCoveringWindowPinnedFrameKey = &SEBCoveringWindowPinnedFra
 #endif
     }
     return coveringWindows;
+}
+
+
+// Returns SEB's backmost visible window at the given window level, which isn't a covering window
+// (covering windows are tagged with the pinned display ID in -fillScreensWithCoveringWindows:),
+// or nil if there is none.
+- (nullable NSWindow *) backmostVisibleNonCoveringWindowAtLevel:(NSWindowLevel)windowLevel
+{
+    NSWindow *backmostWindow = nil;
+    // -orderedWindows is ordered front to back
+    for (NSWindow *orderedWindow in NSApp.orderedWindows) {
+        if (orderedWindow.isVisible && orderedWindow.level == windowLevel &&
+            !objc_getAssociatedObject(orderedWindow, SEBCoveringWindowPinnedDisplayIDKey)) {
+            backmostWindow = orderedWindow;
+        }
+    }
+    return backmostWindow;
 }
 
 
