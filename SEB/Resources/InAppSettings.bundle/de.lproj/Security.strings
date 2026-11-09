@@ -58,6 +58,9 @@
 /* (No Comment) */
 "Allow Screen Capture" = "Bildschirmaufzeichnung erlauben";
 
+/* (No Comment) */
+"Allowed SEB Versions" = "Erlaubte SEB-Versionen";
+
 /* String for Title elements */
 "Assessment Mode (AAC & ASAM)" = "Assessment-Modus (AAC/ASAM)";
 

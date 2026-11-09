@@ -34,6 +34,22 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
+			<string>Add Server Certificate</string>
+			<key>FooterText</key>
+			<string>Enter a server's URL to fetch the TLS/SSL certificate chain it presents, then choose which certificates to embed: the server (leaf) certificate as a TLS/SSL pin and/or an issuer certificate as a CA anchor. Verify the displayed SHA-256 fingerprint out of band before embedding. Requires iOS 15 or newer.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>Title</key>
+			<string>Add Certificate from URL…</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_fetchServerCertificate</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
 			<string>Embed Identity Certificates</string>
 			<key>FooterText</key>
 			<string>Cryptographic identities (X.509 certificates with RSA public key and associated private key, which are stored securely in the Keychain) embedded into a client config file can be used to decrypt exam config files on clients.</string>
@@ -54,7 +70,7 @@
 			<key>Title</key>
 			<string>Embedded Certificates</string>
 			<key>FooterText</key>
-			<string>List of all embedded certificates in the current config file, sorted by type. SSL/CA/Debug certificates can currently only be added in SEB desktop versions.</string>
+			<string>List of all embedded certificates in the current config file, sorted by type. Debug certificates can currently only be added in SEB desktop versions.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

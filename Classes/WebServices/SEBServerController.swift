@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 15.10.18.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -12,7 +12,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -253,6 +253,7 @@ public extension SEBServerController {
     }
 
     @objc func getServerAPI() {
+        DDLogInfo("SEB Server Controller: Fetching SEB Server API")
         let discoveryResource = DiscoveryResource(baseURL: self.baseURL, discoveryEndpoint: self.discoveryEndpoint)
 
         let discoveryRequest = ApiRequest(resource: discoveryResource)
@@ -302,7 +303,8 @@ public extension SEBServerController {
     private func getServerAccessToken(completionHandler: @escaping () -> Void) {
         if !gettingAccessToken {
             gettingAccessToken = true
-            let accessTokenResource = AccessTokenResource(baseURL: self.baseURL, endpoint: (serverAPI?.accessToken.endpoint?.location)!)
+            DDLogInfo("SEB Server Controller: Getting Access Token")
+           let accessTokenResource = AccessTokenResource(baseURL: self.baseURL, endpoint: (serverAPI?.accessToken.endpoint?.location)!)
             
             let authorizationString = (serverAPI?.accessToken.endpoint?.authorization ?? "") + " " + (username + ":" + password).data(using: .utf8)!.base64EncodedString()
             let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
@@ -336,6 +338,7 @@ public extension SEBServerController {
     }
     
     func getExamList() {
+        DDLogInfo("SEB Server Controller: Getting exam list")
         var handshakeResource = HandshakeResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         let environmentInfo = keys.clientId + "=" + (clientUserId) + "&" + keys.sebOSName + "=" + osName
         let clientInfo = keys.sebVersion + "=" + sebVersion + "&" + keys.sebMachineName + "=" + machineName
@@ -436,11 +439,12 @@ public extension SEBServerController {
     @objc func examSelected(_ examId: String, url: String) {
         selectedExamId = examId
         selectedExamURL = url
-        updateConnectionHandshake()
+        sendSelectedExam()
     }
 
     
-    func updateConnectionHandshake() {
+    func sendSelectedExam() {
+        DDLogInfo("SEB Server Controller: Send selected exam Id \(selectedExamId) and finish connection handshake.")
         self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Opening Exam...", comment: ""), append: false)
         var handshakeResource = HandshakeUpdateResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         let encryptedAppSignatureKey = delegate?.appSignatureKey()
@@ -459,7 +463,7 @@ public extension SEBServerController {
                 if let serverBEK = (responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keys.sebServerBEK) == .orderedSame}))?.value {
                     self.delegate?.didReceiveServerBEK(serverBEK as! String)
                 }
-                self.getExamConfig()
+                self.finishConnectionHandshake()
             } else {
                 let errorDebugDescription = "Server didn't update connection handshake, server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"
                 let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Open Exam", comment: ""),
@@ -473,7 +477,32 @@ public extension SEBServerController {
     }
     
     
+    func finishConnectionHandshake() {
+        DDLogInfo("SEB Server Controller: Finishing connection handshake.")
+        var handshakeCloseResource = HandshakeCloseResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
+        let encryptedAppSignatureKey = delegate?.appSignatureKey()
+        handshakeCloseResource.body = keys.examId + "=" + selectedExamId + (encryptedAppSignatureKey == nil ? "" : ("&" + keys.sebSignatureKey + "=" + encryptedAppSignatureKey!))
+
+        let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
+        let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
+                              keys.headerAuthorization : authorizationString,
+                              keys.sebConnectionToken : connectionToken ?? ""]
+        loadWithFallback(handshakeCloseResource, httpMethod: handshakeCloseResource.httpMethod, body: handshakeCloseResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (handshakeCloseResponse, statusCode, errorResponse, responseHeaders, attempt) in
+            if handshakeCloseResponse != nil  {
+                let responseData: Data = handshakeCloseResponse!!
+                let responseBody = String(data: responseData, encoding: .utf8)
+                if !(responseBody?.isEmpty ?? true) {
+                    DDLogVerbose("Monitoring request returned response: \(responseBody as Any)")
+                }
+            }
+            self.getExamConfig()
+        })
+    }
+    
+    
+
     func getExamConfig() {
+        DDLogInfo("SEB Server Controller: Getting Exam Config")
         self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Getting Exam Config...", comment: ""), append: false)
         let examConfigResource = ExamConfigResource(baseURL: self.baseURL, endpoint: (serverAPI?.configuration.endpoint?.location)!, queryParameters: [keys.examId + "=" + selectedExamId])
         
@@ -499,16 +528,19 @@ public extension SEBServerController {
     
     
     @objc func loginToExam() {
+        DDLogInfo("SEB Server Controller: Logging into exam")
         delegate?.loginToExam(selectedExamURL)
     }
 
 
     @objc func loginToExamAborted(completion: @escaping (Bool) -> Void) {
+        DDLogInfo("SEB Server Controller: Logging into exam aborted")
         quitSession(restart: false, completion: completion)
     }
     
     
     @objc func getMoodleUserId(moodleCookie: HTTPCookie, url: URL, endpoint: String) {
+        DDLogInfo("SEB Server Controller: Getting Moodle user ID")
         let moodleUserIdResource = MoodleUserIdResource(baseURL: url, endpoint: endpoint)
 
         let moodleCookieName = moodleCookie.name
@@ -529,18 +561,19 @@ public extension SEBServerController {
     }
     
     
-    @objc func startMonitoring(userSessionId: String) {
-        var handshakeCloseResource = HandshakeCloseResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
+    @objc func sendUserIdentifier(_ userSessionId: String) {
+        DDLogInfo("SEB Server Controller: Sending user identifier.")
+        var handshakeResource = HandshakeUpdateResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         let encryptedAppSignatureKey = delegate?.appSignatureKey()
-        handshakeCloseResource.body = keys.examId + "=" + selectedExamId + "&" + keys.sebUserSessionId + "=" + userSessionId + (encryptedAppSignatureKey == nil ? "" : ("&" + keys.sebSignatureKey + "=" + encryptedAppSignatureKey!))
+        handshakeResource.body = keys.examId + "=" + selectedExamId + "&" + keys.sebUserSessionId + "=" + userSessionId + (encryptedAppSignatureKey == nil ? "" : ("&" + keys.sebSignatureKey + "=" + encryptedAppSignatureKey!))
 
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken ?? ""]
-        loadWithFallback(handshakeCloseResource, httpMethod: handshakeCloseResource.httpMethod, body: handshakeCloseResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (handshakeCloseResponse, statusCode, errorResponse, responseHeaders, attempt) in
-            if handshakeCloseResponse != nil  {
-                let responseData: Data = handshakeCloseResponse!!
+        loadWithFallback(handshakeResource, httpMethod: handshakeResource.httpMethod, body: handshakeResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (handshakeResponse, statusCode, errorResponse, responseHeaders, attempt) in
+            if handshakeResponse != nil  {
+                let responseData: Data = handshakeResponse!!
                 let responseBody = String(data: responseData, encoding: .utf8)
                 if !(responseBody?.isEmpty ?? true) {
                     DDLogVerbose("Monitoring request returned response: \(responseBody as Any)")
@@ -666,6 +699,7 @@ public extension SEBServerController {
     }
     
     @objc func sendLockscreen(message: String?) -> Int64 {
+        DDLogInfo("SEB Server Controller: Sending lockscreen with message: \(message ?? "<no message>")")
         notificationNumber+=1
         sendNotification(keys.notificationType, timestamp: nil, numericValue: Double(notificationNumber), text: "<\(keys.notificationTagLockscreen)> \(message ?? "")") { statusCode, errorResponse, responseHeaders, attempt in
         }
@@ -673,11 +707,13 @@ public extension SEBServerController {
     }
     
     @objc func sendLockscreenConfirm(notificationUID: Int64) {
+        DDLogInfo("SEB Server Controller: Confirming lockscreen")
         sendNotification(keys.notificationConfirmed, timestamp: nil, numericValue: Double(notificationUID), text: nil) { statusCode, errorResponse, responseHeaders, attempt in
         }
     }
     
     @objc func sendRaiseHand(message: String?) -> Int64 {
+        DDLogInfo("SEB Server Controller: Raising hand")
         notificationNumber+=1
         sendNotification(keys.notificationType, timestamp: nil, numericValue: Double(notificationNumber), text: "<\(keys.notificationTagRaisehand)> \(message ?? "")") { statusCode, errorResponse, responseHeaders, attempt in
         }
@@ -685,11 +721,13 @@ public extension SEBServerController {
     }
     
     @objc func sendLowerHand(notificationUID: Int64) {
+        DDLogInfo("SEB Server Controller: Lowering hand")
         sendNotification(keys.notificationConfirmed, timestamp: nil, numericValue: Double(notificationUID), text: nil) { statusCode, errorResponse, responseHeaders, attempt in
         }
     }
     
     @objc func quitSession(restart: Bool, completion: @escaping (Bool) -> Void) {
+        DDLogInfo("SEB Server Controller: Quitting session")
         if accessToken != nil {
             let quitSessionResource = QuitSessionResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
             
@@ -733,6 +771,7 @@ public extension SEBServerController {
     }
     
     @objc func cancelQuitSession(restart: Bool, completion: @escaping (Bool) -> Void) {
+        DDLogInfo("SEB Server Controller: Cancelling quitting session")
         self.cancelAllRequests = true
         self.stopPingTimer()
         self.session?.invalidateAndCancel()

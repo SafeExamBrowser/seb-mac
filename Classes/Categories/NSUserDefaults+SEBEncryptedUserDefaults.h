@@ -15,7 +15,7 @@
 //  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //  ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -23,7 +23,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -35,7 +35,7 @@
 //  The Original Code is Safe Exam Browser for Mac OS X.
 //
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -133,6 +133,20 @@
 
 // Store settings dictionary into UserDefaults
 - (void)storeSEBDictionary:(NSDictionary *)sebPreferencesDict;
+// Returns a copy of the passed permitted processes array with inactive preset permitted processes
+// removed (those merely injected by merging in default values). To be used when the loaded config
+// didn't contain permitted processes, so inactive presets aren't persisted (e.g. reverting to defaults)
+- (NSArray *)permittedProcessesByRemovingInactivePresets:(NSArray *)permittedProcesses;
+// Migrate lockdownModePolicy from a pre-lockdownModePolicy config; must be called with the
+// originally loaded settings (before default values are merged in) and after storeSEBDictionary:
+- (void)migrateLockdownModePolicyFromLoadedSettings:(NSDictionary *)sebPreferencesDict;
+// Pure decision helper (no side effects) used by the lockdownModePolicy migration:
+// returns whether AAC is supported for the given (loaded config) macOS version settings
++ (BOOL)aacSupportedForMinMacOSVersion:(NSInteger)minMacOSVersion
+                      checkFullVersion:(BOOL)checkFullVersion
+                          versionMajor:(NSInteger)versionMajor
+                          versionMinor:(NSInteger)versionMinor
+                      aacDnsPrePinning:(BOOL)aacDnsPrePinning;
 // Write SEB default values to local preferences
 - (void)storeSEBDefaultSettings;
 

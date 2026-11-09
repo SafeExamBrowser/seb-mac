@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(/Users/drs/developer/safeexambrowser.org/**)",
+      "Write(/Users/drs/developer/safeexambrowser.org/**)",
+      "Read(/Users/drs/developer/safeexambrowser.org/**)"
+    ],
+    "additionalDirectories": [
+      "/Users/drs/developer/safeexambrowser.org/"
+    ]
+  }
+}

@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 06.12.10.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //  
@@ -24,7 +24,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -59,6 +59,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, strong, nonatomic) NSURL *currentURL;
 @property (strong, nonatomic) NSString *javaScriptFunctions;
 @property (readwrite) BOOL isMainBrowserWindow;
+// YES while the window is hidden (alpha 0) for the multi-display fade-in and waiting to be revealed
+// once it has settled on the allowed main screen (see -[SEBOSXBrowserController fadeInBrowserWindow:]
+// and -[SEBBrowserWindowController adjustWindowForScreen:moveBack:]).
+@property (nonatomic) BOOL pendingFadeIn;
 @property (strong) IBOutlet NSWindow *URLFilterAlert;
 @property (strong) IBOutlet NSWindow *customAlert;
 @property (weak) IBOutlet SEBTextField *customAlertText;
@@ -87,9 +91,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite) BOOL toolbarWasHidden;
 - (void) conditionallyDisplayToolbar;
 
-- (void) setCalculatedFrame;
-- (void) setCalculatedFrameOnScreen:(NSScreen *)screen;
-- (void) setCalculatedFrameOnScreen:(NSScreen *)screen mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow;
+// These return YES if the window's frame was actually changed, NO if the computed frame equals the
+// current one (so callers can avoid disruptive re-activation / re-fronting when nothing moved).
+- (BOOL) setCalculatedFrame;
+- (BOOL) setCalculatedFrameOnScreen:(NSScreen *)screen;
+- (BOOL) setCalculatedFrameOnScreen:(NSScreen *)screen mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow;
 
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;

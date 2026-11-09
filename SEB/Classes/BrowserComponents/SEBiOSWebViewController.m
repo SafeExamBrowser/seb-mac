@@ -2,7 +2,7 @@
 //  SEBiOSWebViewController.m
 //
 //  Created by Daniel R. Schneider on 06/01/16.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -10,7 +10,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -23,7 +23,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -31,7 +31,6 @@
 //
 
 #import "SEBiOSWebViewController.h"
-#import "UIWebView+SEBWebView.h"
 #import "Constants.h"
 #import "AppDelegate.h"
 
@@ -852,6 +851,11 @@ API_AVAILABLE(ios(18.4)){
     [self.navigationDelegate searchTextMatchFound:matchFound];
 }
 
+- (void) searchTextResultCurrent:(NSInteger)currentResult total:(NSInteger)totalResults
+{
+    [self.navigationDelegate searchTextResultCurrent:currentResult total:totalResults];
+}
+
 
 - (UIImage *)invertImage:(UIImage *)originalImage
 {
@@ -873,26 +877,6 @@ API_AVAILABLE(ios(18.4)){
     UIGraphicsEndImageContext();
     
     return returnImage;
-}
-
-- (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView
-{
-    //    NSString *path = [[NSBundle mainBundle] pathForResource:@"SearchWebView" ofType:@"js"];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"SearchWebView" ofType:@"js"];
-    NSString *jsCodeSearch = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    [webView stringByEvaluatingJavaScriptFromString:jsCodeSearch];
-    
-    NSString *startSearch = [NSString stringWithFormat:@"MyApp_HighlightAllOccurencesOfString('%@')", searchString];
-    [webView stringByEvaluatingJavaScriptFromString:startSearch];
-    
-    NSString *result = [webView stringByEvaluatingJavaScriptFromString:@"MyApp_SearchResultCount"];
-    return [result integerValue];
-}
-
-
-- (void)removeAllHighlightsInWebView:(UIWebView *)webView
-{
-    [webView stringByEvaluatingJavaScriptFromString:@"MyApp_RemoveAllHighlights()"];
 }
 
 

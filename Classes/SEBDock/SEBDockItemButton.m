@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 24/09/14.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -262,6 +262,12 @@ self.highlighted = false;
 
 - (void)mouseEntered:(NSEvent *)theEvent
 {
+    // Don't show the icon title label while the dock item menu (e.g. the open
+    // windows list) is open: it would overlap the menu, also obscuring the menu
+    // titles in composited screen proctoring screen shots under AAC.
+    if (self.dockMenu.dockMenuPopover.isShown) {
+        return;
+    }
     [self.labelPopover showRelativeToRect:[self bounds] ofView:self preferredEdge:NSMaxYEdge];
 #ifdef DEBUG
     DDLogVerbose(@"Dock item label popover show relative to rect: %f, %f at origin: %f, %f", self.bounds.size.width, self.bounds.size.height, self.bounds.origin.x, self.bounds.origin.y);

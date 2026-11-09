@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 09.04.24.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -12,7 +12,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -89,6 +89,26 @@ private struct SPSTransmittingState {
     @objc optional func collectedTriggerEvent(eventData: String)
     @objc optional func collectedKeyboardShortcutEvent(_ eventData: String)
     @objc optional func collectedAlphanumericKeyEvent()
+    /// Called when the connection to the screen proctoring server fails. When
+    /// `fatal` is true the controller could not establish or maintain the
+    /// connection (e.g. couldn't obtain an access token, or the token stayed
+    /// invalid after the configured number of attempts). The delegate is
+    /// expected to inform the user and offer to retry (see
+    /// `retryConnectingToScreenProctoringServer()`) or quit the session.
+    @objc optional func screenProctoringDidFail(error: NSError, fatal: Bool)
+#if os(macOS)
+    /// Returns the view to capture for screen proctoring when system screen
+    /// capture APIs are unavailable (e.g. in AAC mode). Typically the active
+    /// browser window's contentView. Non-nil only when the AAC capture policy
+    /// is ActiveWindow (or None under force-enabled AAC).
+    @objc optional func screenProctoringCaptureView() -> NSView?
+
+    /// Returns all SEB-owned windows to composite into a full-screen shot,
+    /// ordered back-to-front. Non-nil only under AAC with capture policy
+    /// AllWindows. Used instead of system screen capture, which returns black
+    /// under AAC.
+    @objc optional func screenProctoringCaptureWindows() -> [NSWindow]?
+#endif
 }
 
 @objc public protocol SPSControllerUIDelegate: AnyObject {
@@ -196,7 +216,6 @@ struct MetadataSettings {
     private var screenShotMinIntervalTimer: RepeatingTimer?
     private var screenShotMaxIntervalTimer: RepeatingTimer?
     private var screenProctoringCacheSize: Int?
-    private let deferredTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".deferredTransmission", qos: .utility)
     private let delayForResumingTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".resumingDelay", qos: .utility)
     private var screenShotDeferredTransmissionIntervalTimer: RepeatingTimer?
     private var transmittingDeferredScreenShotsWhileClosingErrorCount = 0
@@ -212,6 +231,11 @@ struct MetadataSettings {
     private var latestTriggerEventTimestamp: TimeInterval?
     private var alphanumericKeyCount = 0
     private var keyboardShortcuts = Array<String>()
+
+    // Whether screen proctoring has been started (timers running). Used to
+    // decide whether a retry should (re)start proctoring or just renew the
+    // connection while proctoring is already active.
+    private var screenProctoringActive = false
 
     // UI
     private var indicateHealthAndCaching = false
@@ -442,11 +466,65 @@ extension SEBScreenProctoringController {
             startMaxIntervalTimer()
             startMinIntervalTimer()
         metadataCollector.monitorEvents()
+        self.screenProctoringActive = true
         self.setScreenProctoringButtonState(ScreenProctoringButtonStateActive)
+    }
+
+    /// Retry establishing the connection to the screen proctoring server after
+    /// a failure was reported via `screenProctoringDidFail(error:fatal:)`. Reuses
+    /// the connection parameters received in the original JOIN instruction. If
+    /// proctoring was already active (e.g. the access token became invalid mid
+    /// session) only the token is renewed; otherwise proctoring is started.
+    @objc public func retryConnectingToScreenProctoringServer() {
+        DDLogInfo("SEB Screen Proctoring Controller: Retrying to connect to the screen proctoring server.")
+        cancelAllRequests = false
+        gettingAccessToken = false
+        gotAccessToken = false
+        getServerAccessToken {
+            if !self.screenProctoringActive {
+                self.startScreenProctoring()
+            }
+        }
     }
     
     private func captureScreenShot(triggerMetadata: String, timeStamp: TimeInterval?) {
-        if let screenShotData = self.screenCaptureController.takeScreenShot(scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp) {
+        var screenShotData: Data?
+#if os(macOS)
+        // Under AAC the system screen capture API (CGWindowListCreateImage) returns
+        // black, so we capture SEB's own windows via view-based rendering instead.
+        // The delegate encodes the AAC capture policy: it returns a window list for
+        // AllWindows (composited full-screen), a single view for ActiveWindow, or nil
+        // when not under AAC (then we use full-screen system capture). We try the
+        // richest option first.
+        // The delegate methods read NSApp/NSWindow state (orderedWindows, childWindows,
+        // isVisible, attachedSheet, …) which are main-thread-only, but this method runs
+        // on the screenshot background queue — so gather the capture targets on the main
+        // thread first. (The capture methods below dispatch their own rendering to main.)
+        var captureWindows: [NSWindow]?
+        var captureView: NSView?
+        let gatherCaptureTargets = {
+            captureWindows = self.delegate?.screenProctoringCaptureWindows?() ?? nil
+            if captureWindows == nil || captureWindows!.isEmpty {
+                captureView = self.delegate?.screenProctoringCaptureView?() ?? nil
+            }
+        }
+        if Thread.isMainThread {
+            gatherCaptureTargets()
+        } else {
+            DispatchQueue.main.sync { gatherCaptureTargets() }
+        }
+
+        if let captureWindows, !captureWindows.isEmpty {
+            screenShotData = self.screenCaptureController.takeScreenShot(ofWindows: captureWindows, scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp)
+        } else if let captureView {
+            screenShotData = self.screenCaptureController.takeScreenShot(of: captureView, scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp)
+        } else {
+            screenShotData = self.screenCaptureController.takeScreenShot(scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp)
+        }
+#else
+        screenShotData = self.screenCaptureController.takeScreenShot(scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp)
+#endif
+        if let screenShotData {
             self.sendScreenShot(data: screenShotData, metaData: self.metadataCollector.collectMetaData(triggerMetadata: triggerMetadata) ?? "", timeStamp: timeStamp, resending: false) { success in
             }
         }
@@ -501,9 +579,9 @@ extension SEBScreenProctoringController {
                             }
                             if self.currentServerHealth != SPSHealth.BAD {
                                 if !self.closingSession {
-    //                                self.screenShotTimerQueue.async { [unowned self] in
+                                    self.minIntervalTimerQueue.async {
                                         self.screenShotMaxIntervallTriggered()
-    //                                }
+                                    }
                                 } else {
                                     // When closing session, restart sending cached screeen shots
                                     self.transmitNextScreenShot()
@@ -714,7 +792,12 @@ extension SEBScreenProctoringController {
         if screenShotMaxIntervalTimer == nil && !self.closingSession {
             screenShotMaxIntervalTimer = getScreenShotMaxIntervalTimer()
             screenShotMaxIntervalTimer?.eventHandler = {
-                self.screenShotMaxIntervallTriggered()
+                // Dispatch to minIntervalTimerQueue so that shared state
+                // (latestTriggerEvent, alphanumericKeyCount, keyboardShortcuts)
+                // is accessed on the same serial queue.
+                self.minIntervalTimerQueue.async {
+                    self.screenShotMaxIntervallTriggered()
+                }
             }
             screenShotMaxIntervalTimer?.resume()
         } else {
@@ -761,6 +844,9 @@ extension SEBScreenProctoringController {
             }
     }
 
+    // Called from minIntervalTimerQueue (via screenShotMinIntervallTriggered / screenShotMaxIntervallTriggered).
+    // All shared state (latestTriggerEvent, alphanumericKeyCount, keyboardShortcuts) is now
+    // accessed exclusively on minIntervalTimerQueue, so no additional synchronization is needed.
     private func getTriggerEventString() -> String {
         var triggerEventString = latestTriggerEvent ?? ""
         if !triggerEventString.isEmpty {
@@ -911,6 +997,7 @@ extension SEBScreenProctoringController {
         repeatingTimerForHealthCheck = nil
         metadataCollector.stopMonitoringEvents()
         closingSession = false
+        screenProctoringActive = false
         transmittingDeferredScreenShotsWhileClosingErrorCount = 0
         screenShotCache.conditionallyRemoveCacheDirectory()
         _screenShotCache = nil
@@ -960,7 +1047,7 @@ extension SEBScreenProctoringController {
     private func didFail(error: NSError, fatal: Bool) {
         self.setScreenProctoringButtonState(ScreenProctoringButtonStateInactiveError)
         if !cancelAllRequests {
-//            self.delegate?.didFail(error: error, fatal: fatal)
+            self.delegate?.screenProctoringDidFail?(error: error, fatal: fatal)
         }
     }
 
@@ -979,28 +1066,35 @@ extension SEBScreenProctoringController {
 #endif
 
     public func collectedTriggerEvent(eventData:String) {
-        latestTriggerEvent = eventData
-        latestTriggerEventTimestamp = NSDate().timeIntervalSince1970
+        let timestamp = NSDate().timeIntervalSince1970
         if !closingSession {
-            if self.screenShotMinIntervalTimer == nil {
+            // Dispatch all event handling to minIntervalTimerQueue to ensure
+            // the screenShotMinIntervalTimer check is synchronized with timer lifecycle.
+            // Checking the timer on the main thread while it's managed on minIntervalTimerQueue
+            // causes a race condition where many events bypass throttling.
+            minIntervalTimerQueue.async {
+                self.latestTriggerEvent = eventData
+                self.latestTriggerEventTimestamp = timestamp
+                if self.screenShotMinIntervalTimer == nil {
 #if DEBUG
-                DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval has passed, trigger screen shot immediately")
+                    DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval has passed, trigger screen shot immediately")
 #endif
-                self.screenShotMinIntervallTriggered()
-            } else {
-#if DEBUG
-                DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval timer is running, not necessary to trigger it.")
-#endif
+                    self.screenShotMinIntervallTriggered()
+                }
             }
         }
     }
 
     public func collectedAlphanumericKeyEvent() {
-        alphanumericKeyCount += 1
+        minIntervalTimerQueue.async {
+            self.alphanumericKeyCount += 1
+        }
     }
     
     public func collectedKeyboardShortcutEvent(_ eventData: String) {
-        keyboardShortcuts.append(eventData)
+        minIntervalTimerQueue.async {
+            self.keyboardShortcuts.append(eventData)
+        }
     }
     
     // Update UI

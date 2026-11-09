@@ -94,6 +94,10 @@
 				<string>Only Keys (Don&apos;t Modify Config)</string>
 			</array>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
 	</array>
 </dict>
 </plist>

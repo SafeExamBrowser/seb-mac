@@ -287,7 +287,7 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
     assert(self.task == nil);
 
     // Calculate our effective run loop modes.  In some circumstances (yes I'm looking at 
-    // you UIWebView!) we can be called from a non-standard thread which then runs a 
+    // you classic WebView!) we can be called from a non-standard thread which then runs a 
     // non-standard run loop mode waiting for the request to finish.  We detect this 
     // non-standard mode and add it to the list of run loop modes we use when scheduling 
     // our callbacks.  Exciting huh?

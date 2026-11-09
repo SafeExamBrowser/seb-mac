@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 15/12/15.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -252,7 +252,7 @@
 //        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
 //    }
 //    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Encryption Credentials Chosen", @"")
-//                                                                message:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      },", @""), NSLocalizedString(@"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.", @"")]
+//                                                                message:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.},", @""), NSLocalizedString(@"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.", @"")]
 //                                                         preferredStyle:UIAlertControllerStyleAlert];
 //    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
 //                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

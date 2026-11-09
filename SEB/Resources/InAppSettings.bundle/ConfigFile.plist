@@ -182,7 +182,7 @@
 			<key>Title</key>
 			<string>Home Screen Quick Action</string>
 			<key>FooterText</key>
-			<string>Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings.</string>
+			<string>Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the document picker or if you dismiss the picker, create a new config with default settings.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

@@ -2,7 +2,7 @@
 //  NetworkRequest.swift
 //
 //  Created by Daniel R. Schneider on 15.10.18.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -69,7 +69,9 @@ extension NetworkRequest {
             completion(nil, error)
             return
         }
-		let task = urlSession.dataTask(with: url, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
+		do {
+        try MyGlobals.catchException {
+        let task = urlSession.dataTask(with: url, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if error != nil {
                 DDLogError("NetworkRequest: URLSession.dataTask returned error: \(String(describing: error))")
             }
@@ -80,6 +82,12 @@ extension NetworkRequest {
 			completion(self?.decode(receivedData), error)
 		})
 		task.resume()
+        }
+        } catch {
+            DDLogError("NetworkRequest: Creating data task failed, URLSession was invalidated: \(error.localizedDescription)")
+            let sebError = SEBError(title: NSLocalizedString("URLSession was invalidated", comment: ""), code: statusCodes.urlSessionInvalidated, debugDescription: error.localizedDescription)
+            completion(nil, sebError)
+        }
 	}
 }
 
@@ -108,6 +116,13 @@ extension NetworkRequest {
         }
         DDLogVerbose("NetworkRequest: Got current URLSession")
 
+        // Creating a task on a URLSession that has been invalidated throws an
+        // Objective-C NSException ("Task created in a session that has been
+        // invalidated") which cannot be caught in Swift. This can happen in a race
+        // where the session is invalidated (e.g. when ending a session / tearing down
+        // AAC) between the nil-check above and here. Guard against it.
+        do {
+        try MyGlobals.catchException {
         let task = urlSession.dataTask(with: request as URLRequest, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
             let httpResponse = response as? HTTPURLResponse
             let statusCode = httpResponse?.statusCode
@@ -146,6 +161,12 @@ extension NetworkRequest {
             completion(self?.decode(receivedData), statusCode, errorResponse, responseHeaders, currentAttempt)
         })
         task.resume()
+        }
+        } catch {
+            DDLogError("NetworkRequest: Creating data task failed, URLSession was invalidated: \(error.localizedDescription)")
+            let errorResponse = ErrorResponse(error: NSLocalizedString("URLSession was invalidated", comment: ""), error_description: error.localizedDescription)
+            completion(nil, statusCodes.urlSessionInvalidated, errorResponse, [:], currentAttempt)
+        }
     }
     
     fileprivate func decodeErrorResponse(_ data: Data) -> ErrorResponse? {

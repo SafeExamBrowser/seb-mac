@@ -74,7 +74,7 @@
 			<key>Title</key>
 			<string>Allow Screen Capture</string>
 			<key>Key</key>
-			<string>org_safeexambrowser_SEB_enablePrintScreen</string>
+			<string>org_safeexambrowser_SEB_allowScreenCaptureiOS</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -132,6 +132,7 @@
 				<string>17</string>
 				<string>18</string>
 				<string>26</string>
+				<string>27</string>
 			</array>
 			<key>DisplaySortedByTitle</key>
 			<false/>
@@ -222,17 +223,33 @@
 			<key>Titles</key>
 			<array>
 				<string>None</string>
-				<string>iOS &gt;18</string>
+				<string>iOS 27</string>
+				<string>&gt; iOS 27</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Values</key>
 			<array>
 				<integer>0</integer>
-				<integer>26</integer>
+				<integer>27</integer>
+				<string>28</string>
 			</array>
 			<key>DisplaySortedByTitle</key>
 			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Allowed SEB Versions</string>
+			<key>File</key>
+			<string>AllowedSEBVersions</string>
 		</dict>
 	</array>
 </dict>

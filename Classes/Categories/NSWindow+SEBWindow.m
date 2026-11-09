@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 19.01.12.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //  
@@ -24,7 +24,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -39,7 +39,9 @@
 
 - (void)newSetLevel:(NSInteger)windowLevel
 {
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
+    NSInteger originalLevel = windowLevel;
+    BOOL elevate = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    if (elevate) {
         if (windowLevel == NSNormalWindowLevel) {
             windowLevel = NSMainMenuWindowLevel+5;
             DDLogVerbose(@"Window %@ level NSNormalWindowLevel changed to NSMainMenuWindowLevel+5", self);
@@ -51,7 +53,10 @@
     }
     if (windowLevel == NSModalPanelWindowLevel) {
         windowLevel = NSMainMenuWindowLevel+6;
-        DDLogVerbose(@"Window %@ level NSModalPanelWindowLevel changed to NSMainMenuWindowLevel+6", self);
+        DDLogDebug(@"Window %@ level NSModalPanelWindowLevel (%ld) changed to NSMainMenuWindowLevel+6 (%ld), elevateWindowLevels=%hhd", self, (long)NSModalPanelWindowLevel, (long)windowLevel, elevate);
+    }
+    if (originalLevel != windowLevel) {
+        DDLogDebug(@"Window %@ setLevel: %ld → %ld (elevateWindowLevels=%hhd)", self, (long)originalLevel, (long)windowLevel, elevate);
     }
     [self newSetLevel:windowLevel]; //call the original(!) method
 }

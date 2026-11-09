@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>AllowedSEBVersions</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_sebAllowedVersions</string>
+			<key>Type</key>
+			<string>IASKListGroupSpecifier</string>
+			<key>Title</key>
+			<string>Allowed SEB Versions</string>
+			<key>FooterText</key>
+			<string>Swipe left to delete a version. Specify one or more SEB version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: 'Win.3.9.min' allows SEB for Windows 3.9 or newer. Leave empty to allow any version.</string>
+			<key>ItemSpecifier</key>
+			<dict>
+				<key>Type</key>
+				<string>IASKCustomViewSpecifier</string>
+				<key>File</key>
+				<string>AllowedSEBVersion</string>
+				<key>Title</key>
+				<string>SEB Version</string>
+				<key>IASKTextAlignment</key>
+				<string>IASKUITextAlignmentLeft</string>
+			</dict>
+			<key>AddSpecifier</key>
+			<dict>
+				<key>Type</key>
+				<string>PSChildPaneSpecifier</string>
+				<key>File</key>
+				<string>AllowedSEBVersion</string>
+				<key>Title</key>
+				<string>Add Version ...</string>
+				<key>Key</key>
+				<string>addAllowedSEBVersionKey</string>
+			</dict>
+			<key>Deletable</key>
+			<true/>
+		</dict>
+	</array>
+</dict>
+</plist>

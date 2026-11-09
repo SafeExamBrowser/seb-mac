@@ -208,6 +208,10 @@
 				<string>Always</string>
 			</array>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
 	</array>
 </dict>
 </plist>

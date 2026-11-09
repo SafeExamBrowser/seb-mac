@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 06.12.10.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, 
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //  
@@ -24,7 +24,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -93,12 +93,13 @@
 // Closing of SEB Browser Window //
 - (BOOL)windowShouldClose:(id)sender
 {
-    DDLogDebug(@"SEBBrowserWindow %@ windowShouldClose: %@", self, sender);
-    if (self == self.browserController.mainBrowserWindow) {
+    BOOL isMainBrowserWindow = self.webView.isMainBrowserWebView;
+    DDLogInfo(@"SEBBrowserWindow %@ windowShouldClose: %@ (isMainBrowserWebView: %hhd, mainBrowserWindow: %@)", self, sender, isMainBrowserWindow, self.browserController.mainBrowserWindow);
+    if (isMainBrowserWindow) {
         // Post a notification that SEB/Session should conditionally quit
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"requestQuitNotification" object:self];
-        
+
         return NO; //but don't close the window (that will happen anyways in case quitting is confirmed)
     }
     return YES;
@@ -197,24 +198,39 @@
 }
 
 
-- (void) setCalculatedFrame
+- (BOOL) setCalculatedFrame
 {
-    [self setCalculatedFrameOnScreen:self.screen mainBrowserWindow:NO temporaryWindow:NO];
+    return [self setCalculatedFrameOnScreen:self.screen mainBrowserWindow:NO temporaryWindow:NO];
 }
 
-- (void) setCalculatedFrameOnScreen:(NSScreen *)screen
+- (BOOL) setCalculatedFrameOnScreen:(NSScreen *)screen
 {
-    [self setCalculatedFrameOnScreen:self.screen mainBrowserWindow:NO temporaryWindow:NO];
+    return [self setCalculatedFrameOnScreen:screen mainBrowserWindow:NO temporaryWindow:NO];
 }
 
-- (void) setCalculatedFrameOnScreen:(NSScreen *)screen mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow
+- (BOOL) setCalculatedFrameOnScreen:(NSScreen *)screen mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow
 {
-    if (mainBrowserWindow || temporaryWindow) {
+    // Robustly detect the main browser window. The mainBrowserWindow argument is only passed
+    // as YES when the window is first opened; on later recalculations (screen parameter changes,
+    // mirroring termination etc.) it is NO. We therefore must not rely on the weak
+    // browserController.mainBrowserWindow property alone (it can be nil or not yet set at these
+    // times), which would make the main window fall through to the "another browser window"
+    // branch and get sized like a newBrowserWindowByLink window on the wrong screen. The web
+    // view's isMainBrowserWebView flag is set once at creation and is the reliable signal.
+    BOOL isMainBrowserWindow = mainBrowserWindow || self.webView.isMainBrowserWebView || self == self.browserController.mainBrowserWindow;
+    BOOL isTemporaryWindow = temporaryWindow || (self.webView && self.webView == self.browserController.temporaryWebView);
+    if (isMainBrowserWindow || isTemporaryWindow) {
+        screen = _browserController.mainScreen;
+    } else if (!screen || screen.inactive) {
+        // Additional (new) browser windows are created by AppKit on the screen carrying the
+        // menu bar, which may be a display SEB isn't allowed to use (flagged inactive). Laying
+        // the window out there would make it briefly appear on the wrong screen before the
+        // screen watcher relocates it. Open it on the allowed main screen right away instead.
         screen = _browserController.mainScreen;
     }
     if (screen) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        
+
         // Get frame of the usable screen (considering if menu bar or SEB dock is enabled)
         NSRect screenFrame = [_browserController visibleFrameForScreen:screen];
 
@@ -222,7 +238,7 @@
         NSString *windowWidth;
         NSString *windowHeight;
         NSInteger windowPositioning;
-        if (mainBrowserWindow || self == self.browserController.mainBrowserWindow) {
+        if (isMainBrowserWindow) {
             // This is the main browser window
             if (_isFullScreen) {
                 // Full screen windows cover the whole screen
@@ -234,7 +250,7 @@
                 windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowHeight"];
                 windowPositioning = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mainBrowserWindowPositioning"];
             }
-        } else if (temporaryWindow || (self.webView && self.webView == self.browserController.temporaryWebView)) {
+        } else if (isTemporaryWindow) {
             // This is a temporary browser window used for downloads with authentication
             windowWidth = @"1050";
             windowHeight = @"100%";
@@ -281,9 +297,25 @@
         }
         // Calculate y position: On top
         windowFrame.origin.y = screenFrame.origin.y + screenFrame.size.height - windowFrame.size.height;
+
+        // Only actually resize/move the window if the computed frame differs from the current one.
+        // macOS can deliver NSApplicationDidChangeScreenParametersNotification repeatedly even when
+        // the display configuration hasn't really changed; recalculating and re-applying an identical
+        // frame on every such notification needlessly resizes the window (to its configured, often
+        // maximized, size) and, together with the makeKeyAndOrderFront in the callers, keeps pulling
+        // the main window in front of auxiliary windows (e.g. a PDF opened in a separate window).
+        NSRect currentFrame = self.frame;
+        if (fabs(currentFrame.origin.x - windowFrame.origin.x) < 1.0 &&
+            fabs(currentFrame.origin.y - windowFrame.origin.y) < 1.0 &&
+            fabs(currentFrame.size.width - windowFrame.size.width) < 1.0 &&
+            fabs(currentFrame.size.height - windowFrame.size.height) < 1.0) {
+            return NO;
+        }
         // Change Window size
         [self setFrame:windowFrame display:YES];
+        return YES;
     }
+    return NO;
 }
 
 
@@ -401,7 +433,11 @@
             DDLogInfo(@"Show Reload Current Page warning.");
             // Display warning and ask if to reload page
             NSAlert *newAlert = [self.browserController.sebController newAlert];
+#ifdef DEBUG
+            [newAlert setMessageText:[NSString stringWithFormat:@"%@ (Alert window level: %ld)", NSLocalizedString(@"Reload Current Page", @""), (long)newAlert.window.level]];
+#else
             [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", @"")];
+#endif
             [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
@@ -657,7 +693,8 @@
     [_filterMessageHUD setFrameTopLeftPoint:topLeftPoint];
     
     _filterMessageHUD.becomesKeyOnlyIfNeeded = YES;
-    [_filterMessageHUD setLevel:NSModalPanelWindowLevel];
+    // Use newSetLevel: to bypass unreliable swizzle after AAC transition
+    [_filterMessageHUD newSetLevel:NSMainMenuWindowLevel+6];
     DDLogDebug(@"Opening URL blocked HUD: %@", _filterMessageHUD);
     [_filterMessageHUD makeKeyAndOrderFront:nil];
     [_filterMessageHUD invalidateShadow];
@@ -750,6 +787,11 @@
                             }
                         }
                         
+                        // Explicitly set elevated window level as NSWindow setLevel: swizzle
+                        // may not work reliably after AAC to SEB kiosk mode transition
+                        if (!window) {
+                            [self.URLFilterAlert newSetLevel:NSMainMenuWindowLevel+6];
+                        }
                         [NSApp beginSheet: self.URLFilterAlert
                            modalForWindow: window
                             modalDelegate: nil
@@ -1013,6 +1055,11 @@
 - (void) searchTextMatchFound:(BOOL)matchFound
 {
     [self.browserWindowController searchTextMatchFound:matchFound];
+}
+
+- (void) searchTextResultCurrent:(NSInteger)currentResult total:(NSInteger)totalResults
+{
+    [self.browserWindowController searchTextResultCurrent:currentResult total:totalResults];
 }
 
 
@@ -1588,6 +1635,25 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                 return;
             }
         }
+        // Check if open and save panels (applies also to this document picker) are blocked in current settings
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"] == NO) {
+            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+            [self makeKeyAndOrderFront:self];
+            
+            NSAlert *modalAlert = [self.browserController.sebController newAlert];
+            DDLogError(@"File to upload should be chosen manually with file requester/open file dialog, but Open and Save Panels are blocked by settings!");
+            [modalAlert setMessageText:NSLocalizedString(@"Cannot Display Open File Dialog", @"")];
+            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Open/save panels for file selection are disabled in current %@ settings, contact your exam provider.", @""), SEBShortAppName]];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+            [modalAlert setAlertStyle:NSAlertStyleCritical];
+            void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self.browserController.sebController removeAlertWindow:modalAlert.window];
+            };
+            completionHandler(nil);
+            [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+            return;
+        }
+        
         // Create the File Open Dialog class.
         NSOpenPanel* openFilePanel = [NSOpenPanel openPanel];
         

@@ -13,10 +13,4 @@
    <FileRef
       location = "group:ios-mbedtls/mbedtls-iOS.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:SEB/Resources/de.lproj/FilterRule.strings">
-   </FileRef>
-   <FileRef
-      location = "group:SEB/Resources/en.lproj/FilterRule.strings">
-   </FileRef>
 </Workspace>

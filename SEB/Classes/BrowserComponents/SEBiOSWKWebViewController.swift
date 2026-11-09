@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 19.03.21.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -77,10 +77,10 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         sebWebView?.scrollView.setZoomScale(zoomScale!, animated: true)
         if contentZoomScale != 1 {
             let js = "var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);"
-            sebWebView?.evaluateJavaScript(js)
+            sebWebView?.seb_evaluateJavaScript(js, completionHandler: nil)
         }
     }
-    
+
     convenience init(delegate: SEBAbstractWebViewNavigationDelegate, configuration: WKWebViewConfiguration?) {
         self.init()
         dynamicLogLevel = MyGlobals.ddLogLevel()
@@ -137,18 +137,18 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         sebWebView?.scrollView.bounces = !scrollLockActive
         if scrollLockActive {
             // Disable text/content selection
-            sebWebView?.evaluateJavaScript("document.documentElement.style.webkitUserSelect='none';")
+            sebWebView?.seb_evaluateJavaScript("document.documentElement.style.webkitUserSelect='none';", completionHandler: nil)
             // Disable selection context popup (copy/paste etc.)
-            sebWebView?.evaluateJavaScript("document.documentElement.style.webkitTouchCallout='none';")
+            sebWebView?.seb_evaluateJavaScript("document.documentElement.style.webkitTouchCallout='none';", completionHandler: nil)
             // Disable magnifier glass
-                sebWebView?.evaluateJavaScript("document.body.style.webkitUserSelect='none';")
+                sebWebView?.seb_evaluateJavaScript("document.body.style.webkitUserSelect='none';", completionHandler: nil)
         } else {
             // Enable text/content selection
-                sebWebView?.evaluateJavaScript("document.documentElement.style.webkitUserSelect='text';")
+                sebWebView?.seb_evaluateJavaScript("document.documentElement.style.webkitUserSelect='text';", completionHandler: nil)
             // Enable selection context popup (copy/paste etc.)
-                sebWebView?.evaluateJavaScript("document.documentElement.style.webkitTouchCallout='default';")
+                sebWebView?.seb_evaluateJavaScript("document.documentElement.style.webkitTouchCallout='default';", completionHandler: nil)
             // Enable magnifier glass
-                sebWebView?.evaluateJavaScript("document.body.style.webkitUserSelect='default';")
+                sebWebView?.seb_evaluateJavaScript("document.body.style.webkitUserSelect='default';", completionHandler: nil)
         }
     }
     
@@ -210,7 +210,17 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
     
     public func stopLoading() {
-        sebWebView?.stopLoading()
+        // WKWebView must only be used on the main thread. stopLoading can be invoked from
+        // an NSURLSession delegate/completion queue (config and file download handlers in
+        // SEBBrowserController), so marshal to the main thread to avoid a WebKit
+        // main-thread assertion (EXC_BREAKPOINT / SIGTRAP).
+        if Thread.isMainThread {
+            sebWebView?.stopLoading()
+        } else {
+            DispatchQueue.main.async { [weak self] in
+                self?.sebWebView?.stopLoading()
+            }
+        }
     }
  
     

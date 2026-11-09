@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 03/12/15.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -141,7 +141,7 @@ void run_block_on_main_thread(dispatch_block_t block)
     NSUInteger indexOfLockedExamDictionary = 0;
     NSMutableArray *lockedExams;
     NSString *startURL;
-    BOOL secureExam = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0;
+    BOOL secureExam = preferences.secureSession;
     
     // Persist log strings for a "secure exam" (has a quit password)
     if (secureExam) {
@@ -162,7 +162,31 @@ void run_block_on_main_thread(dispatch_block_t block)
             if (logString.length == 0) {
                 setConsoleLogString = YES;
             }
-            logString = [[NSKeyedUnarchiver unarchiveObjectWithData:[persistedLockedExam objectForKey:@"logString"]] mutableCopy];
+            // Use a keyed unarchiver that returns an error instead of raising an
+            // NSException (as the deprecated +unarchiveObjectWithData: did) so a
+            // corrupted persisted log string falls back to an empty log (below)
+            // instead of aborting the app.
+            NSData *persistedLogStringData = [persistedLockedExam objectForKey:@"logString"];
+            if (persistedLogStringData) {
+                // The @try/@catch is a final safety net: the failure policy handles all
+                // decode failures, but a decoded object's own initWithCoder: could still raise.
+                @try {
+                    NSError *unarchiveError = nil;
+                    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:persistedLogStringData error:&unarchiveError];
+                    if (unarchiver) {
+                        unarchiver.requiresSecureCoding = NO;
+                        unarchiver.decodingFailurePolicy = NSDecodingFailurePolicySetErrorAndReturn;
+                        logString = [[unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey] mutableCopy];
+                        [unarchiver finishDecoding];
+                    } else {
+                        DDLogError(@"%s: Could not create unarchiver for persisted log string, error: %@", __FUNCTION__, unarchiveError);
+                    }
+                }
+                @catch (NSException *exception) {
+                    DDLogError(@"%s: Unarchiving persisted log string raised an exception: %@", __FUNCTION__, exception);
+                    logString = nil;
+                }
+            }
         }
     }
     
@@ -187,8 +211,22 @@ void run_block_on_main_thread(dispatch_block_t block)
     [appendedLogString appendAttributedString:attributedErrorString];
 
     if (secureExam) {
-        // Persist the new log string
-        NSData *logStringArchived = [NSKeyedArchiver archivedDataWithRootObject:logString];
+        // Persist the new log string. logString is always an NSMutableAttributedString
+        // (NSSecureCoding), so this is safe; the @try/@catch is defensive belt-and-suspenders.
+        NSError *archiveError = nil;
+        NSData *logStringArchived = nil;
+        @try {
+            logStringArchived = [NSKeyedArchiver archivedDataWithRootObject:logString requiringSecureCoding:NO error:&archiveError];
+        }
+        @catch (NSException *exception) {
+            DDLogError(@"%s: Archiving log string raised an exception: %@", __FUNCTION__, exception);
+        }
+        if (logStringArchived == nil) {
+            // Never store nil (would crash the dictionary literal below); fall back to
+            // empty data, which is read back as an empty log.
+            DDLogError(@"%s: Could not archive log string, error: %@", __FUNCTION__, archiveError);
+            logStringArchived = [NSData data];
+        }
         // Add the new (modified) entry
         NSDictionary *interruptedLockedExam = @{
                                                 @"startURL" : startURL,
@@ -248,7 +286,7 @@ void run_block_on_main_thread(dispatch_block_t block)
         NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         
         NSString *password = [self.UIDelegate lockedAlertPassword];
-        if (hashedQuitPassword.length == 0 || (hashedQuitPassword && [hashedQuitPassword caseInsensitiveCompare:[self.keychainManager generateSHAHashString:password]] == NSOrderedSame)) {
+        if (hashedQuitPassword.length == 0 || [self.keychainManager hashedString:hashedQuitPassword matchesPassword:password]) {
             // Correct password entered
             closingLockdownWindowsInProgress = YES;
             [self.UIDelegate setLockedAlertPassword:@""];

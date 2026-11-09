@@ -2,7 +2,7 @@
 //  SEBViewController.m
 //
 //  Created by Daniel R. Schneider on 10/09/15.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
@@ -10,7 +10,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -23,7 +23,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -36,8 +36,15 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #import "SEBViewController.h"
+#import "SEBAllowedSEBVersions.h"
 
 static NSMutableSet *browserWindowControllers;
+
+@interface SEBViewController ()
+// Returns NO (and shows an alert with the given title) if the current settings
+// contain a disallowed character or an invalid hash value.
+- (BOOL) currentSettingsAllowedShowingAlertWithTitle:(NSString *)title;
+@end
 
 @implementation SEBViewController
 
@@ -264,6 +271,85 @@ static NSMutableSet *browserWindowControllers;
         return NO;
     } else {
         return YES;
+    }
+}
+
+
+// Check if the running SEB version is allowed by the current settings (sebAllowedVersions).
+// Returns YES if allowed (or no restriction is configured for the iOS platform). If not allowed,
+// presents the "SEB Version Not Allowed!" alert and returns NO; the caller must abort starting
+// the session (no exam etc.). Mirrors -checkAllowedSEBVersions in the macOS SEBController.
+- (BOOL)checkAllowedSEBVersions
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSArray<NSString *> *allowedVersions = [preferences secureStringArrayForKey:@"org_safeexambrowser_SEB_sebAllowedVersions"];
+
+    if (allowedVersions.count == 0) {
+        return YES; // No SEB version restriction specified.
+    }
+
+    NSString *version = [MyGlobals versionString];
+    NSString *build = [MyGlobals buildNumber];
+
+    SEBAllowedSEBVersions *allowedSEBVersions = [SEBAllowedSEBVersions new];
+    BOOL allowed = [allowedSEBVersions allowedSEBVersion:version
+                                             buildNumber:build
+                                                platform:SEBAllowedVersionPlatformiOS
+                                         allianceEdition:NO
+                                      fromVersionStrings:allowedVersions];
+    if (allowed) {
+        DDLogInfo(@"%s: The running SEB version (%@ build %@) is allowed by current settings.", __FUNCTION__, version, build);
+        return YES;
+    }
+
+    NSString *requirement = [allowedSEBVersions requirementDescriptionForPlatform:SEBAllowedVersionPlatformiOS
+                                                                          appName:SEBShortAppName
+                                                               fromVersionStrings:allowedVersions];
+    NSString *runningInfo = [NSString stringWithFormat:NSLocalizedString(@"You are running %@ version %@ (build %@). Please update to a required version.", @""),
+                             SEBShortAppName, version, build];
+    NSString *informativeText = [NSString stringWithFormat:@"%@\n\n%@", requirement, runningInfo];
+    DDLogError(@"%s The running SEB version (%@ build %@) is not allowed. %@", __FUNCTION__, version, build, requirement);
+
+    [self presentAllowedSEBVersionsNotAllowedAlertWithInformativeText:informativeText];
+    return NO;
+}
+
+
+// Presents the "SEB Version Not Allowed!" alert and ends the exam session on either button.
+// A disallowed version can never continue into the exam, so both buttons quit the session.
+- (void)presentAllowedSEBVersionsNotAllowedAlertWithInformativeText:(NSString *)informativeText
+{
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    _alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"%@ Version Not Allowed!", @""), SEBShortAppName]
+                                                          message:informativeText
+                                                   preferredStyle:UIAlertControllerStyleAlert];
+    [_alertController addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Update %@", @""), SEBShortAppName]
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+        self.alertController = nil;
+        // Open SEB's App Store page before ending the session.
+        [self openSEBAppStorePage];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"requestQuit" object:self];
+    }]];
+    [_alertController addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), SEBShortAppName]
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction *action) {
+        self.alertController = nil;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"requestQuit" object:self];
+    }]];
+    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+}
+
+
+// Opens SEB's App Store page so the user can update to a required version.
+- (void)openSEBAppStorePage
+{
+    NSURL *url = [NSURL URLWithString:SEBiOSAppStorePage];
+    DDLogInfo(@"%s Opening SEB App Store page %@", __FUNCTION__, SEBiOSAppStorePage);
+    if (url && [[UIApplication sharedApplication] canOpenURL:url]) {
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
     }
 }
 
@@ -501,15 +587,20 @@ static NSMutableSet *browserWindowControllers;
         if (![[MyGlobals sharedMyGlobals] finishedInitializing] &&
                    _appDelegate.openedURL == NO &&
                    _appDelegate.openedUniversalLink == NO) {
-            // Initialize UI using client UI/browser settings
-            [self initSEBUIWithCompletionBlock:^{
-                [self conditionallyStartKioskMode];
-            }];
+            // Init SEB only if not reconfiguring from MDM server
+            if (!self.isReconfiguringToMDMConfig && !self.didReceiveMDMConfig) {
+                // Initialize UI using client UI/browser settings
+                [self initSEBUIWithCompletionBlock:^{
+                    [self conditionallyStartKioskMode];
+                }];
+            } else {
+                // DON'T setFinishedInitializing
+                return;
+            }
         }
-        
-        // Set flag that SEB is initialized: Now showing alerts is allowed
-        [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
-    }    
+    }
+    // Set flag that SEB is initialized: Now showing alerts is allowed
+    [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
 }
 
 
@@ -886,34 +977,103 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)openInitAssistant
 {
-    if (!_initAssistantOpen) {
-        if (_alertController) {
-            [_alertController dismissViewControllerAnimated:NO completion:^{
-                self.alertController = nil;
-                [self openInitAssistant];
-            }];
-            return;
+    if (_initAssistantOpen) {
+        return;
+    }
+    // Presenting view controllers must happen on the main thread.
+    if (!NSThread.isMainThread) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self openInitAssistant];
+        });
+        return;
+    }
+    // If an alert is currently displayed, dismiss it first and then open the assistant.
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:^{
+            self.alertController = nil;
+            [self openInitAssistant];
+        }];
+        return;
+    }
+
+    if (!_assistantViewController) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
+        _assistantViewController.sebViewController = self;
+        _assistantViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+        if (@available(iOS 13.0, *)) {
+            _assistantViewController.modalInPresentation = YES;
         }
-        
-        if (!_assistantViewController) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
-            _assistantViewController.sebViewController = self;
-            _assistantViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-            if (@available(iOS 13.0, *)) {
-                _assistantViewController.modalInPresentation = YES;
-            }
-        }
-        //// Initialize SEB Dock, commands section in the slider view and
-        //// 3D Touch Home screen quick actions
-        
+    }
+    //// Initialize SEB Dock, commands section in the slider view and
+    //// 3D Touch Home screen quick actions
+
 //        // Add scan QR code Home screen quick action
 //        [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[self scanQRCodeShortcutItem]];
-        
-        self.initAssistantOpen = YES;
-        [self.topMostController presentViewController:_assistantViewController animated:YES completion:^{
-        }];
+
+    // Mark as open now so re-entrant calls don't start a second presentation attempt.
+    // presentInitAssistantWhenReady waits for any in-progress presentation/dismissal to
+    // finish before presenting, so we never present onto a controller that is mid-transition
+    // (which would throw an uncaught exception and terminate the app).
+    self.initAssistantOpen = YES;
+    [self presentInitAssistantWhenReady:0];
+}
+
+
+// Presents the Initial Configuration Assistant as soon as the top most view controller is
+// ready (i.e. no presentation/dismissal transition is in progress). If a transition is
+// currently running we wait for it to complete and then try again, so the assistant is
+// always shown eventually instead of being skipped (which would leave SEB without any UI)
+// or presented mid-transition (which would crash with an uncaught exception).
+- (void)presentInitAssistantWhenReady:(NSInteger)attempt
+{
+    // The assistant is already presented (or being presented): nothing more to do.
+    if (_assistantViewController.presentingViewController != nil ||
+        _assistantViewController.isBeingPresented) {
+        return;
     }
+
+    UIViewController *presenter = self.topMostController;
+
+    // topMostController already resolved to the assistant itself: it is showing.
+    if (presenter == _assistantViewController) {
+        return;
+    }
+
+    // The presenter is unavailable (no root view controller yet) or in the middle of a
+    // present/dismiss transition - we can't present onto it right now.
+    BOOL presenterBusy = (presenter == nil ||
+                          presenter.isBeingPresented ||
+                          presenter.isBeingDismissed ||
+                          presenter.transitionCoordinator != nil ||
+                          presenter.presentedViewController != nil);
+
+    if (presenterBusy) {
+        static const NSInteger maxAttempts = 100;
+        if (attempt >= maxAttempts) {
+            DDLogError(@"openInitAssistant: presenter still not ready after %ld attempts (presenter: %@) - giving up", (long)attempt, presenter);
+            self.initAssistantOpen = NO;
+            return;
+        }
+        DDLogInfo(@"openInitAssistant: presenter busy, waiting for current transition to finish (attempt %ld, presenter: %@)", (long)attempt, presenter);
+        // Prefer to be notified exactly when the running transition completes; fall back
+        // to a short delayed retry (e.g. when there is no root view controller yet).
+        BOOL scheduled = NO;
+        id<UIViewControllerTransitionCoordinator> coordinator = presenter.transitionCoordinator;
+        if (coordinator) {
+            scheduled = [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+                [self presentInitAssistantWhenReady:attempt + 1];
+            }];
+        }
+        if (!scheduled) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self presentInitAssistantWhenReady:attempt + 1];
+            });
+        }
+        return;
+    }
+
+    [presenter presentViewController:_assistantViewController animated:YES completion:nil];
 }
 
 
@@ -1188,22 +1348,13 @@ static NSMutableSet *browserWindowControllers;
     // Get admin password hash from current client settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-    if (!hashedAdminPassword) {
-        hashedAdminPassword = @"";
-    } else {
-        hashedAdminPassword = [hashedAdminPassword uppercaseString];
-    }
-    
+
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword;
     if (password.length == 0) {
-        // An empty password has to be an empty hashed password string
-        hashedPassword = @"";
-    } else {
-        hashedPassword = [keychainManager generateSHAHashString:password];
-        hashedPassword = [hashedPassword uppercaseString];
+        // An empty password has to match an empty hashed password string
+        return hashedAdminPassword.length == 0;
     }
-    return [hashedPassword caseInsensitiveCompare:hashedAdminPassword] == NSOrderedSame;
+    return [keychainManager hashedString:hashedAdminPassword matchesPassword:password];
 }
 
 
@@ -1432,6 +1583,12 @@ static NSMutableSet *browserWindowControllers;
     ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
     BOOL uncompressed = self.sebInAppSettingsViewController.canSavePlainText && [preferences secureBoolForKey:@"org_safeexambrowser_shareConfigUncompressed"];
     
+    // Reject sharing settings that contain a disallowed character or an invalid
+    // hash value, before encrypting them.
+    if (![self currentSettingsAllowedShowingAlertWithTitle:NSLocalizedString(@"Saving Settings Failed", @"")]) {
+        return;
+    }
+
     // Get SecIdentityRef for selected identity
     SecIdentityRef identityRef;
     identityRef = [_sebInAppSettingsViewController getSelectedIdentity];
@@ -1933,6 +2090,14 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)applySettings
 {
+    // Reject applying settings that contain a disallowed character sequence (a double
+    // quote directly followed by a comma, in any string value or key) or an invalid hashed
+    // password value. Keep the Settings screen open (don't dismiss) so the user can correct
+    // the offending setting; the alert is shown by -editedSettingsValidForApplying. Mirrors
+    // -conditionallyClosePreferencesWindowAskToApply: on macOS.
+    if (![self editedSettingsValidForApplying]) {
+        return;
+    }
     [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
         DDLogDebug(@"%s: Settings closed.", __FUNCTION__);
         self.appSettingsViewController = nil;
@@ -2030,7 +2195,6 @@ static NSMutableSet *browserWindowControllers;
             {
                 DDLogVerbose(@"%s: Received new configuration from MDM server (containing %lu setting key/values), while client config is active, only exam page is open and browser is still displaying the Start URL.", __FUNCTION__, (unsigned long)serverConfig.count);
                 readMDMConfig = [self readMDMServerConfig:serverConfig];
-                _didReceiveMDMConfig = NO;
                 return readMDMConfig;
             } else {
                 DDLogVerbose(@"%s: %@ receive non-empty MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't");
@@ -2041,8 +2205,8 @@ static NSMutableSet *browserWindowControllers;
         }
     } else {
         _isReconfiguringToMDMConfig = NO;
+        _didReceiveMDMConfig = NO;
     }
-    _didReceiveMDMConfig = NO;
     return readMDMConfig;
 }
 
@@ -2065,6 +2229,18 @@ static NSMutableSet *browserWindowControllers;
         } else {
             DDLogVerbose(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
             _isReconfiguringToMDMConfig = NO;
+            if (![[MyGlobals sharedMyGlobals] finishedInitializing]) {
+                DDLogDebug(@"%s: Received new configuration from MDM server with %lu keys", __FUNCTION__, (unsigned long)serverConfig.count);
+//                _didReceiveMDMConfig = NO;
+                run_on_ui_thread(^{
+                    // Initialize UI using client UI/browser settings
+                    [self initSEBUIWithCompletionBlock:^{
+                        [self conditionallyStartKioskMode];
+                    }];
+                });
+                // Set flag that SEB is initialized: Now showing alerts is allowed
+                [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+            }
         }
     }
     return readMDMConfig;
@@ -2183,14 +2359,7 @@ void run_on_ui_thread(dispatch_block_t block)
         
         // Set preventing Auto-Lock according to settings
         [UIApplication sharedApplication].idleTimerDisabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobilePreventAutoLock"];
-        
-        // This doesn't work anymore when building with the iOS 17 SDK
-//        // Create browser user agent according to settings
-//        NSString *overrideUserAgent = [self.browserController customSEBUserAgent];
-//        // Register browser user agent for UIWebView
-//        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
-//        [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-        
+                
         // Update URL filter flags and rules
         [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesWithStartURL:self.startURL];
         // Update URL filter ignore rules
@@ -2436,6 +2605,7 @@ void run_on_ui_thread(dispatch_block_t block)
     [self adjustBars];
     
     if (_showNavigationBarTemporarily) {
+        [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
         run_on_ui_thread(completionBlock);
     } else {
         if (!temporary) {
@@ -2487,6 +2657,7 @@ void run_on_ui_thread(dispatch_block_t block)
                             [self openJitsiView];
                             [self.jitsiViewController openJitsiMeetWithSender:self];
                         }
+                        [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
                         run_on_ui_thread(completionBlock);
                     };
                     
@@ -3070,6 +3241,26 @@ void run_on_ui_thread(dispatch_block_t block)
     [searchBarView addConstraint:searchBarTopConstraint];
     [textSearchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textSearchBar]-(0)-|" options:0 metrics:nil views:views]];
     searchBarWidthConstraint = nil;
+
+    // Add the "N of M" results counter label inside the search field
+    // (recreated together with the search bar in resetSearchBar).
+    searchResultsLabel = nil;
+    if (@available(iOS 13.0, *)) {
+        UILabel *resultsLabel = [[UILabel alloc] init];
+        resultsLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        resultsLabel.font = [UIFont systemFontOfSize:13];
+        resultsLabel.textColor = [UIColor secondaryLabelColor];
+        resultsLabel.textAlignment = NSTextAlignmentRight;
+        resultsLabel.hidden = YES;
+        UITextField *searchField = textSearchBar.searchTextField;
+        [searchField addSubview:resultsLabel];
+        [NSLayoutConstraint activateConstraints:@[
+            [resultsLabel.trailingAnchor constraintEqualToAnchor:searchField.trailingAnchor constant:-28],
+            [resultsLabel.centerYAnchor constraintEqualToAnchor:searchField.centerYAnchor],
+        ]];
+        searchResultsLabel = resultsLabel;
+    }
+
     [self setSearchBarWidthIcon:!_searchMatchFound];
 }
 
@@ -3097,7 +3288,14 @@ void run_on_ui_thread(dispatch_block_t block)
         toolbarSearchTextButton.hidden = YES;
         toolbarSearchBarView.hidden = NO;
         if (@available(iOS 13.0, *)) {
-            textSearchBar.searchTextField.backgroundColor = nil;
+            if (@available(iOS 26.0, *)) {
+                // Since iOS 26 the minimal-style search field no longer draws a
+                // default (light grey) fill, so it blends into the navigation
+                // bar. Set an explicit adaptive fill to restore a visible field.
+                textSearchBar.searchTextField.backgroundColor = [UIColor tertiarySystemFillColor];
+            } else {
+                textSearchBar.searchTextField.backgroundColor = nil;
+            }
         }
         if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact && !toolbarSearchBarActiveRemovedOtherItems) {
             toolbarSearchBarActiveRemovedOtherItems = YES;
@@ -3567,8 +3765,6 @@ void run_on_ui_thread(dispatch_block_t block)
                 self.editingConfigFile = NO;
             } else {
                 [self restartExamQuitting:NO];
-                self.isReconfiguringToMDMConfig = NO;
-                self.didReceiveMDMConfig = NO;
             }
         });
         
@@ -3650,8 +3846,31 @@ void run_on_ui_thread(dispatch_block_t block)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self.alertController = nil;
     }]];
-    
+
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+}
+
+
+// Returns NO (and shows an alert with the given title) if the current settings
+// contain a disallowed character or an invalid hash value. The informative text
+// names the offending setting and is shared with the config load/save paths.
+- (BOOL) currentSettingsAllowedShowingAlertWithTitle:(NSString *)title
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSError *disallowedSettingsError = nil;
+    if (![self.configFileController checkForDisallowedSettings:[preferences dictionaryRepresentationSEB]
+                                                         error:&disallowedSettingsError]) {
+        [self showAlertWithTitle:title
+                         andText:disallowedSettingsError.userInfo[NSLocalizedFailureReasonErrorKey]];
+        return NO;
+    }
+    return YES;
+}
+
+
+- (BOOL) editedSettingsValidForApplying
+{
+    return [self currentSettingsAllowedShowingAlertWithTitle:NSLocalizedString(@"Applying Settings Failed", @"")];
 }
 
 
@@ -3715,7 +3934,7 @@ void run_on_ui_thread(dispatch_block_t block)
     if (@available(iOS 11.0, *)) {
         if (_secureMode &&
             UIScreen.mainScreen.isCaptured &&
-            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ) {
+            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCaptureiOS"] ) {
             NSString *alertMessageiOSVersion = NSLocalizedString(@"The screen is being captured/shared. The exam cannot be started.", @"");
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
@@ -3744,6 +3963,18 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     if (_establishingSEBServerConnection == YES && !fallback) {
         _startingExamFromSEBServer = YES;
+        if (@available(iOS 12.2, *)) {
+            if (_secureMode) {
+                [AccessibilityFeaturesManager configureAccessibilityFeaturesWithCompletionHandler:^{
+                    run_on_ui_thread(^{
+                        [self.serverController startExamFromServer];
+                    });
+                }];
+                return;
+            }
+        } else {
+            // Fallback on earlier versions
+        }
         [self.serverController startExamFromServer];
     } else {
         if (self.sebServerConnectionEstablished && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
@@ -3832,7 +4063,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) persistSecureExamStartURL:(NSString *)startURLString configKey:(NSData *)configKey
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+    if (preferences.secureSession) {
         currentStartURL = startURLString;
         currentConfigKey = configKey;
         [self.sebLockedViewController addLockedExam:currentStartURL configKey:currentConfigKey];
@@ -3840,6 +4071,8 @@ void run_on_ui_thread(dispatch_block_t block)
         currentStartURL = nil;
         currentConfigKey = nil;
     }
+    self.isReconfiguringToMDMConfig = NO;
+//    self.didReceiveMDMConfig = NO;
 }
 
 
@@ -3893,15 +4126,12 @@ void run_on_ui_thread(dispatch_block_t block)
     // Get quit password hash from current client settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    hashedQuitPassword = [hashedQuitPassword uppercaseString];
-    
+
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword = [keychainManager generateSHAHashString:password];
-    hashedPassword = [hashedPassword uppercaseString];
-    
+
     attempts--;
     
-    if ([hashedPassword caseInsensitiveCompare:hashedQuitPassword] != NSOrderedSame) {
+    if (![keychainManager hashedString:hashedQuitPassword matchesPassword:password]) {
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
@@ -4110,7 +4340,7 @@ void run_on_ui_thread(dispatch_block_t block)
         quittingClientConfig:(BOOL)quittingClientConfig
             pasteboardString:(NSString *)pasteboardString
 {
-    _isReconfiguringToMDMConfig = NO;
+    //_isReconfiguringToMDMConfig = NO;
     // Close the left slider view first if it was open
     if (self.sideMenuController.isLeftViewHidden == NO) {
         [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
@@ -4241,6 +4471,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) restartSessionAfterStoppingAssessmentMode:(BOOL)quittingASAMtoSAM
 {
     self.ASAMActive = NO;
+    self.didReceiveMDMConfig = NO;
     [self restartExamASAM:quittingASAMtoSAM];
 }
 
@@ -4425,7 +4656,7 @@ void run_on_ui_thread(dispatch_block_t block)
                         [self promptPasswordWithMessageText:NSLocalizedString(@"Enter SEB Server fallback password:", @"") title:NSLocalizedString(@"SEB Server Fallback Password Required", @"") completion:^(NSString* password) {
                             
                             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-                            if (password.length > 0 && [sebServerFallbackPasswordHash caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+                            if (password.length > 0 && [keychainManager hashedString:sebServerFallbackPasswordHash matchesPassword:password]) {
                                 DDLogInfo(@"Correct SEB Server fallback password entered");
                                 DDLogInfo(@"Open startURL as SEB Server fallback");
                                 self.establishingSEBServerConnection = NO;
@@ -4667,7 +4898,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     DDLogError(@"Could not start AAC Assessment Mode with error: %@", error);
     self.ASAMActive = NO;
-    [self showNoKioskModeAvailable];
+    [self showNoKioskModeAvailableWithError:error];
 }
 
 
@@ -4906,6 +5137,14 @@ void run_on_ui_thread(dispatch_block_t block)
             return;
         }
         
+        // Check if the running SEB version is allowed by the current settings. If not,
+        // abort starting the session here: the alert is presented and SEB ends the exam,
+        // so the session must not continue to start.
+        if (![self checkAllowedSEBVersions]) {
+            DDLogError(@"%s Running a SEB version which isn't allowed by current settings, don't start kiosk mode", __FUNCTION__);
+            return;
+        }
+
         // Update kiosk flags according to current settings
         [self updateKioskSettingFlags];
         
@@ -5138,10 +5377,11 @@ void run_on_ui_thread(dispatch_block_t block)
                     
                     DDLogInfo(@"%s Starting AAC using modern API with additional apps: %@", __FUNCTION__, self.permittedProcesses);
                     AEAssessmentConfiguration *configuration = [[AEAssessmentConfiguration alloc] initWithPermittedApplications:self.permittedProcesses];
-                    if ([self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration] == NO) {
-                        DDLogError(@"%s: Failed to enter AAC/Autonomous Single App Mode", __FUNCTION__);
+                    NSError *beginError = [self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration];
+                    if (beginError) {
+                        DDLogError(@"%s: Failed to enter AAC/Autonomous Single App Mode: %@", __FUNCTION__, beginError);
                         self.ASAMActive = NO;
-                        [self showNoKioskModeAvailable];
+                        [self showNoKioskModeAvailableWithError:beginError];
                         [self assessmentSessionDidEndWithCallback:self selector:@selector(showNoKioskModeAvailable) quittingToAssessmentMode:NO];
                     }
                     return;
@@ -5185,7 +5425,9 @@ void run_on_ui_thread(dispatch_block_t block)
         } else {
             [self showStartSingleAppMode];
         }
-    } else {
+    } else if (NSUserDefaults.userDefaultsPrivate ) {
+        // This prevents iOS assessment mode being stoped and reenabled when using multiple consecutive quizzes with SEB Server and Moodle
+        // but only when using settings for starting exam (not client settings, where this causes an issue when secure MDM settings are used)
         [self startExamWithFallback:NO];
     }
 }
@@ -5239,6 +5481,7 @@ void run_on_ui_thread(dispatch_block_t block)
         }
     } else {
         // SAM isn't allowed: SEB refuses to start the exam
+        
         [self showNoKioskModeAvailable];
     }
 }
@@ -5247,12 +5490,18 @@ void run_on_ui_thread(dispatch_block_t block)
 // No Assessment Mode Available: SEB refuses to start the exam
 - (void) showNoKioskModeAvailable
 {
+    [self showNoKioskModeAvailableWithError:nil];
+}
+
+// No Assessment Mode Available: SEB refuses to start the exam
+- (void) showNoKioskModeAvailableWithError:(nullable NSError *)error
+{
     DDLogDebug(@"%s", __FUNCTION__);
     
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
             self.alertController = nil;
-            [self showNoKioskModeAvailable];
+            [self showNoKioskModeAvailableWithError:error];
         }];
         return;
     }
@@ -5260,9 +5509,15 @@ void run_on_ui_thread(dispatch_block_t block)
         [self.topMostController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
     }
     _noSAMAlertDisplayed = YES;
-    DDLogError(@"%s Showing alert 'No Assessment Mode Available – Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.'", __FUNCTION__);
-    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Assessment Mode Available", @"")
-                                                            message:NSLocalizedString(@"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.", @"")
+    NSString *alertMessage;
+    if (error.localizedFailureReason) {
+        alertMessage = [NSString stringWithFormat:NSLocalizedString(@"Could not start Assessment Mode with error: %@", @""), error.localizedFailureReason];
+    } else {
+        alertMessage = NSLocalizedString(@"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.", @"");
+    }
+    DDLogError(@"%s Showing alert 'Could not Start Assessment Mode – %@'", __FUNCTION__, alertMessage);
+    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Could not Start Assessment Mode", @"")
+                                                            message:alertMessage
                                                      preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", @"")
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -5294,8 +5549,7 @@ void run_on_ui_thread(dispatch_block_t block)
     
     // First check if a quit password is set
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    if (hashedQuitPassword.length > 0) {
+    if (preferences.secureSession) {
         // A quit password is set in current settings: Ask user to restart Guided Access
         // If Guided Access isn't already on, show alert to switch it on again
         DDLogInfo(@"%s: A quit password is set in current settings: Ask user to restart Guided Access. If Guided Access isn't already on, show alert to switch it on again", __FUNCTION__);
@@ -5357,7 +5611,7 @@ void run_on_ui_thread(dispatch_block_t block)
             _secureMode &&
             _sessionRunning &&
             !_clientConfigSecureModePaused &&
-            ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"]) {
+            ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCaptureiOS"]) {
             DDLogError(@"Screen is being captured while in secure mode!");
             [self openLockdownWindows];
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen is Being Captured/Shared!", @"Lockdown alert title text for screen is being captured/shared")
@@ -5368,7 +5622,7 @@ void run_on_ui_thread(dispatch_block_t block)
             NSString *logString = [NSString stringWithFormat:@"Screen capturing/sharing %@, while %@running in secure mode%@.",
                                    UIScreen.mainScreen.isCaptured ? @"started" : @"stopped",
                                    _secureMode ? @"" : @"not ",
-                                   [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ? @" and it is allowed in current settings" : @""];
+                                   [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCaptureiOS"] ? @" and it is allowed in current settings" : @""];
             DDLogInfo(@"%@", logString);
         }
     }
@@ -5755,13 +6009,50 @@ void run_on_ui_thread(dispatch_block_t block)
     }
 }
 
+// ScreenProctoringDelegate: the connection to the screen proctoring server failed.
+// For a fatal failure we don't let the session silently continue unmonitored:
+// alert the user and offer to retry connecting or quit the session.
+- (void) screenProctoringDidFailWithError:(NSError *)error fatal:(BOOL)fatal
+{
+    DDLogError(@"Screen proctoring connection did fail with error: %@ (fatal: %d)", error.userInfo[NSDebugDescriptionErrorKey] ?: error.localizedDescription, fatal);
+    if (!fatal) {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *localizedRecoverySuggestion = error.userInfo[NSLocalizedRecoverySuggestionErrorKey];
+        if (localizedRecoverySuggestion.length == 0) {
+            localizedRecoverySuggestion = NSLocalizedString(@"Contact your exam administrator", @"");
+        }
+        NSString *description = error.userInfo[NSLocalizedDescriptionKey];
+        if (description.length == 0) {
+            description = error.localizedDescription;
+        }
+        NSString *message = [NSString stringWithFormat:@"%@\n%@", description, localizedRecoverySuggestion];
+        [self alertWithTitle:NSLocalizedString(@"Screen Proctoring Connection Failed", @"")
+                     message:message
+              preferredStyle:UIAlertControllerStyleAlert
+                action1Title:NSLocalizedString(@"Retry", @"")
+                action1Style:UIAlertActionStyleDefault
+              action1Handler:^{
+            DDLogInfo(@"Screen proctoring connection failed: user selected Retry");
+            [self.screenProctoringController retryConnectingToScreenProctoringServer];
+        }
+                action2Title:NSLocalizedString(@"Quit Session", @"")
+                action2Style:UIAlertActionStyleCancel
+              action2Handler:^{
+            DDLogInfo(@"Screen proctoring connection failed: user selected Quit");
+            [self sessionQuitRestart:NO];
+        }];
+    });
+}
+
 - (void) proctoringInstructionWithAttributes:(NSDictionary *)attributes
 {
     DDLogDebug(@"%s", __FUNCTION__);
-    
+
     NSString *serviceType = attributes[@"service-type"];
     DDLogDebug(@"%s: Service type: %@", __FUNCTION__, serviceType);
-    
+
     if ([serviceType isEqualToString:proctoringServiceTypeScreenProctoring]) {
         NSString *instructionConfirm = attributes[@"instruction-confirm"];
         if (![instructionConfirm isEqualToString:self.serverController.sebServerController.pingInstruction]) {
@@ -6129,9 +6420,8 @@ void run_on_ui_thread(dispatch_block_t block)
     NSString *backToStartText = [self backToStartText];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] == YES) {
-        NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         // if quitting SEB is allowed
-        if (hashedQuitPassword.length > 0) {
+        if (preferences.secureSession) {
             // if quit password is set, then restrict quitting
             // Allow up to 5 attempts for entering decoding password
             attempts = 5;
@@ -6274,16 +6564,13 @@ void run_on_ui_thread(dispatch_block_t block)
     // Get quit password hash from current client settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    hashedQuitPassword = [hashedQuitPassword uppercaseString];
-    
+
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword = [keychainManager generateSHAHashString:password];
-    hashedPassword = [hashedPassword uppercaseString];
-    
+
     attempts--;
     
     NSString *backToStartText = [self backToStartText];
-    if ([hashedPassword caseInsensitiveCompare:hashedQuitPassword] != NSOrderedSame) {
+    if (![keychainManager hashedString:hashedQuitPassword matchesPassword:password]) {
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
@@ -6559,6 +6846,20 @@ void run_on_ui_thread(dispatch_block_t block)
     self.searchMatchFound = matchFound;
     toolbarSearchButtonPreviousResult.hidden = !matchFound;
     toolbarSearchButtonNextResult.hidden = !matchFound;
+    if (!matchFound) {
+        searchResultsLabel.hidden = YES;
+    }
+}
+
+- (void) searchTextResultCurrent:(NSInteger)currentResult total:(NSInteger)totalResults
+{
+    if (totalResults > 0 && currentResult > 0) {
+        searchResultsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%1$ld of %2$ld", @"Search results counter shown in the search field, e.g. '1 of 15'"), (long)currentResult, (long)totalResults];
+        searchResultsLabel.hidden = NO;
+    } else {
+        searchResultsLabel.text = @"";
+        searchResultsLabel.hidden = YES;
+    }
 }
 
 

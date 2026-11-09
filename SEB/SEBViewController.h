@@ -2,7 +2,7 @@
 //  SEBViewController.h
 //
 //  Created by Daniel R. Schneider on 10/09/15.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
@@ -10,7 +10,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -23,7 +23,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -150,6 +150,7 @@ NS_ASSUME_NONNULL_BEGIN
     UIButton *toolbarSearchTextButton;
     UIView *toolbarSearchBarView;
     UISearchBar *textSearchBar;
+    UILabel *searchResultsLabel;
     NSLayoutConstraint *searchBarWidthConstraint;
     NSLayoutConstraint *searchBarTopConstraint;
     UIButton *toolbarSearchButtonNextResult;
@@ -350,6 +351,11 @@ void run_on_ui_thread(dispatch_block_t block);
 - (void) showReconfiguringAlertWithError:(NSError *)error;
 - (void) showAlertWithError:(NSError *)error;
 
+// Returns NO (and shows an "Applying Settings Failed" alert) if the current
+// edited settings contain a value that must not be applied, so the caller can
+// keep the Settings UI open for the user to correct it.
+- (BOOL) editedSettingsValidForApplying;
+
 - (void) showStartSingleAppMode;
 
 - (void) resetSEB;
@@ -483,6 +489,7 @@ void run_on_ui_thread(dispatch_block_t block);
 - (UIViewController *) topMostController;
 
 - (void) searchTextMatchFound:(BOOL)matchFound;
+- (void) searchTextResultCurrent:(NSInteger)currentResult total:(NSInteger)totalResults;
 - (void) sebWebViewDidFinishLoad;
 
 @end

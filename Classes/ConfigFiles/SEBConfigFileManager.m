@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 28.04.13.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -66,11 +66,14 @@
 {
     NSData *sebData = [self.delegate getSEBClientSettings];
     if (sebData) {
+        DDLogInfo(@"Found deployed SEB client settings (SEBClientSettings.seb in Library/Preferences/): reconfiguring SEB with these client settings. This will restart the session.");
         [self storeNewSEBSettings:sebData
                        forEditing:NO
            forceConfiguringClient:YES
                          callback:self
                          selector:@selector(reconfigureClientWithSebClientSettingsCallback)];
+    } else {
+        DDLogDebug(@"No deployed SEB client settings (SEBClientSettings.seb) found in Library/Preferences/; starting up with the local client configuration.");
     }
 }
 
@@ -334,6 +337,13 @@
         return;
     }
 
+    // Reject settings containing disallowed characters or invalid hash values
+    if (![self checkForDisallowedSettings:sebPreferencesDict error:&error]) {
+        // Inform callback that storing new settings failed
+        [self storeNewSEBSettingsSuccessful:error];
+        return;
+    }
+
     // Reading preferences was successful!
     [self storeDecryptedSEBSettings:sebPreferencesDict];
 }
@@ -496,9 +506,21 @@ static NSString *getUppercaseAdminPasswordHash(void)
     NSData *sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:hashedPassword error:&error];
     if (!sebDataDecrypted || error) {
         // For compatibility with the previous (wrong) implementation, we try it with an uppercase hash
-        hashedPassword = [hashedPassword uppercaseString];
         error = nil;
-        sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:hashedPassword error:&error];
+        sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:hashedPassword.uppercaseString error:&error];
+    }
+    if (!sebDataDecrypted || error) {
+        // For backward compatibility with settings encrypted on an Apple platform
+        // before NFC normalization was introduced, we additionally try the hash of
+        // the non-normalized password (which was stored in NFD form). See
+        // -[SEBKeychainManager hashedString:matchesPassword:].
+        NSString *unnormalizedHashedPassword = [keychainManager generateSHAHashStringWithoutNormalization:password];
+        error = nil;
+        sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:unnormalizedHashedPassword error:&error];
+        if (!sebDataDecrypted || error) {
+            error = nil;
+            sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:unnormalizedHashedPassword.uppercaseString error:&error];
+        }
     }
     attempts--;
     
@@ -608,18 +630,18 @@ static NSString *getUppercaseAdminPasswordHash(void)
     NSString *hashedAdminPassword = getUppercaseAdminPasswordHash();
 
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword;
-    if (password.length == 0) {
-        // An empty password has to be an empty hashed password string
-        hashedPassword = @"";
-    } else {
-        hashedPassword = [keychainManager generateSHAHashString:password];
-        hashedPassword = [hashedPassword uppercaseString];
-    }
-    
+
     attempts--;
-    
-    if ([hashedPassword caseInsensitiveCompare:hashedAdminPassword] != NSOrderedSame) {
+
+    BOOL passwordCorrect;
+    if (password.length == 0) {
+        // An empty password has to match an empty hashed password string
+        passwordCorrect = (hashedAdminPassword.length == 0);
+    } else {
+        passwordCorrect = [keychainManager hashedString:hashedAdminPassword matchesPassword:password];
+    }
+
+    if (!passwordCorrect) {
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
@@ -676,18 +698,18 @@ static NSString *getUppercaseAdminPasswordHash(void)
         return;
     }
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword;
-    if (password.length == 0) {
-        // An empty password has to be an empty hashed password string
-        hashedPassword = @"";
-    } else {
-        hashedPassword = [keychainManager generateSHAHashString:password];
-        hashedPassword = [hashedPassword uppercaseString];
-    }
-    
+
     attempts--;
-    
-    if ([hashedPassword caseInsensitiveCompare:passwordHash] != NSOrderedSame) {
+
+    BOOL passwordCorrect;
+    if (password.length == 0) {
+        // An empty password has to match an empty hashed password string
+        passwordCorrect = (passwordHash.length == 0);
+    } else {
+        passwordCorrect = [keychainManager hashedString:passwordHash matchesPassword:password];
+    }
+
+    if (!passwordCorrect) {
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
@@ -723,7 +745,15 @@ static NSString *getUppercaseAdminPasswordHash(void)
         [self storeNewSEBSettingsSuccessful:error];
         return;
     }
-    
+
+    // Reject settings containing disallowed characters or invalid hash values
+    if (![self checkForDisallowedSettings:sebPreferencesDict error:&error]) {
+        DDLogError(@"%s: Checking settings failed!", __FUNCTION__);
+        // Inform callback that storing new settings failed
+        [self storeNewSEBSettingsSuccessful:error];
+        return;
+    }
+
     // Reading preferences was successful!
     DDLogInfo(@"%s: Checking received settings was successful", __FUNCTION__);
     [self storeDecryptedSEBSettings:sebPreferencesDict];
@@ -885,6 +915,115 @@ static NSString *getUppercaseAdminPasswordHash(void)
 }
 
 
+// Sanity checks on freshly parsed settings, run before the settings are stored
+// and before the Config Key is calculated. The Config Key is a hash over a JSON
+// serialization of these settings; a string value or key that contains a double
+// quote immediately followed by a comma (allowing whitespace in between) could
+// alter the structure of that serialization, so we reject it. A double quote on
+// its own is allowed (e.g. a quoted path in a permitted process argument). As
+// additional validation, hashed password fields must be either empty or a hash
+// value.
+- (BOOL)checkForDisallowedSettings:(NSDictionary *)sebPreferencesDict error:(NSError **)error
+{
+    NSString *offendingKeyPath = [self keyPathOfStringWithDisallowedSequenceInObject:sebPreferencesDict atKeyPath:nil];
+    if (offendingKeyPath) {
+        DDLogError(@"%s Setting '%@' contains a double quote followed by a comma, which is not allowed!", __FUNCTION__, offendingKeyPath);
+        *error = [NSError errorWithDomain:sebErrorDomain
+                                     code:SEBErrorParsingSettingsFailedForbiddenCharacter
+                                 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", @""),
+                                            NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"A setting contains a double quote followed by a comma, which is not allowed. Please remove it from the setting '%@' and try again.", @""), offendingKeyPath]}];
+        return NO;
+    }
+
+    for (NSString *hashKey in @[@"hashedAdminPassword", @"hashedQuitPassword", @"sebServerFallbackPasswordHash"]) {
+        id hashValue = [sebPreferencesDict objectForKey:hashKey];
+        if (hashValue && ![self isValidHashOrEmptyValue:hashValue]) {
+            DDLogError(@"%s Setting '%@' doesn't contain a valid hash value!", __FUNCTION__, hashKey);
+            *error = [NSError errorWithDomain:sebErrorDomain
+                                         code:SEBErrorParsingSettingsFailedInvalidHashValue
+                                     userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", @""),
+                                                NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"These settings are corrupted and cannot be used (failing key: %@).", @""), hashKey]}];
+            return NO;
+        }
+    }
+    return YES;
+}
+
+
+// Returns YES if the string contains a double quote directly followed by a comma
+// (allowing any whitespace in between) — the character sequence a manipulated
+// config would need to alter the structure of the Config Key JSON serialization.
+- (BOOL)stringContainsDisallowedSequence:(NSString *)string
+{
+    return [string rangeOfString:@"\"\\s*," options:NSRegularExpressionSearch].location != NSNotFound;
+}
+
+
+// Recursively search the settings tree (dictionaries, arrays and their string
+// keys and values) for a string containing the disallowed sequence (see
+// -stringContainsDisallowedSequence:). Returns the key path of the first
+// offending string, or nil if none is found.
+- (NSString *)keyPathOfStringWithDisallowedSequenceInObject:(id)object atKeyPath:(NSString *)keyPath
+{
+    if ([object isKindOfClass:[NSString class]]) {
+        if ([self stringContainsDisallowedSequence:(NSString *)object]) {
+            return keyPath.length > 0 ? keyPath : (NSString *)object;
+        }
+        return nil;
+    }
+    if ([object isKindOfClass:[NSDictionary class]]) {
+        for (id key in (NSDictionary *)object) {
+            NSString *keyString = [key isKindOfClass:[NSString class]] ? (NSString *)key : [key description];
+            // The key itself is serialized into the Config Key JSON, so check it too
+            if ([key isKindOfClass:[NSString class]] &&
+                [self stringContainsDisallowedSequence:(NSString *)key]) {
+                return keyPath.length > 0 ? [keyPath stringByAppendingFormat:@".%@", keyString] : keyString;
+            }
+            NSString *childKeyPath = keyPath.length > 0 ? [keyPath stringByAppendingFormat:@".%@", keyString] : keyString;
+            NSString *found = [self keyPathOfStringWithDisallowedSequenceInObject:[(NSDictionary *)object objectForKey:key] atKeyPath:childKeyPath];
+            if (found) {
+                return found;
+            }
+        }
+        return nil;
+    }
+    if ([object isKindOfClass:[NSArray class]]) {
+        NSUInteger index = 0;
+        for (id element in (NSArray *)object) {
+            NSString *childKeyPath = [NSString stringWithFormat:@"%@[%lu]", keyPath.length > 0 ? keyPath : @"", (unsigned long)index];
+            NSString *found = [self keyPathOfStringWithDisallowedSequenceInObject:element atKeyPath:childKeyPath];
+            if (found) {
+                return found;
+            }
+            index++;
+        }
+        return nil;
+    }
+    return nil;
+}
+
+
+// A valid stored password hash is either an empty string (no password set) or a
+// SHA-256 hash rendered as 64 hexadecimal characters (see -[SEBKeychainManager
+// generateSHAHashString:]). Comparison of hashes is case-insensitive, so accept
+// both cases here.
+- (BOOL)isValidHashOrEmptyValue:(id)value
+{
+    if (![value isKindOfClass:[NSString class]]) {
+        return NO;
+    }
+    NSString *hashValue = (NSString *)value;
+    if (hashValue.length == 0) {
+        return YES;
+    }
+    if (hashValue.length != 64) {
+        return NO;
+    }
+    NSCharacterSet *nonHexCharacters = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789abcdefABCDEF"] invertedSet];
+    return [hashValue rangeOfCharacterFromSet:nonHexCharacters].location == NSNotFound;
+}
+
+
 // Get preferences dictionary from decrypted data.
 // In editing mode, users have to enter the right SEB administrator password
 // before they can access the settings contents
@@ -929,11 +1068,32 @@ static NSString *getUppercaseAdminPasswordHash(void)
 -(NSDictionary *) getPreferencesDictionaryFromConfigData:(NSData *)sebData error:(NSError **)error
 {
     NSError *plistError = nil;
+    NSDictionary *sebPreferencesDict = nil;
     //NSString *sebPreferencesXML = [[NSString alloc] initWithData:sebData encoding:NSUTF8StringEncoding];
-    NSDictionary *sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
-                                                                                 options:0
-                                                                                  format:NULL
-                                                                                   error:&plistError];
+    // NSPropertyListSerialization throws an NSInvalidArgumentException (which is NOT
+    // reported through the error: parameter) when passed nil data, and can raise other
+    // exceptions on unexpected input. Guard against nil/empty data and catch any
+    // exception so corrupted or missing config data results in a handled error instead
+    // of aborting the app.
+    if (sebData.length == 0) {
+        DDLogError(@"%s: No configuration data to deserialize (data was nil or empty).", __FUNCTION__);
+        plistError = [NSError errorWithDomain:sebErrorDomain
+                                         code:SEBErrorParsingSettingsSerializingFailed
+                                     userInfo:@{ NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"No configuration data.", @"") }];
+    } else {
+        @try {
+            sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
+                                                                          options:0
+                                                                           format:NULL
+                                                                            error:&plistError];
+        }
+        @catch (NSException *exception) {
+            DDLogError(@"%s: Deserializing the XML plist raised an exception: %@", __FUNCTION__, exception);
+            plistError = [NSError errorWithDomain:sebErrorDomain
+                                             code:SEBErrorParsingSettingsSerializingFailed
+                                         userInfo:@{ NSLocalizedFailureReasonErrorKey : (exception.reason ?: exception.name ?: @"") }];
+        }
+    }
     if (plistError) {
         // If it exists, then add the localized error reason from serializing the plist to the error object
         DDLogError(@"%s: Failed serializing of the XML plist ! Error: %@", __FUNCTION__, plistError.description);
@@ -972,7 +1132,6 @@ static NSString *getUppercaseAdminPasswordHash(void)
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     int i = 5;
     NSString *password = nil;
-    NSString *hashedPassword;
     bool passwordsMatch;
     do {
         i--;
@@ -984,11 +1143,11 @@ static NSString *getUppercaseAdminPasswordHash(void)
             return NO;
         }
         if (password.length == 0) {
-            hashedPassword = @"";
+            // An empty password has to match an empty hashed password string
+            passwordsMatch = (sebFileHashedAdminPassword.length == 0);
         } else {
-            hashedPassword = [keychainManager generateSHAHashString:password];
+            passwordsMatch = [keychainManager hashedString:sebFileHashedAdminPassword matchesPassword:password];
         }
-        passwordsMatch = (hashedPassword && [hashedPassword caseInsensitiveCompare:sebFileHashedAdminPassword] == NSOrderedSame);
         // in case we get an error we allow the user to try it again
     } while ((password == nil || !passwordsMatch) && i > 0);
     
@@ -1014,14 +1173,35 @@ static NSString *getUppercaseAdminPasswordHash(void)
     NSDictionary *configKeyContainedKeys = [NSDictionary dictionary];
     NSData *configKey = [NSData data];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    // Keep a reference to the originally loaded settings (before default values are merged in
+    // by calculating the Config Key), needed for the lockdownModePolicy migration below
+    NSDictionary *loadedSebPreferencesDict = sebPreferencesDict;
     // We reset the Config Key in current user defaults, to make sure it is freshly calculated for loaded settings
     [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
     sebPreferencesDict = [[SEBCryptor sharedSEBCryptor] updateConfigKeyInSettings:sebPreferencesDict
                                                         configKeyContainedKeysRef:&configKeyContainedKeys
                                                                      configKeyRef:&configKey
                                                           initializeContainedKeys:YES];
-    
+
+    // If the loaded configuration didn't contain permitted processes, don't persist inactive preset
+    // permitted processes which were only injected above by merging in default values (e.g. when
+    // reverting to default settings). Inactive preset processes are added to a configuration only
+    // when explicitly chosen with the "Add Preset Process" feature. Permitted processes actually
+    // contained in the loaded config (including a deliberately deactivated preset process) are kept.
+    if (loadedSebPreferencesDict[@"permittedProcesses"] == nil && sebPreferencesDict[@"permittedProcesses"]) {
+        NSMutableDictionary *mutablePreferencesDict = sebPreferencesDict.mutableCopy;
+        mutablePreferencesDict[@"permittedProcesses"] = [preferences permittedProcessesByRemovingInactivePresets:sebPreferencesDict[@"permittedProcesses"]];
+        sebPreferencesDict = mutablePreferencesDict.copy;
+    }
+
     [preferences storeSEBDictionary:sebPreferencesDict];
+
+    // Migration for macOS AAC settings for configs which predate the lockdownModePolicy setting.
+    // Has to run on the originally loaded settings (loadedSebPreferencesDict) and after
+    // storeSEBDictionary:, so the migrated values aren't overwritten by the loaded config values.
+    // The possibly changed allowOpenAndSavePanel / lockdownModePolicy values are intentionally not
+    // contained in the settings used above for the Config Key calculation.
+    [preferences migrateLockdownModePolicyFromLoadedSettings:loadedSebPreferencesDict];
 
     [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
     // Store new Config Key in UserDefaults
@@ -1137,7 +1317,17 @@ static NSString *getUppercaseAdminPasswordHash(void)
     if (configPurpose == sebConfigPurposeStartingExam) {
         [filteredPrefsDict removeObjectForKey:@"copyBrowserExamKeyToClipboardWhenQuitting"];
     }
-    
+
+    // Reject settings containing a disallowed character or an invalid hash value
+    // before writing a .seb config (mirrors the same check on the config load path).
+    // UI callers run this check beforehand and present a user-facing alert (see
+    // -[PreferencesController savePrefsAs:fileURLUpdate:]); returning nil here
+    // ensures no other caller can write a config with disallowed content.
+    NSError *disallowedSettingsError = nil;
+    if (![self checkForDisallowedSettings:filteredPrefsDict error:&disallowedSettingsError]) {
+        return nil;
+    }
+
     // Convert preferences dictionary to XML property list
     NSError *error = nil;
     NSData *dataRep = [NSPropertyListSerialization dataWithPropertyList:filteredPrefsDict

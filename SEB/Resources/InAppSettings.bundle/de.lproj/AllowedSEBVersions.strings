@@ -1,0 +1,11 @@
+/* String for Title elements */
+"Allowed SEB Versions" = "Erlaubte SEB-Versionen";
+
+/* (No Comment) */
+"SEB Version" = "SEB-Version";
+
+/* (No Comment) */
+"Add Version ..." = "Version hinzufügen ...";
+
+/* String for FooterText elements */
+"Swipe left to delete a version. Specify one or more SEB version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: 'Win.3.9.min' allows SEB for Windows 3.9 or newer. Leave empty to allow any version." = "Streichen Sie nach links, um eine Version zu löschen. Geben Sie eine oder mehrere SEB-Version(en) an, die zur Verwendung dieser Konfiguration erforderlich sind, eine pro Zeile. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS ist Win, Mac oder iOS; optionale Teile in Klammern). Beispiel: 'Win.3.9.min' erlaubt SEB für Windows 3.9 oder neuer. Leer lassen, um jede Version zu erlauben.";

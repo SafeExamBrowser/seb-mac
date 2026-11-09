@@ -46,7 +46,7 @@
 /* Class = "NSMenuItem"; title = "About SEB"; ObjectID = "58"; */
 "58.title" = "Über SEB";
 
-/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "129"; */
+/* Class = "NSMenuItem"; title = "Settings…"; ObjectID = "129"; */
 "129.title" = "Einstellungen …";
 
 /* Class = "NSMenuItem"; title = "Quit SEB"; ObjectID = "136"; */

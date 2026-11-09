@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 18.04.11.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //  
@@ -24,7 +24,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -176,5 +176,22 @@
     });
 }
  
+
+- (IBAction) chooseFileToUploadPoliciesPopUpButton:(NSPopUpButton *)sender {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (sender.indexOfSelectedItem != onlyAllowUploadSameFileDownloadedBefore &&
+        ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"] &&
+        (lockdownModePolicy)[preferences secureIntegerForKey:@"org_safeexambrowser_SEB_lockdownModePolicy"] != lockdownModePolicyEnforceClassic) {
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Choose File Dialog Blocked by Settings", @"")];
+        [newAlert setInformativeText:NSLocalizedString(@"The file dialog will not be displayed, because Open and Save Panels are blocked (see Applications pane).", @"")];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+        [newAlert setAlertStyle:NSAlertStyleCritical];
+        // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
+        // which also is the minimum macOS version the Preferences window is available from
+        [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
+    }
+}
+
 
 @end

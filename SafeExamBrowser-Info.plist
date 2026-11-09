@@ -95,7 +95,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>15678</string>
+	<string>88609</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.education</string>
 	<key>LSMinimumSystemVersion</key>
@@ -116,7 +116,9 @@
 	<key>NSDownloadsFolderUsageDescription</key>
 	<string>Downloaded files are by default saved to the Downloads folder.</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
+	<string>© 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location access is required to display nearby Wi-Fi network names. No geographical location is determined!</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -124,6 +126,8 @@
 	<key>NSPrincipalClass</key>
 	<string>$(PRODUCT_MODULE_NAME).SEBApplication</string>
 	<key>NSRequiresAquaSystemAppearance</key>
+	<true/>
+	<key>UIDesignRequiresCompatibility</key>
 	<true/>
 	<key>UTExportedTypeDeclarations</key>
 	<array>

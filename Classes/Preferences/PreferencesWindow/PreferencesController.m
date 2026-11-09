@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 18.04.11.
-//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, 
@@ -11,7 +11,7 @@
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
+//  Version 2.0 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
 //  
@@ -24,7 +24,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -36,6 +36,7 @@
 #import "PreferencesController.h"
 #import "MBPreferencesController.h"
 #import "SEBCryptor.h"
+#import "SEBSettings.h"
 #import "SEBURLFilter.h"
 #import "NSURL+SEBURL.h"
 #import "PreferencesViewController.h"
@@ -198,7 +199,8 @@
 // Public method called to open the preferences window
 - (void)openPreferencesWindow
 {
-    if (![[MBPreferencesController sharedController] modules]) {
+    DDLogInfo(@"%s", __FUNCTION__);
+   if (![[MBPreferencesController sharedController] modules]) {
         [self initPreferencesWindow];
     }
 
@@ -237,6 +239,7 @@
 // Method called to reopen the closed preferences window programmatically
 - (void)reopenPreferencesWindow
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     // Post a notification that it was requested to re-open the preferences window
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"showPreferencesWindow" object:self];
@@ -282,7 +285,7 @@
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 
-    BOOL shouldClose = true;
+    BOOL shouldClose = YES;
     // If Preferences are being closed and we're not just refreshing the preferences window
     if (!self.refreshingPreferences) {
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
@@ -300,14 +303,22 @@
 - (void)windowWillClose:(NSNotification *)notification
 {
     [self.configFileVC hideQRConfig];
-    if (self.preferencesAreOpen && !self.refreshingPreferences) {
+    // Don't post anything during the internal release/reopen "refresh" dance used to
+    // re-sync bindings (refreshingPreferences == YES).
+    if (!self.refreshingPreferences) {
 //        self.sebController.browserController.reinforceKioskModeRequested = YES;
-        // Post a notification that the preferences window closes
         if (restartSEB) {
+            // A settings change requiring a restart was applied: always post this,
+            // even if the window is no longer visible. During the reconfigure
+            // open/close dance the final close carrying restartSEB can arrive after
+            // the window was already hidden; gating it on -preferencesAreOpen
+            // (window.isVisible) would drop the notification and the session would
+            // never restart with the new settings.
             restartSEB = NO;
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"preferencesClosedRestartSEB" object:self];
-        } else {
+        } else if (self.preferencesAreOpen) {
+            // Post a notification that the preferences window closes (no reconfiguration)
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"preferencesClosed" object:self];
         }
@@ -345,7 +356,7 @@
 // Executed when preferences window should be closed, checking first for unsaved settings,
 // if edited settings should be applied – only if passed flag is YES
 // with restarting SEB or not – this question only appears if flag is YES (otherwise restart anyways)
-// and if "Allow to open preferences window on client" is disabled
+// and if "Allow to open Settings window on client" is disabled
 // Returns NO if user cancels closing the preferences window
 - (BOOL)conditionallyClosePreferencesWindowAskToApply:(BOOL)askToApplySettings
 {
@@ -357,6 +368,22 @@
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     SEBEncapsulatedSettings *oldSettings = [[SEBEncapsulatedSettings alloc] initWithCurrentSettings];
+
+    // Reject applying settings that contain a disallowed character sequence (a double
+    // quote directly followed by a comma, in any string value or key) or an invalid
+    // hashed password value. Keep the Settings window open so the user can correct
+    // the offending setting before closing/applying.
+    NSError *disallowedSettingsError = nil;
+    if (![self.configFileController checkForDisallowedSettings:[preferences dictionaryRepresentationSEB]
+                                                        error:&disallowedSettingsError]) {
+        NSAlert *disallowedSettingsAlert = [[NSAlert alloc] init];
+        [disallowedSettingsAlert setMessageText:NSLocalizedString(@"Applying Settings Failed", @"")];
+        [disallowedSettingsAlert setInformativeText:disallowedSettingsError.userInfo[NSLocalizedFailureReasonErrorKey]];
+        [disallowedSettingsAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+        [disallowedSettingsAlert setAlertStyle:NSAlertStyleCritical];
+        [self.sebController runModalAlert:disallowedSettingsAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
+        return NO;
+    }
 
     // If private settings are active, check if those current settings have unsaved changes
     if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO]) {
@@ -528,18 +555,40 @@
 
 - (void) openingSEBPrefsSucessfull:(NSError *)error
 {
-    if (error) {
-        // Error when reading configuration data
-        [MBPreferencesController.sharedController.window presentError:error modalForWindow:MBPreferencesController.sharedController.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
-    } else {
+    if (!error) {
         // if successfull save the path to the file for possible editing in the preferences window
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentSEBFileURL];
-        
+
         [[MBPreferencesController sharedController] setSettingsFileURL:currentSEBFileURL];
     }
     // Re-initialize and open preferences window
     [self initPreferencesWindow];
     [self reopenPreferencesWindow];
+
+    if (error) {
+        // Error when reading/decrypting/parsing configuration data (for example corrupted
+        // settings). The preferences window was released before loading the new settings
+        // (see -openSEBPrefsAtURL: / -revertToLastSaved:), so the error has to be presented
+        // only after the window was re-initialized and reopened above, otherwise the sheet
+        // would be attached to a nil window and never be displayed.
+        // Show the same message text/informative text as when opening the config file
+        // outside of the Settings window (-[SEBController storeNewSEBSettingsSuccessful:]).
+        DDLogError(@"%s: Opening settings in the Settings window failed, error: %@", __FUNCTION__, error);
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:error.localizedDescription ?: NSLocalizedString(@"Opening Settings Failed", @"")];
+        NSString *informativeText = error.localizedFailureReason.length > 0 ? error.localizedFailureReason : error.localizedRecoverySuggestion;
+        if (informativeText.length > 0) {
+            [newAlert setInformativeText:informativeText];
+        }
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+        [newAlert setAlertStyle:NSAlertStyleCritical];
+        NSWindow *preferencesWindow = self.preferencesWindow;
+        if (preferencesWindow.isVisible) {
+            [newAlert beginSheetModalForWindow:preferencesWindow completionHandler:nil];
+        } else {
+            [self.sebController runModalAlert:newAlert conditionallyForWindow:preferencesWindow completionHandler:nil];
+        }
+    }
 }
 
 
@@ -629,8 +678,8 @@
         }
     }
     NSString *informativeText = NSUserDefaults.userDefaultsPrivate
-    ? NSLocalizedString(@"These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.", @"")
-    : [NSString stringWithFormat:NSLocalizedString(@"Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option.", @""), SEBShortAppName];
+    ? NSLocalizedString(@"These settings have the option 'Allow to open Settings window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.", @"")
+    : [NSString stringWithFormat:NSLocalizedString(@"Local client settings have the option 'Allow to open Settings window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option.", @""), SEBShortAppName];
     
     NSString *defaultButtonText = NSUserDefaults.userDefaultsPrivate
     ? NSLocalizedString(@"Override", @"")
@@ -643,7 +692,17 @@
     [newAlert addButtonWithTitle:NSLocalizedString(@"Apply Anyways", @"")];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     [newAlert setAlertStyle:NSAlertStyleCritical];
-    switch([newAlert runModal])
+    // Route through the SEB controller so the alert is centered on SEB's screen (or, in client mode,
+    // the Settings window's screen) instead of AppKit's default position. runModalAlert: runs the
+    // modal synchronously (non-AAC) and invokes the handler before returning, so the answer is
+    // available immediately; on macOS 11 under AAC this method already returned above.
+    __block NSModalResponse alertAnswer = NSModalResponseCancel;
+    [self.sebController runModalAlert:newAlert
+              conditionallyForWindow:MBPreferencesController.sharedController.window
+                   completionHandler:^(NSModalResponse returnCode) {
+        alertAnswer = returnCode;
+    }];
+    switch(alertAnswer)
     {
         case NSAlertFirstButtonReturn:
             return SEBDisabledPreferencesAnswerOverride;
@@ -678,7 +737,14 @@
     [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Save", @"")];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     [newAlert setAlertStyle:NSAlertStyleWarning];
-    switch([newAlert runModal])
+    // Center on SEB's / the Settings window's screen (see note in -askToOverrideDisabledPreferences…).
+    __block NSModalResponse alertAnswer = NSModalResponseCancel;
+    [self.sebController runModalAlert:newAlert
+              conditionallyForWindow:MBPreferencesController.sharedController.window
+                   completionHandler:^(NSModalResponse returnCode) {
+        alertAnswer = returnCode;
+    }];
+    switch(alertAnswer)
     {
         case NSAlertFirstButtonReturn:
             return SEBUnsavedSettingsAnswerSave;
@@ -711,7 +777,13 @@
     [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Apply", @"")];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Apply", @"")];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-    NSInteger answer = [newAlert runModal];
+    // Center on SEB's / the Settings window's screen (see note in -askToOverrideDisabledPreferences…).
+    __block NSModalResponse answer = NSModalResponseCancel;
+    [self.sebController runModalAlert:newAlert
+              conditionallyForWindow:MBPreferencesController.sharedController.window
+                   completionHandler:^(NSModalResponse returnCode) {
+        answer = returnCode;
+    }];
     switch(answer)
     {
         case NSAlertFirstButtonReturn:
@@ -1035,12 +1107,29 @@
     self.browserController.browserExamKey = nil;
     self.browserController.configKey = nil;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // The "show menu bar" setting was removed from the UI; the menu bar is always hidden. When using
+    // Save As, force showMenuBar off in the saved config so it also hides the menu bar when opened in
+    // an older SEB version. Only done for Save As, as it changes the Config Key. (The oldSettings
+    // snapshot above restores the previous value if saving is canceled.)
+    if (saveAs) {
+        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_showMenuBar"];
+    }
 //    // Force recalculating Config Key
 //    [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
 
-    if ([preferences secureObjectForKey:@"org_safeexambrowser_SEB_allowWLAN"]) {
-        // Remove this outdated key (current version: allowWlan) as it messes up ConfigKey calculation
-        [preferences removeSecureObjectForKey:@"org_safeexambrowser_SEB_allowWLAN"];
+    // Remove all outdated setting keys as they mess up ConfigKey calculation
+    NSDictionary *removedSettings = [[SEBSettings sharedSEBSettings] removedSEBSettings];
+    NSArray *removedRootSettings = removedSettings[@"rootSettings"];
+    BOOL removedAnyKey = NO;
+    for (NSString *key in removedRootSettings) {
+        NSString *prefKey = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+        if ([preferences secureObjectForKey:prefKey]) {
+            [preferences removeSecureObjectForKey:prefKey];
+            removedAnyKey = YES;
+        }
+    }
+    if (removedAnyKey) {
         // Force recalculating the ConfigKeyContainedKeys dictionary
         [preferences setSecureObject:[NSDictionary dictionary] forKey:@"org_safeexambrowser_configKeyContainedKeys"];
     }
@@ -1127,6 +1216,25 @@
     BOOL uncompressed = self.canSavePlainText && sharePlainTextConfig;
     BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
 
+    // Reject settings that contain a disallowed character sequence (a double quote
+    // directly followed by a comma, in any string value or key) or an invalid
+    // hashed password value, before encrypting/saving them.
+    NSError *disallowedSettingsError = nil;
+    if (![self.configFileController checkForDisallowedSettings:[preferences dictionaryRepresentationSEBRemoveDefaults:removeDefaults]
+                                                        error:&disallowedSettingsError]) {
+        NSAlert *disallowedSettingsAlert = [[NSAlert alloc] init];
+        // Use a save-specific title; the error's own title ("Reading Settings Failed")
+        // is meant for the config load path. The informative text is action-neutral.
+        [disallowedSettingsAlert setMessageText:NSLocalizedString(@"Saving Settings Failed", @"")];
+        [disallowedSettingsAlert setInformativeText:disallowedSettingsError.userInfo[NSLocalizedFailureReasonErrorKey]];
+        [disallowedSettingsAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+        [disallowedSettingsAlert setAlertStyle:NSAlertStyleCritical];
+        [self.sebController runModalAlert:disallowedSettingsAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
+
+        [oldSettings restoreSettings];
+        return NO;
+    }
+
     // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
     NSData *encryptedConfigData = [self.configFileVC encryptSEBSettingsWithSelectedCredentialsConfigFormat:shareConfigFormat
                                                                                        allowUnencrypted:NO
@@ -1145,7 +1253,14 @@
             [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Share as Configuration", @"")];
             [newAlert setAlertStyle:NSAlertStyleCritical];
-            switch([newAlert runModal])
+            // Center on SEB's / the Settings window's screen (see note in -askToOverrideDisabledPreferences…).
+            __block NSModalResponse alertAnswer = NSModalResponseCancel;
+            [self.sebController runModalAlert:newAlert
+                      conditionallyForWindow:MBPreferencesController.sharedController.window
+                           completionHandler:^(NSModalResponse returnCode) {
+                alertAnswer = returnCode;
+            }];
+            switch(alertAnswer)
             {
                 case NSAlertFirstButtonReturn:
                     // Saving settings was canceled
@@ -1225,7 +1340,13 @@
             [newAlert setInformativeText:NSLocalizedString(@"Do you want to continue editing the saved settings file?", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Edit File", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-            NSInteger answer = [newAlert runModal];
+            // Center on SEB's / the Settings window's screen (see note in -askToOverrideDisabledPreferences…).
+            __block NSModalResponse answer = NSModalResponseCancel;
+            [self.sebController runModalAlert:newAlert
+                      conditionallyForWindow:MBPreferencesController.sharedController.window
+                           completionHandler:^(NSModalResponse returnCode) {
+                answer = returnCode;
+            }];
             switch(answer)
             {
                 case NSAlertFirstButtonReturn:
@@ -1399,6 +1520,9 @@ userEnteredFilename:(NSString *)filename
     if (NSUserDefaults.userDefaultsPrivate) {
         // If reverting other than local client settings to default, use "starting exam" as config purpose
         [[NSUserDefaults standardUserDefaults] setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
+    } else {
+        // If reverting local client settings to default, allow to open Settings
+        [[NSUserDefaults standardUserDefaults] setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
     }
     
     [self resetBEKCK];
@@ -1654,6 +1778,9 @@ userEnteredFilename:(NSString *)filename
         // Switch config purpose to "starting exam"
         [preferences setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];        
         DDLogVerbose(@"Private preferences set: %@", privatePreferences);
+        
+        // If using local client settings, disable opening Settings in exam settings
+        [[NSUserDefaults standardUserDefaults] setSecureBool:NO forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
         
         [self resetBEKCK];
     }
