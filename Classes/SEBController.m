@@ -6769,10 +6769,17 @@ conditionallyForWindow:(NSWindow *)window
     BOOL multipleDisplays = NSScreen.screens.count > 1;
     if (multipleDisplays) {
         alertWindow.alphaValue = 0.0;
-        dispatch_async(dispatch_get_main_queue(), ^{
+        // Schedule the reveal on the main run loop (common modes, which include the modal panel
+        // mode -runModal runs in), NOT with dispatch_async on the main queue: callers often invoke
+        // this method from inside a main-queue block (e.g. the Full Disk Access alert). The main
+        // queue is serial, so a block enqueued there can't run until the enclosing block returns,
+        // which only happens after -runModal ends — the alert would stay fully transparent.
+        CFRunLoopRef mainRunLoop = CFRunLoopGetMain();
+        CFRunLoopPerformBlock(mainRunLoop, kCFRunLoopCommonModes, ^{
             [self centerWindow:alertWindow onScreen:alertScreen];
             alertWindow.alphaValue = 1.0;
         });
+        CFRunLoopWakeUp(mainRunLoop);
     }
     NSModalResponse answer = [alert runModal];
     if (handler) {
