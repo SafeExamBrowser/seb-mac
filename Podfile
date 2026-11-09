@@ -13,7 +13,7 @@
 
 target 'SEB' do
 
-platform :ios, '11'
+platform :ios, '15.0'
 use_frameworks!
 pod 'JitsiMeetSDK', '~> 3.9.0'#, :git => 'https://github.com/jitsi/jitsi-meet-ios-sdk-releases.git'
 

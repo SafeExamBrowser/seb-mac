@@ -16,6 +16,7 @@
 			dependencies = (
 			);
 			name = JitsiMeetSDK;
+			productName = JitsiMeetSDK;
 		};
 /* End PBXAggregateTarget section */
 
@@ -37,19 +38,19 @@
 
 /* Begin PBXFileReference section */
 		0233845F0FC761AAEE09615D314B7585 /* Pods-SEB-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB-frameworks.sh"; sourceTree = "<group>"; };
-		126DDCC8408526DBCAD5FCB3201F204D /* Pods-SEB */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-SEB"; path = Pods_SEB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		126DDCC8408526DBCAD5FCB3201F204D /* Pods_SEB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SEB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14279BF06EBB3BE7DB37A9CF342E9F49 /* Pods-SEB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SEB-dummy.m"; sourceTree = "<group>"; };
 		158E7577A7C6A0215879AA03B56D998B /* Pods-SEB-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEB-acknowledgements.plist"; sourceTree = "<group>"; };
 		384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		3B0F708118F7F07B6832646977ADE2F4 /* WebRTC.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = WebRTC.xcframework; path = Frameworks/WebRTC.xcframework; sourceTree = "<group>"; };
+		3B0F708118F7F07B6832646977ADE2F4 /* WebRTC.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = WebRTC.xcframework; path = Frameworks/WebRTC.xcframework; sourceTree = "<group>"; };
 		4FCB88762949B03432DF18719405E2A9 /* Pods-SEB.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SEB.modulemap"; sourceTree = "<group>"; };
 		55AEDAD4ABC45AF92B7CDBEEC8EADB14 /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
 		631A825DD71CA1F8FEB2519B7A37DD2D /* Pods-SEB-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SEB-acknowledgements.markdown"; sourceTree = "<group>"; };
 		86D8EC9F9D34BC970ECF1F4D3F4E9382 /* Pods-SEB-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SEB-umbrella.h"; sourceTree = "<group>"; };
 		8A5CA0B8D814AE874724F32396F310BE /* JitsiMeetSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = JitsiMeetSDK.release.xcconfig; sourceTree = "<group>"; };
 		905EBB78039479F697C6B0668AA285D9 /* JitsiMeetSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = JitsiMeetSDK.debug.xcconfig; sourceTree = "<group>"; };
-		9C4FF726E801DE35E1412D18A066D53B /* JitsiMeetSDK.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = JitsiMeetSDK.xcframework; path = Frameworks/JitsiMeetSDK.xcframework; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9C4FF726E801DE35E1412D18A066D53B /* JitsiMeetSDK.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = JitsiMeetSDK.xcframework; path = Frameworks/JitsiMeetSDK.xcframework; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		CAA9E672E5DAA2EE18DB1C40B7AD6DD3 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
 		E3434415A57084CAB420E3CF71BC088D /* JitsiMeetSDK-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "JitsiMeetSDK-xcframeworks.sh"; sourceTree = "<group>"; };
 		EE46FDCF3D788475DACFC6CFB9486A74 /* Pods-SEB-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEB-Info.plist"; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 				18F1EB4B1BF959B9EF9BE1220530CF81 /* Frameworks */,
 				0BB3BCF99CE50A98A472AF4FBEA425A0 /* Support Files */,
 			);
-			name = JitsiMeetSDK;
 			path = JitsiMeetSDK;
 			sourceTree = "<group>";
 		};
@@ -160,7 +160,7 @@
 		FB73C0C75375380323081322058C9936 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				126DDCC8408526DBCAD5FCB3201F204D /* Pods-SEB */,
+				126DDCC8408526DBCAD5FCB3201F204D /* Pods_SEB.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -195,7 +195,7 @@
 			);
 			name = "Pods-SEB";
 			productName = Pods_SEB;
-			productReference = 126DDCC8408526DBCAD5FCB3201F204D /* Pods-SEB */;
+			productReference = 126DDCC8408526DBCAD5FCB3201F204D /* Pods_SEB.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -216,8 +216,6 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			minimizedProjectReferenceProxies = 0;
-			preferredProjectObjectVersion = 77;
 			productRefGroup = FB73C0C75375380323081322058C9936 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -247,9 +245,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/JitsiMeetSDK/JitsiMeetSDK-xcframeworks-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy XCFrameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/JitsiMeetSDK/JitsiMeetSDK-xcframeworks-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -365,7 +367,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "Target Support Files/Pods-SEB/Pods-SEB-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -397,7 +399,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -417,7 +419,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -448,7 +450,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "Target Support Files/Pods-SEB/Pods-SEB-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
