@@ -187,13 +187,18 @@
 // invisible. If a reveal already happened (pendingFadeIn cleared), this is a no-op.
 - (void) fadeInBrowserWindow:(SEBBrowserWindow *)browserWindow
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    // Use a timer in the common run loop modes, NOT dispatch_after on the main queue: if a modal
+    // alert is run from inside a main-queue block before the delay has elapsed, a main-queue block
+    // can't run until that modal has ended, which would leave the window invisible meanwhile.
+    // Timers in the common modes also fire inside the modal run loop.
+    NSTimer *fadeInTimer = [NSTimer timerWithTimeInterval:0.3 repeats:NO block:^(NSTimer * _Nonnull timer) {
         if (browserWindow.pendingFadeIn) {
             browserWindow.pendingFadeIn = NO;
             [browserWindow setCalculatedFrameOnScreen:browserWindow.screen];
             browserWindow.alphaValue = 1.0;
         }
-    });
+    }];
+    [[NSRunLoop mainRunLoop] addTimer:fadeInTimer forMode:NSRunLoopCommonModes];
 }
 
 - (SEBAbstractWebView *) openAndShowWebViewWithURL:(nullable NSURL *)url
