@@ -52,6 +52,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (SEBURLFilter *) sharedSEBURLFilter;
 
++ (nullable NSArray *) filterExpressionsForExpressionString:(id)expressionString regex:(BOOL)regex error:(NSError **)error;
+
+// Adds the active rules' filter expressions to the permitted/prohibited lists,
+// skipping invalid rules; returns the first error (nil if all rules were valid).
+- (nullable NSError *) addFilterRuleExpressionsFromRules:(NSArray *)URLFilterRules NS_SWIFT_NAME(addFilterRuleExpressions(from:));
+
 - (NSError *) updateFilterRulesWithStartURL:(NSURL *)startURL;
 - (NSError *) updateFilterRulesSebRules:(BOOL)updateSebRules withStartURL:(NSURL *)startURL;
 

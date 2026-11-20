@@ -39,47 +39,65 @@
 + (SEBURLFilterExpression *) filterExpressionWithString:(NSString *)filterExpressionString
 {
     SEBURLFilterExpression *filterExpression = [SEBURLFilterExpression new];
-    
-    // Check if filter expression contains a scheme
-    NSString *scheme;
-    NSURL *URLFromString;
-    
-    if (filterExpressionString.length > 0) {
-        NSRange scanResult = [filterExpressionString rangeOfString:@"://"];
-        if (scanResult.location != NSNotFound) {
-            // Filter expression contains a scheme: save it and replace it with http
-            // (in case scheme contains a wildcard [NSURL URLWithString:... fails)
-            scheme = [filterExpressionString substringToIndex:scanResult.location];
-            filterExpressionString = [NSString stringWithFormat:@"http%@", [filterExpressionString substringFromIndex:scanResult.location]];
-            // Convert filter expression string to a NSURL
-            URLFromString = [NSURL URLWithString:filterExpressionString];
-        } else {
-            // Filter expression doesn't contain a scheme followed by an authority part,
-            // check for scheme followed by only a path (like about:blank or data:...)
-            // Convert filter expression string to a NSURL
-            URLFromString = [NSURL URLWithString:filterExpressionString];
-            scheme = URLFromString.scheme;
-            if (!scheme) {
-                // Temporary prefix it with a http:// scheme
-                filterExpressionString = [NSString stringWithFormat:@"http://%@", filterExpressionString];
-                // Convert filter expression string to a NSURL
-                URLFromString = [NSURL URLWithString:filterExpressionString];
-            }
-        }
+
+    // Leading/trailing whitespace can't be part of a URL (and a whitespace-only
+    // expression is treated like an empty one)
+    filterExpressionString = [filterExpressionString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (filterExpressionString.length == 0) {
+        return filterExpression;
     }
-    
-    /// Convert NSURL to a SEBURLFilterExpression
-    // Use the saved scheme instead of the temporary http://
-    filterExpression.scheme = scheme;
-    filterExpression.user = URLFromString.user;
-    filterExpression.password = URLFromString.password;
-    filterExpression.host = URLFromString.host;
-    filterExpression.port = URLFromString.port;
-    filterExpression.path = [URLFromString.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-    filterExpression.query = URLFromString.query;
-    filterExpression.fragment = URLFromString.fragment;
-    
+
+    // Split the simplified filter expression into its URL components. A SEB filter
+    // expression is a pattern with wildcards (e.g. "host.org:*", "user:pw@*",
+    // "*tp://host"), NOT a URL, so it must not be parsed with NSURL (which would,
+    // for example, read "host.org" in "host.org:2020" as a URI scheme). We use the
+    // same grammar as SEB for Windows (SimplifiedRule.URL_DELIMITER_PATTERN) so both
+    // platforms split identical expressions identically. Groups:
+    // 1 scheme, 2 user, 3 password, 4 host, 5 port, 6 path, 7 query, 8 fragment.
+    static NSRegularExpression *delimiter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        delimiter = [NSRegularExpression regularExpressionWithPattern:
+                     @"(?:([^:]*)://)?(?:([^:@]*)(?::([^@]*))?@)?(?:([^/:?#]*))?(?::([0-9*]*))?([^?#]*)?(?:\\?([^#]*))?(?:#(.*))?"
+                                                              options:0
+                                                                error:NULL];
+    });
+    NSTextCheckingResult *match = [delimiter firstMatchInString:filterExpressionString options:0 range:NSMakeRange(0, filterExpressionString.length)];
+    if (!match) {
+        return filterExpression;
+    }
+
+    filterExpression.scheme = [self string:filterExpressionString group:1 inMatch:match];
+    filterExpression.user = [self string:filterExpressionString group:2 inMatch:match];
+    filterExpression.password = [self string:filterExpressionString group:3 inMatch:match];
+    filterExpression.host = [self string:filterExpressionString group:4 inMatch:match];
+
+    // Only a numeric port is a port constraint; "*" or empty means "any port"
+    NSString *portString = [self string:filterExpressionString group:5 inMatch:match];
+    if (portString.length > 0 &&
+        [portString rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]].location == NSNotFound) {
+        filterExpression.port = @(portString.integerValue);
+    }
+
+    filterExpression.path = [[self string:filterExpressionString group:6 inMatch:match] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+    filterExpression.query = [self string:filterExpressionString group:7 inMatch:match];
+    filterExpression.fragment = [self string:filterExpressionString group:8 inMatch:match];
+
     return filterExpression;
+}
+
+
+// Returns the substring for a capture group, or nil if the group didn't match or is empty
++ (NSString *) string:(NSString *)string group:(NSUInteger)index inMatch:(NSTextCheckingResult *)match
+{
+    if (index >= match.numberOfRanges) {
+        return nil;
+    }
+    NSRange range = [match rangeAtIndex:index];
+    if (range.location == NSNotFound || range.length == 0) {
+        return nil;
+    }
+    return [string substringWithRange:range];
 }
 
 

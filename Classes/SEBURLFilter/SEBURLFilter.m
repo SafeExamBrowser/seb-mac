@@ -55,10 +55,87 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 }
 
 
+// Returns the filter expressions for a filter rule expression string. Returns an
+// empty array for an expression which is empty, whitespace-only or can't be parsed
+// (such an expression would otherwise match every URL), or nil and an error if a
+// regex expression is invalid
++ (nullable NSArray *) filterExpressionsForExpressionString:(id)expressionString regex:(BOOL)regex error:(NSError **)error
+{
+    if (![expressionString isKindOfClass:[NSString class]] ||
+        [expressionString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
+        return @[];
+    }
+    NSError *expressionError;
+    NSArray *expressions;
+    if (regex) {
+        NSRegularExpression *regularExpression = [NSRegularExpression regularExpressionWithPattern:expressionString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:&expressionError];
+        expressions = regularExpression ? @[regularExpression] : nil;
+    } else {
+        expressions = [SEBURLFilterRegexExpression regexFilterExpressionWithString:expressionString error:&expressionError];
+        if (!expressionError && expressions.count == 0) {
+            DDLogWarn(@"%s: Ignoring URL filter expression '%@', as it can't be parsed", __FUNCTION__, expressionString);
+        }
+    }
+    if (expressionError || !expressions) {
+        DDLogError(@"%s: Invalid URL filter expression '%@' (regex: %d): %@", __FUNCTION__, expressionString, regex, expressionError);
+        if (error) {
+            *error = expressionError ? expressionError : [NSError errorWithDomain:NSCocoaErrorDomain code:NSFormattingError userInfo:nil];
+        }
+        return nil;
+    }
+    return expressions;
+}
+
+
 // Updates filter rule arrays with current settings (UserDefaults)
 - (NSError *) updateFilterRulesWithStartURL:(NSURL *)startURL
 {
     return [self updateFilterRulesSebRules:NO withStartURL:startURL];
+}
+
+
+// Adds the filter expressions of the active rules in the passed rule list to the
+// permitted/prohibited lists. Invalid rules (malformed regex, non-dictionary
+// entries) are skipped so a single bad rule doesn't discard the whole filter;
+// returns the first error encountered (nil if all rules were valid).
+- (NSError *) addFilterRuleExpressionsFromRules:(NSArray *)URLFilterRules
+{
+    NSError *firstError;
+
+    for (id URLFilterRule in URLFilterRules) {
+        // Settings could contain anything, so skip rule entries which aren't a dictionary
+        if (![URLFilterRule isKindOfClass:[NSDictionary class]]) {
+            DDLogWarn(@"%s: Ignoring URL filter rule which isn't a dictionary: %@", __FUNCTION__, URLFilterRule);
+            continue;
+        }
+
+        if ([URLFilterRule[@"active"] boolValue] == YES) {
+
+            NSError *error;
+            NSArray *expressions = [SEBURLFilter filterExpressionsForExpressionString:URLFilterRule[@"expression"] regex:[URLFilterRule[@"regex"] boolValue] error:&error];
+            if (!expressions) {
+                // This single rule couldn't be parsed: skip it (it was logged in the
+                // helper) and remember the error, but keep the other valid rules
+                if (!firstError) {
+                    firstError = error;
+                }
+                continue;
+            }
+            if (expressions.count > 0) {
+                int action = [URLFilterRule[@"action"] intValue];
+                switch (action) {
+                    case URLFilterActionBlock:
+                        [self.prohibitedList addObjectsFromArray:expressions];
+                        break;
+
+                    case URLFilterActionAllow:
+                        [self.permittedList addObjectsFromArray:expressions];
+                        break;
+                }
+            }
+        }
+    }
+    return firstError;
 }
 
 
@@ -83,59 +160,28 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     self.urlFilterMessage = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_URLFilterMessage"];
     
     NSArray *URLFilterRules = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterRules"];
-    NSDictionary *URLFilterRule;
-    NSError *error;
-    
-    for (URLFilterRule in URLFilterRules) {
-        
-        if ([URLFilterRule[@"active"] boolValue] == YES) {
-            
-            NSString *expressionString = URLFilterRule[@"expression"];
-            if (expressionString.length > 0) {
-                NSMutableArray *expressions = [NSMutableArray new];
-                
-                BOOL regex = [URLFilterRule[@"regex"] boolValue];
-                if (regex) {
-                    [expressions addObject:[NSRegularExpression regularExpressionWithPattern:expressionString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:&error]];
-                } else {
-                    [expressions addObjectsFromArray:[SEBURLFilterRegexExpression regexFilterExpressionWithString:expressionString error:&error]];
-                }
-                if (error) {
-                    [self.prohibitedList removeAllObjects];
-                    [self.permittedList removeAllObjects];
-                    return error;
-                }
-                int action = [URLFilterRule[@"action"] intValue];
-                switch (action) {
-                    case URLFilterActionBlock:
-                        [self.prohibitedList addObjectsFromArray:expressions];
-                        break;
-                        
-                    case URLFilterActionAllow:
-                        [self.permittedList addObjectsFromArray:expressions];
-                        break;
-                }
-            }
-        }
-    }
-    
+    // A single invalid rule (e.g. a malformed regex) must not discard the whole
+    // filter, so invalid rules are skipped and only the first error is remembered
+    NSError *firstError = [self addFilterRuleExpressionsFromRules:URLFilterRules];
+
     // If URL filtering is enabled, then
     // check if Start URL gets allowed by current filter rules and if not add a rule for the Start URL
     NSString *startURLString = startURL.absoluteString;
     if (self.enableURLFilter && [self testURLAllowed:startURL] != URLFilterActionAllow) {
         // If Start URL is not allowed: Create one using the full Start URL
-        NSArray *expressions = [SEBURLFilterRegexExpression regexFilterExpressionWithString:startURLString error:&error];
-        if (error) {
-            [self.prohibitedList removeAllObjects];
-            [self.permittedList removeAllObjects];
-            return error;
+        NSError *error;
+        NSArray *expressions = [SEBURLFilter filterExpressionsForExpressionString:startURLString regex:NO error:&error];
+        if (expressions) {
+            // Add this Start URL filter expression to the permitted filter list
+            [self.permittedList addObjectsFromArray:expressions];
+        } else if (!firstError) {
+            firstError = error;
         }
-        // Add this Start URL filter expression to the permitted filter list
-        [self.permittedList addObjectsFromArray:expressions];
     }
-    
-    // Updating filter rules worked; don't return any NSError
-    return nil;
+
+    // Return the first error encountered (nil if all rules were valid); invalid
+    // individual rules were skipped, so the filter still applies the valid rules
+    return firstError;
 }
 
 
@@ -152,19 +198,26 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     // Read ignore list from settings and save it into the local array
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSArray *URLFilterIgnoreRules = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterIgnoreList"];
-    NSError *error;
-    NSString *expressionString;
+    // Remember the first error, but keep the other valid ignore rules
+    NSError *firstError;
+    id expressionString;
     NSArray<SEBURLFilterRegexExpression*>*expressions;
-    
+
     for (expressionString in URLFilterIgnoreRules) {
-        expressions = [SEBURLFilterRegexExpression regexFilterExpressionWithString:expressionString error:&error];
-        [self.ignoreList addObjectsFromArray:expressions];
-        if (error) {
-            [self.ignoreList removeAllObjects];
-            return error;
+        // Empty/unparseable expressions are skipped, as an empty expression would
+        // match (= ignore) every URL
+        NSError *error;
+        expressions = [SEBURLFilter filterExpressionsForExpressionString:expressionString regex:NO error:&error];
+        if (!expressions) {
+            // Skip this invalid entry but keep the other valid ignore rules
+            if (!firstError) {
+                firstError = error;
+            }
+            continue;
         }
+        [self.ignoreList addObjectsFromArray:expressions];
     }
-    return nil;
+    return firstError;
 }
 
 
@@ -302,26 +355,31 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         return NO;
     }
     
+    // Match userinfo against the empty string when the URL has none, so a userinfo
+    // wildcard ("*@host") matches URLs without userinfo (as SEB for Windows does)
     filterComponent = filterExpression.user;
     if (filterComponent &&
-        ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.user]) {
+        ![self regexFilterExpression:filterComponent hasMatchesInString:(URLToFilter.user ?: @"")]) {
         return NO;
     }
-    
+
     filterComponent = filterExpression.password;
     if (filterComponent &&
-        ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.password]) {
+        ![self regexFilterExpression:filterComponent hasMatchesInString:(URLToFilter.password ?: @"")]) {
         return NO;
     }
-    
+
     filterComponent = filterExpression.host;
     if (filterComponent &&
         ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.host]) {
         return NO;
     }
-    
-    if (filterExpression.port && URLToFilter.port &&
-        URLToFilter.port.intValue != filterExpression.port.intValue) {
+
+    // If the filter expression specifies a port, the URL must carry that exact port.
+    // A URL without a port therefore doesn't match a port-specific rule (SEB for
+    // Windows compares the resolved port, which for a port-less URL is never equal).
+    if (filterExpression.port &&
+        (URLToFilter.port == nil || URLToFilter.port.intValue != filterExpression.port.intValue)) {
         return NO;
     }
     
@@ -420,16 +478,22 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSArray *URLFilterRules = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterRules"];
-    NSDictionary *URLFilterRule;
     NSMutableArray <NSString *>* permittedDomains = [NSMutableArray new];
-    
-    for (URLFilterRule in URLFilterRules) {
+
+    for (id URLFilterRule in URLFilterRules) {
+        // Settings could contain anything, so skip rule entries which aren't a dictionary
+        if (![URLFilterRule isKindOfClass:[NSDictionary class]]) {
+            continue;
+        }
         NSString *expressionString = URLFilterRule[@"expression"];
-        if (expressionString.length > 0) {
+        if ([expressionString isKindOfClass:[NSString class]] && expressionString.length > 0) {
             if ([URLFilterRule[@"regex"] boolValue] == NO &&
                 [URLFilterRule[@"action"] intValue] == URLFilterActionAllow) {
                 SEBURLFilterExpression *urlFromString = [SEBURLFilterExpression filterExpressionWithString:expressionString];
-                [permittedDomains addObject:urlFromString.host];
+                // Expressions like "about:blank" don't contain a host
+                if (urlFromString.host.length > 0) {
+                    [permittedDomains addObject:urlFromString.host];
+                }
             }
         }
     }

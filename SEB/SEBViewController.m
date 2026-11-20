@@ -44,6 +44,9 @@ static NSMutableSet *browserWindowControllers;
 // Returns NO (and shows an alert with the given title) if the current settings
 // contain a disallowed character or an invalid hash value.
 - (BOOL) currentSettingsAllowedShowingAlertWithTitle:(NSString *)title;
+// Set once the user chose to share the config despite an invalid URL filter rule,
+// so the warning isn't shown again on the re-triggered share action.
+@property (nonatomic) BOOL shareConfigIgnoringInvalidFilterRule;
 @end
 
 @implementation SEBViewController
@@ -1588,6 +1591,35 @@ static NSMutableSet *browserWindowControllers;
     if (![self currentSettingsAllowedShowingAlertWithTitle:NSLocalizedString(@"Saving Settings Failed", @"")]) {
         return;
     }
+
+    // Update URL filter rules from the current settings; if one or more rules
+    // couldn't be parsed (e.g. an invalid regular expression), they'll be skipped
+    // at runtime. Warn the admin before sharing a config with such a rule.
+    NSError *filterRulesError = [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesWithStartURL:self.startURL];
+    if (filterRulesError && !self.shareConfigIgnoringInvalidFilterRule) {
+        if (_alertController) {
+            [_alertController dismissViewControllerAnimated:NO completion:^{
+                self.alertController = nil;
+            }];
+        }
+        _alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Invalid URL Filter Rule", @"")
+                                                              message:NSLocalizedString(@"At least one URL filter rule couldn't be processed and will be ignored, for example because of an invalid regular expression. Please check the URL filter rules in settings.", @"")
+                                                       preferredStyle:UIAlertControllerStyleAlert];
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
+                                                            style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            self.alertController = nil;
+        }]];
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Share Anyway", @"")
+                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            self.alertController = nil;
+            self.shareConfigIgnoringInvalidFilterRule = YES;
+            [self shareSettingsAction:sender];
+        }]];
+        [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+        return;
+    }
+    // Reset the flag so a later share action re-checks the (possibly edited) rules
+    self.shareConfigIgnoringInvalidFilterRule = NO;
 
     // Get SecIdentityRef for selected identity
     SecIdentityRef identityRef;

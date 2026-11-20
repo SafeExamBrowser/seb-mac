@@ -58,7 +58,7 @@
     SEBURLFilterRegexExpression *filterExpression3;
     SEBURLFilterRegexExpression *filterExpression4;
     SEBURLFilterExpression *URLFromString = [SEBURLFilterExpression filterExpressionWithString:filterExpressionString];
-    
+
     filterExpression.scheme = [self regexForFilterString:URLFromString.scheme error:error];
     filterExpression.user = [self regexForFilterString:URLFromString.user error:error];
     filterExpression.password = [self regexForFilterString:URLFromString.password error:error];
@@ -92,6 +92,15 @@
             filterExpression2.path = pathRegexFilterStrings[0];
         }
         filterExpression.path = pathRegexFilterStrings[0];
+    }
+    // An empty (or whitespace-only) expression, or one which couldn't be parsed,
+    // doesn't result in any URL component filter. As a filter expression without
+    // any component filters matches every URL, it must not be used at all
+    // (additional host/path variants only exist if there is a host/path filter)
+    if (!filterExpression.scheme && !filterExpression.user && !filterExpression.password &&
+        !filterExpression.host && !filterExpression.port && !filterExpression.path &&
+        !filterExpression.query && !filterExpression.fragment) {
+        return @[];
     }
     NSMutableArray<NSRegularExpression*>* regexFilterExpressions = [NSMutableArray arrayWithObjects:filterExpression, filterExpression2, filterExpression3, filterExpression4, nil];
     return regexFilterExpressions.copy;
@@ -127,6 +136,17 @@
             // Get host string without the "." prefix
             filterString = [filterString substringFromIndex:1];
             // Get regex for host <*://example.com> (without possible subdomains)
+            return @[[self regexForFilterString:filterString error:error]];
+        }
+        // A purely alphanumeric host (a single label like "localhost", no dot, dash
+        // or wildcard) matches only exactly that host, not subdomains of it. This
+        // mirrors SEB for Windows (SimplifiedRule.ParseHost, which tests [a-zA-Z0-9]).
+        static NSCharacterSet *nonAlphanumericASCII;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            nonAlphanumericASCII = [[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"] invertedSet];
+        });
+        if ([filterString rangeOfCharacterFromSet:nonAlphanumericASCII].location == NSNotFound) {
             return @[[self regexForFilterString:filterString error:error]];
         }
         // Allow subdomain matching: Create two regex strings for <example.com> and <*.example.com>
@@ -287,42 +307,59 @@
 - (NSArray<NSString*>*) strings
 {
     NSMutableString *expressionString = [NSMutableString new];
-    NSMutableString *expressionString2 = [NSMutableString new];
-    NSMutableString *expressionString3 = [NSMutableString new];
-    NSMutableString *expressionString4 = [NSMutableString new];
+    // Additional variants must stay nil until they are derived from (a copy of)
+    // expressionString, otherwise they would lack the anchored scheme/host prefix
+    NSMutableString *expressionString2 = nil;
+    NSMutableString *expressionString3 = nil;
+    NSMutableString *expressionString4 = nil;
     NSString *part;
+
+    // Unlike the per-component regexes used for navigation filtering (which match
+    // each URL component separately), these strings are combined into a single
+    // regex matched against the whole URL by the WKWebView content rule list.
+    // A wildcard ("*" in a filter expression, stored as ".*?") must therefore not
+    // match across the delimiters separating URL components, otherwise an allow
+    // rule for one host/path would also match other hosts, e.g. "example.org/quiz"
+    // would match "https://evil.test/quiz". Each component wildcard is bounded by
+    // the characters that can't appear in that component.
+    NSString *schemeWildcard = @"[^:/?#]*?";
+    NSString *userInfoWildcard = @"[^/?#@]*?";
+    NSString *authorityWildcard = @"[^/?#]*?";
+    NSString *pathWildcard = @"[^?#]*?";
+    NSString *queryWildcard = @"[^#]*?";
+
     [expressionString appendString:@"^"];
-    
+
     /// Scheme
     if (_scheme) {
         // If there is a regex filter for scheme
         // get stripped regex pattern
-        part = [self stringForRegexFilter:_scheme];
+        part = [self stringForRegexFilter:_scheme boundedBy:schemeWildcard];
     } else {
         // otherwise use the regex wildcard pattern for scheme
-        part = @".*?";
+        part = schemeWildcard;
     }
     [expressionString appendFormat:@"%@:\\/\\/", part];
-    
+
     /// User/Password
     if (_user) {
-        part = [self stringForRegexFilter:_user];
-        
+        part = [self stringForRegexFilter:_user boundedBy:userInfoWildcard];
+
         [expressionString appendString:part];
-        
+
         if (_password) {
-            [expressionString appendFormat:@":%@@", [self stringForRegexFilter:_password]];
+            [expressionString appendFormat:@":%@@", [self stringForRegexFilter:_password boundedBy:userInfoWildcard]];
         } else {
             [expressionString appendString:@"@"];
         }
     }
-    
+
     /// Host
     NSString *hostPortRegexFilter = @"";
     if (_host) {
-        hostPortRegexFilter = [self stringForRegexFilter:_host];
+        hostPortRegexFilter = [self stringForRegexFilter:_host boundedBy:authorityWildcard];
     } else {
-        hostPortRegexFilter = @".*?";
+        hostPortRegexFilter = authorityWildcard;
     }
     
     /// Port
@@ -332,7 +369,7 @@
     
     // When there is a host, but no path
     if (_host && !_path) {
-        NSString *hostPortRegexFilter2 = [NSString stringWithFormat:@"%@\\/.*?", hostPortRegexFilter];
+        NSString *hostPortRegexFilter2 = [NSString stringWithFormat:@"%@\\/%@", hostPortRegexFilter, pathWildcard];
         expressionString2 = expressionString.mutableCopy;
         if (expressionString2) {
             [expressionString2 appendString:hostPortRegexFilter2];
@@ -342,7 +379,7 @@
     
     /// Path
     if (_path) {
-        NSString *pathRegex = [self stringForRegexFilter:_path];
+        NSString *pathRegex = [self stringForRegexFilter:_path boundedBy:pathWildcard];
         if ([pathRegex hasPrefix:@"\\/"]) {
             [expressionString appendString:pathRegex];
             if (expressionString2) {
@@ -360,7 +397,7 @@
     /// Query
     if (_query) {
         // Check for special case Query = "?." which means no query string is allowed
-        NSString *queryRegex = [self stringForRegexFilter:_query];
+        NSString *queryRegex = [self stringForRegexFilter:_query boundedBy:queryWildcard];
         if ([queryRegex isEqualToString:@"."]) {
             [expressionString appendFormat:@"[^\\?]"];
             if (expressionString2) {
@@ -374,7 +411,7 @@
             }
         }
     } else {
-        NSString *anyQueryRegexFilter = @"(\\?.*?)";
+        NSString *anyQueryRegexFilter = [NSString stringWithFormat:@"(\\?%@)", queryWildcard];
         if (expressionString2) {
             expressionString3 = expressionString.mutableCopy;
             expressionString4 = expressionString2.mutableCopy;
@@ -396,8 +433,14 @@
     }
     
     [expressionString appendString:@"$"];
-    
-    NSMutableArray<NSRegularExpression*>* expressionStrings = [NSMutableArray arrayWithObjects:expressionString, expressionString2, expressionString3, expressionString4, nil];
+    [expressionString2 appendString:@"$"];
+    [expressionString3 appendString:@"$"];
+    [expressionString4 appendString:@"$"];
+
+    NSMutableArray<NSString*>* expressionStrings = [NSMutableArray arrayWithObject:expressionString];
+    if (expressionString2) [expressionStrings addObject:expressionString2];
+    if (expressionString3) [expressionStrings addObject:expressionString3];
+    if (expressionString4) [expressionStrings addObject:expressionString4];
     return expressionStrings.copy;
 }
 
@@ -412,6 +455,19 @@
     // Remove the regex command characters for matching at start and end of a line
     regexPattern = [regexPattern substringWithRange:NSMakeRange(1, regexPattern.length - 2)];
     return regexPattern;
+}
+
+
+// Like -stringForRegexFilter:, but bounds the component's wildcards for use in the
+// combined full-URL regex (WKWebView content rule list). A "*" in a filter
+// expression is stored as ".*?", which would match across URL component
+// delimiters; this replaces it with boundedWildcard (e.g. "[^/?#]*?") so it can
+// only match within the component. The ".*?" can only stem from a "*" wildcard, as
+// -regexForFilterString: escapes any literal "." to "\.".
+- (NSString *) stringForRegexFilter:(NSRegularExpression *)regexFilter boundedBy:(NSString *)boundedWildcard
+{
+    NSString *regexPattern = [self stringForRegexFilter:regexFilter];
+    return [regexPattern stringByReplacingOccurrencesOfString:@".*?" withString:boundedWildcard];
 }
 
 @end

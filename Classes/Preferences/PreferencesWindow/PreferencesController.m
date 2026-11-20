@@ -1085,6 +1085,18 @@
 
 // Method which saves current preferences to a .seb file
 // with parameter indicating if the saved settings file URL should be updated
+// Warn the admin that one or more URL filter rules were invalid and got skipped
+- (void) showInvalidURLFilterRuleAlert
+{
+    NSAlert *invalidFilterRuleAlert = [[NSAlert alloc] init];
+    [invalidFilterRuleAlert setMessageText:NSLocalizedString(@"Invalid URL Filter Rule", @"")];
+    [invalidFilterRuleAlert setInformativeText:NSLocalizedString(@"At least one URL filter rule couldn't be processed and was ignored, for example because of an invalid regular expression. Please check the filter rules in the Network/Filter settings.", @"")];
+    [invalidFilterRuleAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+    [invalidFilterRuleAlert setAlertStyle:NSAlertStyleWarning];
+    [self.sebController runModalAlert:invalidFilterRuleAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
+}
+
+
 - (BOOL) savePrefsAs:(BOOL)saveAs fileURLUpdate:(BOOL)fileURLUpdate
 {
     if (!self.preferencesAreOpen) {
@@ -1136,33 +1148,40 @@
     
     /// Check if local client or private settings (UserDefauls) are active
     ///
+    NSError *filterRulesError;
     if (!NSUserDefaults.userDefaultsPrivate) {
-        
+
         /// Local Client settings are active
-        
+
         // Update filter rules, as those might change the settings checksum
-        [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesSebRules:YES withStartURL:_sebController.startURL];
+        filterRulesError = [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesSebRules:YES withStartURL:_sebController.startURL];
 
         // Update the Browser Exam Key without re-generating its salt
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-        
+
         // Preset "SebClientSettings.seb" as default file name
         currentConfigFileURL = [NSURL fileURLWithPathString:SEBClientSettingsFilename];
-        
+
     } else {
-        
+
         /// Private settings are active
-        
+
         // Update filter rules, as those might change the settings checksum
-        [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesSebRules:YES withStartURL:_sebController.startURL];
+        filterRulesError = [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesSebRules:YES withStartURL:_sebController.startURL];
 
         // Update the Browser Exam Key with a new salt if Save As
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:saveAs];
-        
+
         // Get the current filename
         currentConfigFileURL = [[MyGlobals sharedMyGlobals] currentConfigURL];
     }
     self.browserController.browserExamKeySalt = [[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+
+    // If one or more URL filter rules couldn't be parsed (e.g. an invalid regular
+    // expression), they were skipped; warn the admin so the invalid rule can be fixed
+    if (filterRulesError) {
+        [self showInvalidURLFilterRuleAlert];
+    }
 
     NSURL *prefsFileURL = currentConfigFileURL;
     if (configPurpose == sebConfigPurposeManagedConfiguration) {

@@ -124,6 +124,7 @@
 		693425722D933EF100BCBF0B /* FilterRules.strings in Resources */ = {isa = PBXBuildFile; fileRef = 693425702D933EF100BCBF0B /* FilterRules.strings */; };
 		693425782D954D3F00BCBF0B /* AdditionalApplicationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693425772D954D3F00BCBF0B /* AdditionalApplicationsController.swift */; };
 		693425792D954D3F00BCBF0B /* AdditionalApplicationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693425772D954D3F00BCBF0B /* AdditionalApplicationsController.swift */; };
+		693551B830A4E4BD00DFAC5C /* SEBURLFilterWindowsParityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693551B730A4E4BD00DFAC5C /* SEBURLFilterWindowsParityTests.swift */; };
 		69358DD41E6E0D5F000539F6 /* SEBQRCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD11E6E0D5F000539F6 /* SEBQRCode.png */; };
 		69358DD51E6E0D5F000539F6 /* SEBQRCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD11E6E0D5F000539F6 /* SEBQRCode.png */; };
 		69358DD71E6E0D5F000539F6 /* SEBQRCode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD21E6E0D5F000539F6 /* SEBQRCode@2x.png */; };
@@ -415,6 +416,9 @@
 		697919D026BD36F10002D296 /* PreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD47267EA43400B8F1D6 /* PreferencesViewController.m */; };
 		697919D226BE1EA50002D296 /* PrefsBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */; };
 		697919D326BE1EB50002D296 /* PrefsBrowserViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 690D23461451EF2300CCCFF9 /* PrefsBrowserViewController.h */; };
+		6979C4B330A4C70C00CC4791 /* SEBURLFilterTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6979C4B230A4C70C00CC4791 /* SEBURLFilterTestSupport.swift */; };
+		6979C4B430A4C70C00CC4791 /* SEBURLFilterTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6979C4B230A4C70C00CC4791 /* SEBURLFilterTestSupport.swift */; };
+		6979C4B630A4C72D00CC4791 /* SEBURLFilterSanitizingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6979C4B530A4C72D00CC4791 /* SEBURLFilterSanitizingTests.swift */; };
 		6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */; };
 		6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
 		69879B442991208D002B039D /* SEBDocumentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69879B432991208D002B039D /* SEBDocumentIcon.icns */; };
@@ -1074,6 +1078,7 @@
 		693425712D933EF100BCBF0B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/FilterRules.strings; sourceTree = "<group>"; };
 		693425732D933F0A00BCBF0B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Resources/de.lproj/FilterRules.strings; sourceTree = "<group>"; };
 		693425772D954D3F00BCBF0B /* AdditionalApplicationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalApplicationsController.swift; sourceTree = "<group>"; };
+		693551B730A4E4BD00DFAC5C /* SEBURLFilterWindowsParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBURLFilterWindowsParityTests.swift; sourceTree = "<group>"; };
 		69358DD11E6E0D5F000539F6 /* SEBQRCode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBQRCode.png; path = SEB/Resources/Icons/SEBQRCode.png; sourceTree = SOURCE_ROOT; };
 		69358DD21E6E0D5F000539F6 /* SEBQRCode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCode@2x.png"; path = "SEB/Resources/Icons/SEBQRCode@2x.png"; sourceTree = SOURCE_ROOT; };
 		69358DD31E6E0D5F000539F6 /* SEBQRCode@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCode@3x.png"; path = "SEB/Resources/Icons/SEBQRCode@3x.png"; sourceTree = SOURCE_ROOT; };
@@ -1356,6 +1361,8 @@
 		697852B62177AC7300E93AD8 /* SEBEncapsulatedSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBEncapsulatedSettings.h; sourceTree = "<group>"; };
 		697919CE26BC8EDD0002D296 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ProcessListView.strings; sourceTree = "<group>"; };
 		697919CF26BC8EEE0002D296 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ProcessListView.xib; sourceTree = "<group>"; };
+		6979C4B230A4C70C00CC4791 /* SEBURLFilterTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBURLFilterTestSupport.swift; sourceTree = "<group>"; };
+		6979C4B530A4C72D00CC4791 /* SEBURLFilterSanitizingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBURLFilterSanitizingTests.swift; sourceTree = "<group>"; };
 		6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBWindowSizeValueTransformer.h; sourceTree = "<group>"; };
 		6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBWindowSizeValueTransformer.m; sourceTree = "<group>"; };
 		69879B432991208D002B039D /* SEBDocumentIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = SEBDocumentIcon.icns; path = Resources/Icons/SEBDocumentIcon.icns; sourceTree = "<group>"; };
@@ -2197,6 +2204,7 @@
 				691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */,
 				691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */,
 				695BEC1A2D50D5B700EE9407 /* SEBWKContentRuleListCreator.swift */,
+				6979C4B230A4C70C00CC4791 /* SEBURLFilterTestSupport.swift */,
 			);
 			name = SEBURLFilter;
 			path = Classes/SEBURLFilter;
@@ -2308,6 +2316,8 @@
 				69BAAE152CA03FD7002B14FB /* SEBIntegrationTests.swift */,
 				698A1769300FD80C006646A9 /* SEBConfigKeyDoubleTests.swift */,
 				69482BC5302F57D100E4CFEB /* SEBAllowedSEBVersionsTests.swift */,
+				6979C4B530A4C72D00CC4791 /* SEBURLFilterSanitizingTests.swift */,
+				693551B730A4E4BD00DFAC5C /* SEBURLFilterWindowsParityTests.swift */,
 			);
 			path = SEBTests;
 			sourceTree = "<group>";
@@ -4342,6 +4352,7 @@
 				69AF449F24699A5300F56542 /* JitsiViewController.swift in Sources */,
 				693425782D954D3F00BCBF0B /* AdditionalApplicationsController.swift in Sources */,
 				691981432C723B7500E79DA4 /* FIFOBuffer.swift in Sources */,
+				6979C4B330A4C70C00CC4791 /* SEBURLFilterTestSupport.swift in Sources */,
 				69036BD82C32902100E8BE38 /* AssessmentModeManager.m in Sources */,
 				6993CD5C2C047CCF00DB2088 /* SEBScreenCaptureController.swift in Sources */,
 				69B98F812BE0FBD200DC06E2 /* RepeatingTimer.swift in Sources */,
@@ -4373,12 +4384,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				693551B830A4E4BD00DFAC5C /* SEBURLFilterWindowsParityTests.swift in Sources */,
 				69B7A4DA2C694CAE00094ED3 /* SafeExamBrowserTests.swift in Sources */,
 				6918BCB7301ACF9E00E602A2 /* SEBLockdownModePolicyMigrationTests.swift in Sources */,
 				69482BC6302F57D100E4CFEB /* SEBAllowedSEBVersionsTests.swift in Sources */,
 				FEED0000000000000000A004 /* SEBBrowserControllerTrustTests.swift in Sources */,
 				69BAD4E33013AF19003887E8 /* SEBKeychainPasswordHashTests.swift in Sources */,
 				69B7A4E02C694D7400094ED3 /* SEBScreenCaptureControllerTests.swift in Sources */,
+				6979C4B630A4C72D00CC4791 /* SEBURLFilterSanitizingTests.swift in Sources */,
 				698A176A300FDF52006646A9 /* SEBConfigKeyDoubleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4536,6 +4549,7 @@
 				6975DA322C03882800ABBD79 /* SEBApplication.swift in Sources */,
 				69DFAF3119C468E700CBE69F /* RNDecryptor.m in Sources */,
 				6906F3C31A3FA5EE0011CF93 /* NSURL+KKDomain.m in Sources */,
+				6979C4B430A4C70C00CC4791 /* SEBURLFilterTestSupport.swift in Sources */,
 				6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
 				FEED0000000000000000B004 /* NSColorValueTransformer.m in Sources */,
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,

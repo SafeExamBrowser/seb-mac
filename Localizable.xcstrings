@@ -976,6 +976,16 @@
         }
       }
     },
+    "At least one URL filter rule couldn't be processed and was ignored, for example because of an invalid regular expression. Please check the filter rules in the Network/Filter settings." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mindestens eine URL-Filterregel konnte nicht verarbeitet werden und wurde ignoriert, zum Beispiel wegen eines ungültigen regulären Ausdrucks. Bitte überprüfen Sie die Filterregeln in den Einstellungen unter Netzwerk/Filter."
+          }
+        }
+      }
+    },
     "Authentication Required" : {
       "localizations" : {
         "de" : {
@@ -2754,6 +2764,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Info"
+          }
+        }
+      }
+    },
+    "Invalid URL Filter Rule" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ungültige URL-Filterregel"
           }
         }
       }

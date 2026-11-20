@@ -203,6 +203,9 @@
 "Assessment Mode was interrupted with error: " = "Der AAC-Bewertungsmodus wurde mit einem Fehler unterbrochen: ";
 
 /* No comment provided by engineer. */
+"At least one URL filter rule couldn't be processed and will be ignored, for example because of an invalid regular expression. Please check the URL filter rules in settings." = "Mindestens eine URL-Filterregel konnte nicht verarbeitet werden und wird ignoriert, zum Beispiel wegen eines ungültigen regulären Ausdrucks. Bitte überprüfen Sie die URL-Filterregeln in den Einstellungen.";
+
+/* No comment provided by engineer. */
 "Authentication Required" = "Authentifizierung notwendig";
 
 /* No comment provided by engineer. */
@@ -747,6 +750,9 @@ Shown while connecting to the server to fetch its certificate */
 "Instructions for Students" = "Instruktionen für Studierende";
 
 /* No comment provided by engineer. */
+"Invalid URL Filter Rule" = "Ungültige URL-Filterregel";
+
+/* No comment provided by engineer. */
 "iOS" = "iOS";
 
 /* No comment provided by engineer. */
@@ -1186,6 +1192,9 @@ Shown while connecting to the server to fetch its certificate */
 
 /* No comment provided by engineer. */
 "Share %@ log file for debugging" = "%@-Logdatei für Debugging teilen";
+
+/* No comment provided by engineer. */
+"Share Anyway" = "Trotzdem teilen";
 
 /* No comment provided by engineer. */
 "Share as Configuration" = "Als Konfiguration teilen";
