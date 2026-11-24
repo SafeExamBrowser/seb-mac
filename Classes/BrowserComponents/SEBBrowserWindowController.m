@@ -224,10 +224,54 @@ static const CGFloat SEBResultsCountRightPadding = 4.0;
 }
 
 
+- (void)windowWillStartLiveResize:(NSNotification *)notification
+{
+    DDLogDebug(@"BrowserWindow %@ will start live resize from frame %@", self.window, NSStringFromRect(self.window.frame));
+}
+
+
+- (void)windowDidEndLiveResize:(NSNotification *)notification
+{
+    lastLoggedWindowFrame = self.window.frame;
+    DDLogDebug(@"BrowserWindow %@ did end live resize with frame %@", self.window, NSStringFromRect(lastLoggedWindowFrame));
+}
+
+
+- (BOOL)windowShouldZoom:(NSWindow *)window toFrame:(NSRect)newFrame
+{
+    DDLogDebug(@"BrowserWindow %@ will zoom from frame %@ to frame %@", window, NSStringFromRect(window.frame), NSStringFromRect(newFrame));
+    return YES;
+}
+
+
+- (void)windowDidResize:(NSNotification *)notification
+{
+    // User live resizes are logged at their start and end. Other resizes (programmatic,
+    // animated or by the system, like window tiling) send a series of notifications,
+    // which are coalesced into a single log entry with the final frame
+    if (self.window.inLiveResize) {
+        return;
+    }
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(logWindowResize) object:nil];
+    [self performSelector:@selector(logWindowResize) withObject:nil afterDelay:0.3];
+}
+
+
+- (void)logWindowResize
+{
+    NSRect windowFrame = self.window.frame;
+    if (self.window && !NSEqualRects(windowFrame, lastLoggedWindowFrame)) {
+        DDLogDebug(@"BrowserWindow %@ did resize (not by user live resize) from frame %@ to frame %@ on screen with visible frame %@", self.window, NSStringFromRect(lastLoggedWindowFrame), NSStringFromRect(windowFrame), NSStringFromRect(self.window.screen.visibleFrame));
+        lastLoggedWindowFrame = windowFrame;
+    }
+}
+
+
 - (void)windowWillClose:(NSNotification *)notification
 {
     DDLogDebug(@"BrowserWindow %@ will close", self.window);
-    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(logWindowResize) object:nil];
+
     if (_windowWatchTimer) {
         [_windowWatchTimer invalidate];
         _windowWatchTimer = nil;
